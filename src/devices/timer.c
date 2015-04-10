@@ -7,7 +7,7 @@
 #include "threads/interrupt.h"
 #include "threads/synch.h"
 #include "threads/thread.h"
-  
+
 /* See [8254] for hardware details of the 8254 timer chip. */
 
 #if TIMER_FREQ < 19
@@ -84,6 +84,65 @@ timer_elapsed (int64_t then)
   return timer_ticks () - then;
 }
 
+
+
+
+
+
+///////////////////////////////
+// prj1 - sungmin oh - start //
+//---------------------------//
+
+// compare wakeup_tick between two list_elem
+// if wakeup_ticks of first parameter is less than or equal to one of second parameter, return true. else return false.
+// it is used as third parameter of list_insert_ordered
+static bool
+less_wakeup_ticks(const struct list_elem* A, const struct list_elem* B, void* aux_unused){
+  // convert type from list_elem to struct thread (ref. /lib/kernel/list.h)
+  const struct thread* a = list_entry(A, struct thread, elem);
+  const struct thread* b = list_entry(B, struct thread, elem);
+  // compare wakeup_ticks between two inputs
+  bool ret = false;
+  
+  if(a->wakeup_ticks <= b->wakeup_ticks){
+    ret =  true;
+  } else if(a->wakeup_ticks > b->wakeup_ticks){
+    ret =  false;
+  }
+
+  return ret;
+  // actually, aux_unused is not used. it can be occur warning.
+}
+
+
+// wake up from wait list
+void
+timer_wakeup(void){
+  struct thread* t;
+
+  // use while loop to wake up all of the threads which should wake up at once
+  while(list_size(wait_list_ptr())){ // casting (int) can be needed
+    // convert type from list_elem to struct thread (ref. /lib/kernel/list.h)
+    // we only need to check from front because we insert threads by increasing order.
+    t = list_entry(list_front(wait_list_ptr()), struct thread, elem);
+    
+    // if the front element is time to wake up, wake it up and go to beginning of while loop again. else no other elements are not time to wake up. so break out from while loop.
+    if(t->wakeup_ticks <= ticks){
+      list_pop_front(wait_list_ptr());
+      thread_unblock(t);
+    } else{
+      break;
+    }
+
+  }
+}
+
+//-------------------------//
+// prj1 - sungmin oh - end //
+/////////////////////////////
+
+
+
 /* Sleeps for approximately TICKS timer ticks.  Interrupts must
    be turned on. */
 void
@@ -91,10 +150,42 @@ timer_sleep (int64_t ticks)
 {
   int64_t start = timer_ticks ();
 
+
+  ///////////////////////////////
+  // prj1 - sungmin oh - start //
+  //---------------------------//
+
+  // disable interrupt for a while (ref. /threads/interrupt.c)
+  enum intr_level old_level = intr_disable();
+  // we are going to store current thread in the wait list 
+  struct thread* t = thread_current();
+  // set wakeup_ticks of the current thread
+  t->wakeup_ticks = start + ticks;
+  // insert the current thread in wait list by increasing order of wakeup_ticks (ref. /lib/kernel/list.c)
+  list_insert_ordered(wait_list_ptr(), &t->elem, less_wakeup_ticks, NULL);
+  // block current thread;
+  thread_block();
+  // restore interrupt status
+  intr_set_level(old_level);
+
+
+/* original code. no need anymore.
+ *
   ASSERT (intr_get_level () == INTR_ON);
   while (timer_elapsed (start) < ticks) 
     thread_yield ();
+*
+*/
+
+  //-------------------------//
+  // prj1 - sungmin oh - end //
+  /////////////////////////////
+
+
 }
+
+
+
 
 /* Sleeps for approximately MS milliseconds.  Interrupts must be
    turned on. */
@@ -171,6 +262,18 @@ static void
 timer_interrupt (struct intr_frame *args UNUSED)
 {
   ticks++;
+ 
+  ///////////////////////////////
+  // prj1 - sungmin oh - start //
+  //---------------------------//
+  
+  // check wait list every tick time
+  timer_wakeup();
+
+  //-------------------------//
+  // prj1 - sungmin oh - end //
+  /////////////////////////////
+  
   thread_tick ();
 }
 

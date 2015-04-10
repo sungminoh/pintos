@@ -13,6 +13,15 @@ void timer_calibrate (void);
 int64_t timer_ticks (void);
 int64_t timer_elapsed (int64_t);
 
+///////////////////////////////
+// prj1 - sungmin oh - start //
+//---------------------------//
+// define timer_wakeup function. it is implemented in /devices/timer.c
+void timer_wakeup(void);
+//-------------------------//
+// prj1 - sungmin oh - end //
+/////////////////////////////
+
 /* Sleep and yield the CPU to other threads. */
 void timer_sleep (int64_t ticks);
 void timer_msleep (int64_t milliseconds);

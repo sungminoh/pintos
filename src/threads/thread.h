@@ -5,6 +5,9 @@
 #include <list.h>
 #include <stdint.h>
 
+
+
+
 /* States in a thread's life cycle. */
 enum thread_status
   {
@@ -100,6 +103,16 @@ struct thread
 
     /* Owned by thread.c. */
     unsigned magic;                     /* Detects stack overflow. */
+    
+    ///////////////////////////////
+    // prj1 - sungmin oh - start //
+    //---------------------------//
+    // when the thread is getting in sleep,
+    // to remember when it would wake up.
+    int64_t wakeup_ticks;
+    //-------------------------//
+    // prj1 - sungmin oh - end //
+    /////////////////////////////
   };
 
 /* If false (default), use round-robin scheduler.
@@ -138,4 +151,16 @@ void thread_set_nice (int);
 int thread_get_recent_cpu (void);
 int thread_get_load_avg (void);
 
+
+///////////////////////////////
+// prj1 - sungmin oh - start //
+//---------------------------//
+// thread.c is not imported by any other.
+// only thread.h is importe.
+// so, what we want to use must be declared in thread.h
+// it is implemented in /threads/thread.c
+struct list* wait_list_ptr(void);
+//-------------------------//
+// prj1 - sungmin oh - end //
+/////////////////////////////
 #endif /* threads/thread.h */

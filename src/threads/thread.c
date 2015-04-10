@@ -24,6 +24,22 @@
    that are ready to run but not actually running. */
 static struct list ready_list;
 
+///////////////////////////////
+// prj1 - sungmin oh - start //
+//---------------------------//
+// define wait queue
+static struct list wait_list;
+// thread.c is not importe by any other.
+// so we can not directly access wait_list.
+// we need indirect way to access wait_list.
+struct list* wait_list_ptr(void){
+  return &wait_list;
+} 
+//-------------------------//
+// prj1 - sungmin oh - end //
+// //////////////////////////
+
+
 /* List of all processes.  Processes are added to this list
    when they are first scheduled and removed when they exit. */
 static struct list all_list;
@@ -92,6 +108,16 @@ thread_init (void)
   lock_init (&tid_lock);
   list_init (&ready_list);
   list_init (&all_list);
+
+  ///////////////////////////////
+  // prj1 - sungmin oh - start //
+  //---------------------------// 
+  // initiallize wait list
+  list_init (&wait_list);
+  //-------------------------//
+  // prj1 - sungmin oh - end //
+  /////////////////////////////
+  
 
   /* Set up a thread structure for the running thread. */
   initial_thread = running_thread ();
