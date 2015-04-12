@@ -89,10 +89,8 @@ timer_elapsed (int64_t then)
 
 
 
-///////////////////////////////
-// prj1 - sungmin oh - start //
-//---------------------------//
-
+/////////////////////////////////////
+// prj1(wait) - sungmin oh - start //
 // compare wakeup_tick between two list_elem
 // if wakeup_ticks of first parameter is less than or equal to one of second parameter, return true. else return false.
 // it is used as third parameter of list_insert_ordered
@@ -136,10 +134,8 @@ timer_wakeup(void){
 
   }
 }
-
-//-------------------------//
-// prj1 - sungmin oh - end //
-/////////////////////////////
+// prj1(wait) - sungmin oh - end //
+///////////////////////////////////
 
 
 
@@ -151,10 +147,8 @@ timer_sleep (int64_t ticks)
   int64_t start = timer_ticks ();
 
 
-  ///////////////////////////////
-  // prj1 - sungmin oh - start //
-  //---------------------------//
-
+  /////////////////////////////////////
+  // prj1(wait) - sungmin oh - start //
   // disable interrupt for a while (ref. /threads/interrupt.c)
   enum intr_level old_level = intr_disable();
   // we are going to store current thread in the wait list 
@@ -177,9 +171,8 @@ timer_sleep (int64_t ticks)
 *
 */
 
-  //-------------------------//
-  // prj1 - sungmin oh - end //
-  /////////////////////////////
+  // prj1(wait) - sungmin oh - end //
+  ///////////////////////////////////
 
 
 }

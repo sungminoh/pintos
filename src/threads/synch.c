@@ -68,8 +68,22 @@ sema_down (struct semaphore *sema)
   old_level = intr_disable ();
   while (sema->value == 0) 
     {
+      ////////////////////////////////////////
+      // prj(priority) - sungmin oh - start //
+      // if current thread want to use shared resources, it needs semaphore.
+      // to get semaphore, it have to wait in sema->waiters.
+      // we are going to maintain this list ordered by priority
+      // we can achieve this condition because there are no more insert isntruction for sema->waiters.
+      list_insert_ordered(&sema->waiters, &thread_current()->elem, higher_priority, NULL);
+      
+      /* original code. no need anymore.
+       *
       list_push_back (&sema->waiters, &thread_current ()->elem);
+      *
+      */
       thread_block ();
+      // prj(priority) - sungmin oh - end //
+      //////////////////////////////////////
     }
   sema->value--;
   intr_set_level (old_level);
@@ -195,6 +209,23 @@ lock_acquire (struct lock *lock)
   ASSERT (lock != NULL);
   ASSERT (!intr_context ());
   ASSERT (!lock_held_by_current_thread (lock));
+
+  /////////////////////////////////////////
+  // prj1(priority) - sungmin oh - start //
+  //
+  struct thread * cur = thread_current();
+  
+  cur->trying_lock = lock;
+
+  lock_donation(lock);
+  
+  sema_down(&lock->semaphore);
+  lock->holder = cur;
+  list_insert_ordered(&cur->holding_locks, &cur->trying_lock->elem, higher_priority_lock, NULL);
+  cur->trying_lock = NULL;
+  // prj1(priority) - sungmin oh - end //
+  ///////////////////////////////////////
+
 
   sema_down (&lock->semaphore);
   lock->holder = thread_current ();

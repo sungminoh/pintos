@@ -24,9 +24,8 @@
    that are ready to run but not actually running. */
 static struct list ready_list;
 
-///////////////////////////////
-// prj1 - sungmin oh - start //
-//---------------------------//
+/////////////////////////////////////
+// prj1(wait) - sungmin oh - start //
 // define wait queue
 static struct list wait_list;
 // thread.c is not importe by any other.
@@ -35,9 +34,8 @@ static struct list wait_list;
 struct list* wait_list_ptr(void){
   return &wait_list;
 } 
-//-------------------------//
-// prj1 - sungmin oh - end //
-// //////////////////////////
+// prj1(wait) - sungmin oh - end //
+// ////////////////////////////////
 
 
 /* List of all processes.  Processes are added to this list
@@ -109,15 +107,12 @@ thread_init (void)
   list_init (&ready_list);
   list_init (&all_list);
 
-  ///////////////////////////////
-  // prj1 - sungmin oh - start //
-  //---------------------------// 
+  /////////////////////////////////////
+  // prj1(wait) - sungmin oh - start //
   // initiallize wait list
   list_init (&wait_list);
-  //-------------------------//
-  // prj1 - sungmin oh - end //
-  /////////////////////////////
-  
+  // prj1(wait) - sungmin oh - end //
+  ///////////////////////////////////
 
   /* Set up a thread structure for the running thread. */
   initial_thread = running_thread ();
@@ -226,6 +221,17 @@ thread_create (const char *name, int priority,
 
   /* Add to run queue. */
   thread_unblock (t);
+
+  /////////////////////////////////////////
+  // prj1(priority) - sungmin oh - start //
+  // when the new thread is created
+  // if priority of this new thread is higher than that of current thread,
+  // than preemption occur
+  if (priority > thread_current()->priority){
+    thread_yield();
+  }
+  // prj1(priority) - sungmin oh - end //
+  ///////////////////////////////////////
 
   return tid;
 }
@@ -508,6 +514,21 @@ alloc_frame (struct thread *t, size_t size)
   return t->stack;
 }
 
+
+/////////////////////////////////////////
+// prj1(priority) - sungmin oh - start //
+bool
+higher_priority(const struct list_elem* A, const struct list_elem* B, void* aux_unused){
+  const struct thread* a = list_entry(A, struct thread, elem);
+  const struct thread* b = list_entry(B, struct thread, elem);
+
+  return a->priority > b->priority;
+}
+// prj1(priority) - sungmin oh - end //
+///////////////////////////////////////
+
+
+
 /* Chooses and returns the next thread to be scheduled.  Should
    return a thread from the run queue, unless the run queue is
    empty.  (If the running thread can continue running, then it
@@ -519,6 +540,14 @@ next_thread_to_run (void)
   if (list_empty (&ready_list))
     return idle_thread;
   else
+
+    /////////////////////////////////////////
+    // prj1(priority) - sungmin oh - start //
+    // sort ready_list to put highest priority thread at the front
+    list_sort(&ready_list, higher_priority, NULL);
+    // prj1(priority) - sungmin oh - end //
+    ///////////////////////////////////////
+
     return list_entry (list_pop_front (&ready_list), struct thread, elem);
 }
 
