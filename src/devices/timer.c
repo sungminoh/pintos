@@ -94,21 +94,13 @@ timer_elapsed (int64_t then)
 // compare wakeup_tick between two list_elem
 // if wakeup_ticks of first parameter is less than or equal to one of second parameter, return true. else return false.
 // it is used as third parameter of list_insert_ordered
-static bool
+bool
 less_wakeup_ticks(const struct list_elem* A, const struct list_elem* B, void* aux_unused){
   // convert type from list_elem to struct thread (ref. /lib/kernel/list.h)
-  const struct thread* a = list_entry(A, struct thread, elem);
-  const struct thread* b = list_entry(B, struct thread, elem);
+  struct thread* a = list_entry(A, struct thread, elem);
+  struct thread* b = list_entry(B, struct thread, elem);
   // compare wakeup_ticks between two inputs
-  bool ret = false;
-  
-  if(a->wakeup_ticks <= b->wakeup_ticks){
-    ret =  true;
-  } else if(a->wakeup_ticks > b->wakeup_ticks){
-    ret =  false;
-  }
-
-  return ret;
+  return a->wakeup_ticks <= b->wakeup_ticks;
   // actually, aux_unused is not used. it can be occur warning.
 }
 
@@ -119,11 +111,10 @@ timer_wakeup(void){
   struct thread* t;
 
   // use while loop to wake up all of the threads which should wake up at once
-  while(list_size(wait_list_ptr())){ // casting (int) can be needed
+  while(!list_empty(wait_list_ptr())){ // casting (int) can be needed
     // convert type from list_elem to struct thread (ref. /lib/kernel/list.h)
     // we only need to check from front because we insert threads by increasing order.
     t = list_entry(list_front(wait_list_ptr()), struct thread, elem);
-    
     // if the front element is time to wake up, wake it up and go to beginning of while loop again. else no other elements are not time to wake up. so break out from while loop.
     if(t->wakeup_ticks <= ticks){
       list_pop_front(wait_list_ptr());
@@ -258,12 +249,8 @@ timer_interrupt (struct intr_frame *args UNUSED)
  
   ///////////////////////////////
   // prj1 - sungmin oh - start //
-  //---------------------------//
-  
   // check wait list every tick time
   timer_wakeup();
-
-  //-------------------------//
   // prj1 - sungmin oh - end //
   /////////////////////////////
   

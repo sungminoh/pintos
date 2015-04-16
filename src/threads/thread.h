@@ -110,7 +110,18 @@ struct thread
     // to remember when it would wake up.
     int64_t wakeup_ticks;
     // prj1(wait) - sungmin oh - end //
-    // ////////////////////////////////
+    ///////////////////////////////////
+    
+    /////////////////////////////////////////
+    // prj1(donation) - sungmin oh - start //
+    // lock information
+    struct lock* locked;
+    struct list lock_list;
+    int original_priority;
+    bool donated;
+    // prj1(donation) - sungmin oh - end //
+    ///////////////////////////////////////
+  
   };
 
 /* If false (default), use round-robin scheduler.
@@ -160,10 +171,10 @@ struct list* wait_list_ptr(void);
 ///////////////////////////////////
 
 ////////////////////////////////////////
-// prj(priority) - sungmin oh - start //
+// prj1(priority) - sungmin oh - start //
 // it is implemented in /thread/thread.c
-bool higher_priority(const struct list_elem*, const struct list_elem*, void*); 
-// prj(priority) - sungmin oh end //
+bool higher_priority(struct list_elem*, struct list_elem*, void*); 
+// prj1(priority) - sungmin oh end //
 ////////////////////////////////////
 
 #endif /* threads/thread.h */

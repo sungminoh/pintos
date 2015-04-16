@@ -17,6 +17,8 @@ int64_t timer_elapsed (int64_t);
 // prj1(wait) - sungmin oh - start //
 // define timer_wakeup function. it is implemented in /devices/timer.c
 void timer_wakeup(void);
+//bool less_wakeup_ticks(const struct list_elem*, const struct list_elem*, void*);
+ 
 // prj1(wait) - sungmin oh - end //
 ///////////////////////////////////
 

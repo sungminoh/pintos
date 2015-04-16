@@ -156,8 +156,12 @@ thread_tick (void)
     kernel_ticks++;
 
   /* Enforce preemption. */
+  /* oroginal code 
+   *
   if (++thread_ticks >= TIME_SLICE)
     intr_yield_on_return ();
+  *
+  */
 }
 
 /* Prints thread statistics. */
@@ -269,9 +273,24 @@ thread_unblock (struct thread *t)
 
   old_level = intr_disable ();
   ASSERT (t->status == THREAD_BLOCKED);
-  list_push_back (&ready_list, &t->elem);
+  // prj1(priority) - sungmin oh - start //
+  list_insert_ordered(&ready_list, &t->elem, higher_priority, NULL);
+   
+
+  /* original code
+   */
+  //list_push_back (&ready_list, &t->elem);
   t->status = THREAD_READY;
   intr_set_level (old_level);
+  /*
+  */
+  
+  /*
+  if(t->priority > thread_get_priority()){
+    thread_yield();
+  }
+  */
+  // prj1(priority) - sungmin oh - end //
 }
 
 /* Returns the name of the running thread. */
@@ -339,8 +358,14 @@ thread_yield (void)
   ASSERT (!intr_context ());
 
   old_level = intr_disable ();
-  if (cur != idle_thread) 
+  if (cur != idle_thread) {
+    list_insert_ordered(&ready_list, &cur->elem, higher_priority, NULL);
+    /* original code
+     *
     list_push_back (&ready_list, &cur->elem);
+    *
+    */
+  }
   cur->status = THREAD_READY;
   schedule ();
   intr_set_level (old_level);
@@ -368,6 +393,16 @@ void
 thread_set_priority (int new_priority) 
 {
   thread_current ()->priority = new_priority;
+
+  // prj1(priority) - sungmin oh - start //
+  if(!list_empty(&ready_list)){
+    list_sort(&ready_list, higher_priority, NULL);
+    struct thread* next_thread = list_entry(list_front(&ready_list), struct thread, elem);
+    if(next_thread->priority > new_priority){
+      thread_yield();
+    }
+  }
+  // prj1(priority) - sungmin oh - end //
 }
 
 /* Returns the current thread's priority. */
@@ -494,6 +529,13 @@ init_thread (struct thread *t, const char *name, int priority)
   strlcpy (t->name, name, sizeof t->name);
   t->stack = (uint8_t *) t + PGSIZE;
   t->priority = priority;
+  // prj1(donation) - sungmin oh - start //
+//  t->original_priority = -1;
+  t->donated = false;
+  t->locked = NULL;
+  list_init(&t->lock_list);
+  // prj1(donation) - sungmin oh - end //
+  
   t->magic = THREAD_MAGIC;
 
   old_level = intr_disable ();
@@ -518,15 +560,14 @@ alloc_frame (struct thread *t, size_t size)
 /////////////////////////////////////////
 // prj1(priority) - sungmin oh - start //
 bool
-higher_priority(const struct list_elem* A, const struct list_elem* B, void* aux_unused){
-  const struct thread* a = list_entry(A, struct thread, elem);
-  const struct thread* b = list_entry(B, struct thread, elem);
+higher_priority(struct list_elem* A, struct list_elem* B, void* aux_unused){
+  struct thread* a = list_entry(A, struct thread, elem);
+  struct thread* b = list_entry(B, struct thread, elem);
 
   return a->priority > b->priority;
 }
 // prj1(priority) - sungmin oh - end //
 ///////////////////////////////////////
-
 
 
 /* Chooses and returns the next thread to be scheduled.  Should
@@ -539,8 +580,7 @@ next_thread_to_run (void)
 {
   if (list_empty (&ready_list))
     return idle_thread;
-  else
-
+  else{
     /////////////////////////////////////////
     // prj1(priority) - sungmin oh - start //
     // sort ready_list to put highest priority thread at the front
@@ -549,7 +589,9 @@ next_thread_to_run (void)
     ///////////////////////////////////////
 
     return list_entry (list_pop_front (&ready_list), struct thread, elem);
+  }
 }
+
 
 /* Completes a thread switch by activating the new thread's page
    tables, and, if the previous thread is dying, destroying it.

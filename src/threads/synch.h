@@ -19,10 +19,20 @@ void sema_self_test (void);
 
 /* Lock. */
 struct lock 
-  {
-    struct thread *holder;      /* Thread holding lock (for debugging). */
-    struct semaphore semaphore; /* Binary semaphore controlling access. */
-  };
+{
+  // prj1(donation) - sungmin oh - start //
+  struct list_elem elem;
+  // prj1(donation) - sungmin oh - end //
+  
+  struct thread *holder;      /* Thread holding lock (for debugging). */
+  struct semaphore semaphore; /* Binary semaphore controlling access. */
+};
+// prj1(donation) - sungmin oh - start //
+void priority_donation(struct lock*);
+bool higher_lock(const struct list_elem*, const struct list_elem*, void*);
+void donation_rollback(struct lock*);
+// prj1(donation) - sungmin oh - end //
+
 
 void lock_init (struct lock *);
 void lock_acquire (struct lock *);
