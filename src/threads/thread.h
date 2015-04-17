@@ -174,6 +174,7 @@ struct list* wait_list_ptr(void);
 // prj1(priority) - sungmin oh - start //
 // it is implemented in /thread/thread.c
 bool higher_priority(struct list_elem*, struct list_elem*, void*); 
+void priority_check(void);
 // prj1(priority) - sungmin oh end //
 ////////////////////////////////////
 

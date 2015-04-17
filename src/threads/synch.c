@@ -74,7 +74,7 @@ sema_down (struct semaphore *sema)
       // to get semaphore, it have to wait in sema->waiters.
       // we are going to maintain this list ordered by priority
       // we can achieve this condition because there are no more insert isntruction for sema->waiters.
-      list_insert_ordered(&sema->waiters, &thread_current()->elem, higher_priority, NULL);
+      list_insert_ordered(&sema->waiters, &thread_current()->elem, (list_less_func*)&higher_priority, NULL);
       
       /* original code. no need anymore.
        *
@@ -127,10 +127,16 @@ sema_up (struct semaphore *sema)
   ASSERT (sema != NULL);
 
   old_level = intr_disable ();
+  
+  // prj1(donation - sungmin oh - start) //
+  struct thread* highest_thread = NULL;
+  // prj1(donation) - sungmin oh - end) //
+  
   if (!list_empty (&sema->waiters)){ 
     // prj1(donation) - sungmin oh - start //
-    list_sort(&sema->waiters, higher_priority, NULL);
-    struct thread* highest_thread = list_entry(list_front(&sema->waiters), struct thread, elem);
+    list_sort(&sema->waiters, (list_less_func*)&higher_priority, NULL);
+    
+    highest_thread = list_entry(list_front(&sema->waiters), struct thread, elem);
     
     /* original code
      */
@@ -138,19 +144,17 @@ sema_up (struct semaphore *sema)
                                 struct thread, elem));
     /*
     */
-
-    /*
-     *
-    if(!intr_context() && (highest_thread->priority > thread_get_priority())){
-      thread_yield();
-    }
-    *
-    */
-
     // prj1(donation) - sungmin oh - end //
 
   }
   sema->value++;
+
+  // prj1(donation) - sungmin oh - start //
+  if(!intr_context() && (highest_thread != NULL) && (highest_thread->priority > thread_get_priority())){
+    thread_yield();
+  }
+  // prj1(donation - sungmin oh - end //
+
   intr_set_level (old_level);
 }
 
@@ -313,9 +317,33 @@ lock_try_acquire (struct lock *lock)
 /////////////////////////////////////////
 // prj1(donation) - sungmin oh - start //
 bool
+higher_sema(struct semaphore* A, struct semaphore* B, void* aux_unused){
+  struct list* a_waiters = &A->waiters;
+  struct list* b_waiters = &B->waiters;
+
+  if(list_empty(b_waiters)){
+    return false;
+  }else if(list_empty(a_waiters)){
+    return true;
+  }else{
+    list_sort(a_waiters, (list_less_func*)&higher_priority, NULL);
+    list_sort(b_waiters, (list_less_func*)&higher_priority, NULL);
+    struct thread* a_highest_thread = list_entry(list_front(a_waiters), struct thread, elem);
+    struct thread* b_highest_thread = list_entry(list_front(b_waiters), struct thread, elem);
+
+    return a_highest_thread->priority < b_highest_thread->priority; 
+  }
+}
+
+bool
 higher_lock(const struct list_elem* A, const struct list_elem* B, void* aux_unused){
   struct lock* a_lock = list_entry(A, struct lock, elem);
   struct lock* b_lock = list_entry(B, struct lock, elem);
+  struct semaphore* a_sema = &a_lock->semaphore;
+  struct semaphore* b_sema = &b_lock->semaphore;
+
+  return higher_sema(a_sema,b_sema, NULL);
+  /*
   struct list* a_waiters = &(a_lock->semaphore).waiters;
   struct list* b_waiters = &(b_lock->semaphore).waiters;
   if(list_empty(b_waiters)){
@@ -323,13 +351,14 @@ higher_lock(const struct list_elem* A, const struct list_elem* B, void* aux_unus
   }else if(list_empty(a_waiters)){
     return true;
   }else{
-    list_sort(a_waiters, higher_priority, NULL);
-    list_sort(b_waiters, higher_priority, NULL);
+    list_sort(a_waiters, (list_less_func*)&higher_priority, NULL);
+    list_sort(b_waiters, (list_less_func*)&higher_priority, NULL);
     struct thread* a_highest_thread = list_entry(list_front(a_waiters), struct thread, elem);
     struct thread* b_highest_thread = list_entry(list_front(b_waiters), struct thread, elem);
 
     return a_highest_thread->priority < b_highest_thread->priority; 
   }
+  */
 }
 
 void
@@ -342,7 +371,7 @@ donation_rollback(struct lock* lock){
     cur->priority = cur->original_priority;
     cur->donated = false;
   }else{
-    struct lock* highest_lock = list_entry(list_max(&cur->lock_list, higher_lock, NULL), struct lock, elem);
+    struct lock* highest_lock = list_entry(list_max(&cur->lock_list, (list_less_func*)&higher_lock, NULL), struct lock, elem);
     struct list* lock_waiters = &(highest_lock->semaphore).waiters;
     if(list_empty(lock_waiters)){
       cur->priority = cur->original_priority;
@@ -415,6 +444,33 @@ struct semaphore_elem
 /* Initializes condition variable COND.  A condition variable
    allows one piece of code to signal a condition and cooperating
    code to receive the signal and act upon it. */
+
+// prj1(cond) - sungmin oh - start //
+/*
+bool
+higher_cond(const struct condition* A, const struct condition* B, void* aux_unused){
+  struct list* a_sema = &a_cond->semaphore;
+  struct list* b_sema= &b_cond->semaphore;
+
+  return higher_sema(a_sema, b_sema, NULL);
+ */
+/*
+  if(list_empty(b_waiters)){
+    return false;
+  }else if(list_empty(a_waiters)){
+    return true;
+  }else{
+    list_sort(a_waiters, (list_less_func*)&higher_priority, NULL);
+    list_sort(b_waiters, (list_less_func*)&higher_priority, NULL);
+    struct thread* a_highest_thread = list_entry(list_front(a_waiters), struct thread, elem);
+    struct thread* b_highest_thread = list_entry(list_front(b_waiters), struct thread, elem);
+
+    return a_highest_thread->priority < b_highest_thread->priority; 
+  }
+}
+  */
+// prj1(cond) - sungmin oh - end //
+
 void
 cond_init (struct condition *cond)
 {

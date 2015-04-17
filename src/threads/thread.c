@@ -679,3 +679,26 @@ allocate_tid (void)
 /* Offset of `stack' member within `struct thread'.
    Used by switch.S, which can't figure it out on its own. */
 uint32_t thread_stack_ofs = offsetof (struct thread, stack);
+
+
+// prj1(priority) - sungmin - start //
+/* not usedt
+void priority_check(void){
+  if(!list_empty(&ready_list)){
+    struct thread* t = list_entry(list_front(&ready_list), struct thread, elem);
+
+    if(intr_context()){
+      thread_ticks++;
+      if(thread_current()->priority < t->priority || (thread_ticks >= TIME_SLICE && thread_current()->priority == t->priority)){
+        intr_yield_on_return();
+      }
+      return;
+    }
+
+    if(thread_current()->priority < t->priority){
+      thread_yield();
+    }
+  }
+}
+*/
+// prj1(priority) - sungmin oh - end //

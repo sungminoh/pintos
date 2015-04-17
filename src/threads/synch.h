@@ -29,7 +29,9 @@ struct lock
 };
 // prj1(donation) - sungmin oh - start //
 void priority_donation(struct lock*);
+bool higher_sema(struct semaphore*, struct semaphore*, void*);
 bool higher_lock(const struct list_elem*, const struct list_elem*, void*);
+bool higher_cond(const struct list_elem*, const struct list_elem*, void*);
 void donation_rollback(struct lock*);
 // prj1(donation) - sungmin oh - end //
 
