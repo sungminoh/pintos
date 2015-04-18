@@ -341,8 +341,12 @@ higher_lock(const struct list_elem* A, const struct list_elem* B, void* aux_unus
 }
 
 void
-donation_rollback(struct lock* lock){
-  if(lock!=NULL){
+donation_rollback(struct lock* target_lock){
+  if(target_lock!=NULL){
+    // don't know why this code is nessessary. but priority_fifo is failed without this code   - g
+    if(list_empty(&(target_lock->semaphore).waiters)){
+      return;
+    }
     // remove lock from lock_list of its holder
     struct thread* cur = thread_current();
     if(list_empty(&cur->lock_list)){
@@ -362,7 +366,7 @@ donation_rollback(struct lock* lock){
         }
       } 
     }
-    donation_rollback((lock->holder)->locked);
+    donation_rollback((target_lock->holder)->locked);
   }
 }
 

@@ -395,6 +395,7 @@ thread_set_priority (int new_priority)
   thread_current ()->priority = new_priority;
 
   // prj1(priority) - sungmin oh - start //
+  thread_current()->original_priority = new_priority;
   if(!list_empty(&ready_list)){
     list_sort(&ready_list, higher_priority, NULL);
     struct thread* next_thread = list_entry(list_front(&ready_list), struct thread, elem);
@@ -410,13 +411,15 @@ int
 thread_get_priority (void) 
 {
   // prj1(donation) - sungmin oh - stary //
-  enum intr_level old_level = intr_disable();
-  int tmp = thread_current()->priority;
-  intr_set_level(old_level);
-  return tmp;
+//  enum intr_level old_level = intr_disable();
+//  int tmp = thread_current()->priority;
+//  intr_set_level(old_level);
+//  return tmp;
   // prj1(donation) - sungmin oh - end //
   /* original code
+   */
   return thread_current ()->priority;
+  /*
   */
 }
 
