@@ -273,10 +273,12 @@ thread_unblock (struct thread *t)
 
   old_level = intr_disable ();
   ASSERT (t->status == THREAD_BLOCKED);
+  /////////////////////////////////////////
   // prj1(priority) - sungmin oh - start //
   list_insert_ordered(&ready_list, &t->elem, (list_less_func*)&higher_priority, NULL);
-   
-
+  // prj1(priority) - sungmin oh - end //
+  ///////////////////////////////////////
+  
   /* original code
    */
   //list_push_back (&ready_list, &t->elem);
@@ -284,7 +286,6 @@ thread_unblock (struct thread *t)
   intr_set_level (old_level);
   /*
   */
-  // prj1(priority) - sungmin oh - end //
 }
 
 /* Returns the name of the running thread. */
@@ -386,44 +387,41 @@ thread_foreach (thread_action_func *func, void *aux)
 void
 thread_set_priority (int new_priority) 
 {
+  /////////////////////////////////////////
+  // prj1(priority) - sungmin oh - start //
   struct thread* cur = thread_current();
+  // this function set original priority
   cur->original_priority = new_priority;
-
+  // but in case current thread didn't get donation or current priority is lower than new_priority
+  // cur->priority has to be modified too. and current priority is no more not donated priority.
   if(!cur->donated || (cur->priority < new_priority) ){
     cur->priority = new_priority;
+    cur->donated = false;
   }
   /* original code
    *
-  thread_current ()->priority = new_priority;
-  *
-  */
+   thread_current ()->priority = new_priority;
+   *
+   */
 
-  // prj1(priority) - sungmin oh - start //
+  // check whether there exist higher priority thread in ready list
+  // if so, thread_yield has to be called 
   if(!list_empty(&ready_list)){
     list_sort(&ready_list, higher_priority, NULL);
     struct thread* next_thread = list_entry(list_front(&ready_list), struct thread, elem);
-    if(next_thread->priority > new_priority){
+    if(next_thread->priority > cur->priority){ 
       thread_yield();
     }
   }
   // prj1(priority) - sungmin oh - end //
+  ///////////////////////////////////////
 }
 
 /* Returns the current thread's priority. */
 int
 thread_get_priority (void) 
 {
-  // prj1(donation) - sungmin oh - stary //
-//  enum intr_level old_level = intr_disable();
-//  int tmp = thread_current()->priority;
-//  intr_set_level(old_level);
-//  return tmp;
-  // prj1(donation) - sungmin oh - end //
-  /* original code
-   */
   return thread_current ()->priority;
-  /*
-  */
 }
 
 /* Sets the current thread's nice value to NICE. */
@@ -543,12 +541,15 @@ init_thread (struct thread *t, const char *name, int priority)
   strlcpy (t->name, name, sizeof t->name);
   t->stack = (uint8_t *) t + PGSIZE;
   t->priority = priority;
+  /////////////////////////////////////////
   // prj1(donation) - sungmin oh - start //
+  // initialize
   t->locked = NULL;
   t->original_priority = priority;
   t->donated = false;
   list_init(&t->lock_list);
   // prj1(donation) - sungmin oh - end //
+  ///////////////////////////////////////
   
   t->magic = THREAD_MAGIC;
 
@@ -573,6 +574,7 @@ alloc_frame (struct thread *t, size_t size)
 
 /////////////////////////////////////////
 // prj1(priority) - sungmin oh - start //
+// this function is used as list_less_func type parameter for list_insert_ordered, list_sort, list_max
 bool
 higher_priority(struct list_elem* A, struct list_elem* B, void* aux_unused){
   struct thread* a = list_entry(A, struct thread, elem);
@@ -697,7 +699,7 @@ uint32_t thread_stack_ofs = offsetof (struct thread, stack);
 
 // prj1(priority) - sungmin - start //
 /* not usedt
- */
+ *
 void priority_check(void){
   if(!list_empty(&ready_list)){
     struct thread* t = list_entry(list_front(&ready_list), struct thread, elem);
@@ -715,6 +717,6 @@ void priority_check(void){
     }
   }
 }
-/*
+*
 */
 // prj1(priority) - sungmin oh - end //

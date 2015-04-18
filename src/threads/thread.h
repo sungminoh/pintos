@@ -114,10 +114,13 @@ struct thread
     
     /////////////////////////////////////////
     // prj1(donation) - sungmin oh - start //
-    // lock information
+    // lock which this thread want to optain 
     struct lock* locked;
+    // locks which this thread already have
     struct list lock_list;
+    // original priority in case thread get donated by higher priority thraed
     int original_priority;
+    // to know this thread get donated or not
     bool donated;
     // prj1(donation) - sungmin oh - end //
     ///////////////////////////////////////
@@ -174,7 +177,7 @@ struct list* wait_list_ptr(void);
 // prj1(priority) - sungmin oh - start //
 // it is implemented in /thread/thread.c
 bool higher_priority(struct list_elem*, struct list_elem*, void*); 
-void priority_check(void);
+//void priority_check(void);
 // prj1(priority) - sungmin oh end //
 ////////////////////////////////////
 
