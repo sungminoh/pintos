@@ -592,9 +592,9 @@ higher_priority(struct list_elem* A, struct list_elem* B, void* aux_unused){
 static struct thread *
 next_thread_to_run (void) 
 {
-  if (list_empty (&ready_list))
+  if (list_empty (&ready_list)){
     return idle_thread;
-  else{
+  }else{
     /////////////////////////////////////////
     // prj1(priority) - sungmin oh - start //
     // sort ready_list to put highest priority thread at the front

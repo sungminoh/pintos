@@ -150,6 +150,8 @@ sema_up (struct semaphore *sema)
   sema->value++;
 
   // prj1(donation) - sungmin oh - start //
+  //intr_set_level (old_level);
+
   if(!intr_context() && (highest_thread != NULL) && (highest_thread->priority > thread_get_priority())){
     thread_yield();
   }
@@ -247,6 +249,7 @@ priority_donation(struct lock* target_lock){
     if(lock_holder->priority < cur->priority){
       // if this is first donation for lock_holder, memorize it's original priority
       if(!lock_holder->donated){
+        lock_holder->original_priority = lock_holder->priority;//??
         lock_holder->donated = true;
       }
 
@@ -326,16 +329,16 @@ cmp_sema(struct semaphore* A, struct semaphore* B){
   struct list* b_waiters = &B->waiters;
 
   if(list_empty(b_waiters)){
-    return true;
-  }else if(list_empty(a_waiters)){
     return false;
+  }else if(list_empty(a_waiters)){
+    return true;
   }else{
     list_sort(a_waiters, (list_less_func*)&higher_priority, NULL);
     list_sort(b_waiters, (list_less_func*)&higher_priority, NULL);
     struct thread* a_highest_thread = list_entry(list_front(a_waiters), struct thread, elem);
     struct thread* b_highest_thread = list_entry(list_front(b_waiters), struct thread, elem);
 
-    return a_highest_thread->priority > b_highest_thread->priority; 
+    return a_highest_thread->priority < b_highest_thread->priority;
   }
 }
 
@@ -349,17 +352,25 @@ higher_lock(const struct list_elem* A, const struct list_elem* B, void* aux_unus
   return cmp_sema(a_sema,b_sema);
 }
 
+
+
 void
 donation_rollback(struct lock* target_lock){
   // don't know why this code is nessessary. but priority_fifo is failed without this code   - g
+  //enum intr_level old_level = intr_disable();
   list_remove(&target_lock->elem);
-  if(list_empty(&(target_lock->semaphore).waiters)){
-    return;
-  }
-
   //enum intr_level old_level = intr_disable();
   // remove lock from lock_list of its holder
   struct thread* holder = thread_current();
+  if(list_empty(&(target_lock->semaphore).waiters)){
+    return;
+  } 
+  //??
+  if(!holder->donated){
+    return;
+  }
+
+
   if(list_empty(&holder->lock_list)){
     holder->priority = holder->original_priority;
     holder->donated = false;
@@ -380,6 +391,7 @@ donation_rollback(struct lock* target_lock){
         holder->priority = next_priority;
       }
     } 
+    //intr_set_level(old_level);
   }
   //intr_set_level(old_level);
 
@@ -408,10 +420,10 @@ lock_release (struct lock *lock)
   /////////////////////////////////////////
   // prj1(donation) - sungmin oh - start //
   // restore priority
-  //enum intr_level old_level = intr_disable();
+//  enum intr_level old_level = intr_disable();
 //  list_remove(&lock->elem);
   donation_rollback(lock);
-  //intr_set_level(old_level);
+ // intr_set_level(old_level);
   // prj1(donation) - sungmin oh - end //
   ///////////////////////////////////////
 
