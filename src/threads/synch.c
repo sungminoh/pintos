@@ -233,6 +233,7 @@ lock_init (struct lock *lock)
 // prj1(donation) - sungmin oh - start //
 void
 priority_donation(struct lock* target_lock){
+
   struct thread* cur = thread_current();
   // when loack is not null and there is holder already
   if((target_lock != NULL) && (target_lock->holder != NULL)){
@@ -240,13 +241,7 @@ priority_donation(struct lock* target_lock){
     // when lock_hodler's priority is less than current thread which needs same lock, currrent thread donate priority to lock_holder.
     if(lock_holder->priority < cur->priority){
       // if this is first donation for lock_holder, memorize it's original priority
-      // original_priority < 0 means that there is no donation so far.
-      if(!lock_holder->donated){
-        lock_holder->original_priority = lock_holder->priority;
-        lock_holder->donated = true;
-      }
       lock_holder->priority = cur->priority;  // donation
-      //lock_holder->donation_level++;  // set donation level
       // if lock_holder is locked because it needs another lock which is already taken, priority_donation have to be executed recursively. else the value of lock_holder->locked is null, recursive call will not do anything.
       priority_donation(lock_holder->locked);
     } 
@@ -317,21 +312,21 @@ lock_try_acquire (struct lock *lock)
 /////////////////////////////////////////
 // prj1(donation) - sungmin oh - start //
 bool
-higher_sema(struct semaphore* A, struct semaphore* B, void* aux_unused){
+cmp_sema(struct semaphore* A, struct semaphore* B){
   struct list* a_waiters = &A->waiters;
   struct list* b_waiters = &B->waiters;
 
   if(list_empty(b_waiters)){
-    return false;
-  }else if(list_empty(a_waiters)){
     return true;
+  }else if(list_empty(a_waiters)){
+    return false;
   }else{
     list_sort(a_waiters, (list_less_func*)&higher_priority, NULL);
     list_sort(b_waiters, (list_less_func*)&higher_priority, NULL);
     struct thread* a_highest_thread = list_entry(list_front(a_waiters), struct thread, elem);
     struct thread* b_highest_thread = list_entry(list_front(b_waiters), struct thread, elem);
 
-    return a_highest_thread->priority < b_highest_thread->priority; 
+    return a_highest_thread->priority > b_highest_thread->priority; 
   }
 }
 
@@ -342,53 +337,34 @@ higher_lock(const struct list_elem* A, const struct list_elem* B, void* aux_unus
   struct semaphore* a_sema = &a_lock->semaphore;
   struct semaphore* b_sema = &b_lock->semaphore;
 
-  return higher_sema(a_sema,b_sema, NULL);
-  /*
-  struct list* a_waiters = &(a_lock->semaphore).waiters;
-  struct list* b_waiters = &(b_lock->semaphore).waiters;
-  if(list_empty(b_waiters)){
-    return false;
-  }else if(list_empty(a_waiters)){
-    return true;
-  }else{
-    list_sort(a_waiters, (list_less_func*)&higher_priority, NULL);
-    list_sort(b_waiters, (list_less_func*)&higher_priority, NULL);
-    struct thread* a_highest_thread = list_entry(list_front(a_waiters), struct thread, elem);
-    struct thread* b_highest_thread = list_entry(list_front(b_waiters), struct thread, elem);
-
-    return a_highest_thread->priority < b_highest_thread->priority; 
-  }
-  */
+  return cmp_sema(a_sema,b_sema);
 }
 
 void
 donation_rollback(struct lock* lock){
-  // remove lock from lock_list of its holder
-  list_remove(&lock->elem);
-  
-  struct thread* cur = thread_current();
-  if(list_empty(&cur->lock_list)){
-    cur->priority = cur->original_priority;
-    cur->donated = false;
-  }else{
-    struct lock* highest_lock = list_entry(list_max(&cur->lock_list, (list_less_func*)&higher_lock, NULL), struct lock, elem);
-    struct list* lock_waiters = &(highest_lock->semaphore).waiters;
-    if(list_empty(lock_waiters)){
+  if(lock!=NULL){
+    // remove lock from lock_list of its holder
+    struct thread* cur = thread_current();
+    if(list_empty(&cur->lock_list)){
       cur->priority = cur->original_priority;
-      cur->donated = false;
     }else{
-      struct thread* highest_thread = list_entry(list_front(lock_waiters), struct thread, elem);
-      int next_priority = highest_thread->priority;
-      if(cur->original_priority >= next_priority){
+      struct lock* highest_lock = list_entry(list_max(&cur->lock_list, (list_less_func*)&higher_lock, NULL), struct lock, elem);
+      struct list* lock_waiters = &(highest_lock->semaphore).waiters;
+      if(list_empty(lock_waiters)){
         cur->priority = cur->original_priority;
-        cur->donated = false;
       }else{
-        cur->priority = next_priority;
-      }
-    } 
+        struct thread* highest_thread = list_entry(list_front(lock_waiters), struct thread, elem);
+        int next_priority = highest_thread->priority;
+        if(cur->original_priority >= next_priority){
+          cur->priority = cur->original_priority;
+        }else{
+          cur->priority = next_priority;
+        }
+      } 
+    }
+    donation_rollback((lock->holder)->locked);
   }
 }
-
 
 
 // prj1(donation) - sungmin oh - end //
@@ -416,10 +392,11 @@ lock_release (struct lock *lock)
   /////////////////////////////////////////
   // prj1(donation) - sungmin oh - start //
   // restore priority
-//  donation_rollback(lock);
+  list_remove(&lock->elem);
+  donation_rollback(lock);
   // prj1(donation) - sungmin oh - end //
   ///////////////////////////////////////
-  
+
   lock->holder = NULL;
   sema_up (&lock->semaphore);
 }
@@ -446,29 +423,26 @@ struct semaphore_elem
    code to receive the signal and act upon it. */
 
 // prj1(cond) - sungmin oh - start //
-/*
 bool
-higher_cond(const struct condition* A, const struct condition* B, void* aux_unused){
-  struct list* a_sema = &a_cond->semaphore;
-  struct list* b_sema= &b_cond->semaphore;
+higher_cond(const struct list_elem* A, const struct list_elem* B, void* aux_unused){
+  struct semaphore_elem* a = list_entry(A, struct semaphore_elem, elem);
+  struct semaphore_elem* b = list_entry(B, struct semaphore_elem, elem);
+  struct list* a_waiters = &(a->semaphore).waiters;
+  struct list* b_waiters = &(b->semaphore).waiters;
 
-  return higher_sema(a_sema, b_sema, NULL);
- */
-/*
   if(list_empty(b_waiters)){
-    return false;
-  }else if(list_empty(a_waiters)){
     return true;
+  }else if(list_empty(a_waiters)){
+    return false;
   }else{
     list_sort(a_waiters, (list_less_func*)&higher_priority, NULL);
     list_sort(b_waiters, (list_less_func*)&higher_priority, NULL);
     struct thread* a_highest_thread = list_entry(list_front(a_waiters), struct thread, elem);
     struct thread* b_highest_thread = list_entry(list_front(b_waiters), struct thread, elem);
 
-    return a_highest_thread->priority < b_highest_thread->priority; 
-  }
+    return a_highest_thread->priority > b_highest_thread->priority; 
+  } 
 }
-  */
 // prj1(cond) - sungmin oh - end //
 
 void
@@ -510,7 +484,14 @@ cond_wait (struct condition *cond, struct lock *lock)
   ASSERT (lock_held_by_current_thread (lock));
   
   sema_init (&waiter.semaphore, 0);
+  // prj1(cond) - sungmin oh - start //
+  list_insert_ordered(&cond->waiters, &waiter.elem, (list_less_func*)&higher_cond, NULL);
+  // prj1(cond) - sungmin oh - end //
+  /* original code
+   *
   list_push_back (&cond->waiters, &waiter.elem);
+  *
+  */
   lock_release (lock);
   sema_down (&waiter.semaphore);
   lock_acquire (lock);
@@ -532,6 +513,9 @@ cond_signal (struct condition *cond, struct lock *lock UNUSED)
   ASSERT (lock_held_by_current_thread (lock));
 
   if (!list_empty (&cond->waiters)) 
+    // prj1(cond) - sungmin oh - start //
+    list_sort(&cond->waiters, (list_less_func*)&higher_cond, NULL);
+    // prj1(cond) - sungmin oh - end //
     sema_up (&list_entry (list_pop_front (&cond->waiters),
                           struct semaphore_elem, elem)->semaphore);
 }

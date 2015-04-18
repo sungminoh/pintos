@@ -118,7 +118,6 @@ struct thread
     struct lock* locked;
     struct list lock_list;
     int original_priority;
-    bool donated;
     // prj1(donation) - sungmin oh - end //
     ///////////////////////////////////////
   

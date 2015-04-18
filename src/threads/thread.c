@@ -409,7 +409,15 @@ thread_set_priority (int new_priority)
 int
 thread_get_priority (void) 
 {
+  // prj1(donation) - sungmin oh - stary //
+  enum intr_level old_level = intr_disable();
+  int tmp = thread_current()->priority;
+  intr_set_level(old_level);
+  return tmp;
+  // prj1(donation) - sungmin oh - end //
+  /* original code
   return thread_current ()->priority;
+  */
 }
 
 /* Sets the current thread's nice value to NICE. */
@@ -530,9 +538,8 @@ init_thread (struct thread *t, const char *name, int priority)
   t->stack = (uint8_t *) t + PGSIZE;
   t->priority = priority;
   // prj1(donation) - sungmin oh - start //
-//  t->original_priority = -1;
-  t->donated = false;
   t->locked = NULL;
+  t->original_priority = priority;
   list_init(&t->lock_list);
   // prj1(donation) - sungmin oh - end //
   
