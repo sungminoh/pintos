@@ -241,6 +241,10 @@ priority_donation(struct lock* target_lock){
     // when lock_hodler's priority is less than current thread which needs same lock, currrent thread donate priority to lock_holder.
     if(lock_holder->priority < cur->priority){
       // if this is first donation for lock_holder, memorize it's original priority
+      if(!lock_holder->donated){
+        lock_holder->donated = true;
+      }
+
       lock_holder->priority = cur->priority;  // donation
       // if lock_holder is locked because it needs another lock which is already taken, priority_donation have to be executed recursively. else the value of lock_holder->locked is null, recursive call will not do anything.
       priority_donation(lock_holder->locked);
@@ -341,35 +345,38 @@ higher_lock(const struct list_elem* A, const struct list_elem* B, void* aux_unus
 }
 
 void
-donation_rollback(struct lock* target_lock){
+donation_rollback(struct lock* target_lock, struct thread* cur){
   if(target_lock!=NULL){
     // don't know why this code is nessessary. but priority_fifo is failed without this code   - g
     if(list_empty(&(target_lock->semaphore).waiters)){
       return;
     }
     // remove lock from lock_list of its holder
-    struct thread* cur = thread_current();
+//    struct thread* cur = thread_current();
     if(list_empty(&cur->lock_list)){
       cur->priority = cur->original_priority;
+      cur->donated = false;
     }else{
       struct lock* highest_lock = list_entry(list_max(&cur->lock_list, (list_less_func*)&higher_lock, NULL), struct lock, elem);
       struct list* lock_waiters = &(highest_lock->semaphore).waiters;
+
       if(list_empty(lock_waiters)){
         cur->priority = cur->original_priority;
+        cur->donated = false;
       }else{
         struct thread* highest_thread = list_entry(list_front(lock_waiters), struct thread, elem);
         int next_priority = highest_thread->priority;
         if(cur->original_priority >= next_priority){
           cur->priority = cur->original_priority;
+          cur->donated = false;
         }else{
           cur->priority = next_priority;
         }
       } 
     }
-    donation_rollback((target_lock->holder)->locked);
+    donation_rollback((target_lock->holder)->locked, target_lock->holder );
   }
 }
-
 
 // prj1(donation) - sungmin oh - end //
 ///////////////////////////////////////
@@ -397,7 +404,7 @@ lock_release (struct lock *lock)
   // prj1(donation) - sungmin oh - start //
   // restore priority
   list_remove(&lock->elem);
-  donation_rollback(lock);
+  donation_rollback(lock, thread_current());
   // prj1(donation) - sungmin oh - end //
   ///////////////////////////////////////
 

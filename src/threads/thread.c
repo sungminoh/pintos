@@ -392,10 +392,19 @@ thread_foreach (thread_action_func *func, void *aux)
 void
 thread_set_priority (int new_priority) 
 {
+  struct thread* cur = thread_current();
+  cur->original_priority = new_priority;
+
+  if(!cur->donated || (cur->priority < new_priority) ){
+    cur->priority = new_priority;
+  }
+  /* original code
+   *
   thread_current ()->priority = new_priority;
+  *
+  */
 
   // prj1(priority) - sungmin oh - start //
-  thread_current()->original_priority = new_priority;
   if(!list_empty(&ready_list)){
     list_sort(&ready_list, higher_priority, NULL);
     struct thread* next_thread = list_entry(list_front(&ready_list), struct thread, elem);
@@ -543,6 +552,7 @@ init_thread (struct thread *t, const char *name, int priority)
   // prj1(donation) - sungmin oh - start //
   t->locked = NULL;
   t->original_priority = priority;
+  t->donated = false;
   list_init(&t->lock_list);
   // prj1(donation) - sungmin oh - end //
   
