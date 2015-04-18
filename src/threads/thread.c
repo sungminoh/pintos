@@ -274,7 +274,7 @@ thread_unblock (struct thread *t)
   old_level = intr_disable ();
   ASSERT (t->status == THREAD_BLOCKED);
   // prj1(priority) - sungmin oh - start //
-  list_insert_ordered(&ready_list, &t->elem, higher_priority, NULL);
+  list_insert_ordered(&ready_list, &t->elem, (list_less_func*)&higher_priority, NULL);
    
 
   /* original code
@@ -283,12 +283,6 @@ thread_unblock (struct thread *t)
   t->status = THREAD_READY;
   intr_set_level (old_level);
   /*
-  */
-  
-  /*
-  if(t->priority > thread_get_priority()){
-    thread_yield();
-  }
   */
   // prj1(priority) - sungmin oh - end //
 }
@@ -359,7 +353,7 @@ thread_yield (void)
 
   old_level = intr_disable ();
   if (cur != idle_thread) {
-    list_insert_ordered(&ready_list, &cur->elem, higher_priority, NULL);
+    list_insert_ordered(&ready_list, &cur->elem, (list_less_func*)&higher_priority, NULL);
     /* original code
      *
     list_push_back (&ready_list, &cur->elem);
@@ -703,6 +697,7 @@ uint32_t thread_stack_ofs = offsetof (struct thread, stack);
 
 // prj1(priority) - sungmin - start //
 /* not usedt
+ */
 void priority_check(void){
   if(!list_empty(&ready_list)){
     struct thread* t = list_entry(list_front(&ready_list), struct thread, elem);
@@ -720,5 +715,6 @@ void priority_check(void){
     }
   }
 }
+/*
 */
 // prj1(priority) - sungmin oh - end //

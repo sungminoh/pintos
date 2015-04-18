@@ -77,7 +77,13 @@ test_priority_donate_chain (void)
       thread_create (name, thread_priority - 1, interloper_thread_func, NULL);
     }
 
+  //test
+  for(i=0; i<NESTING_DEPTH-1; i++){
+    msg("lock[%d] holder %s have priority %d, orig %d, so %s, locked with %s", i, locks[i].holder->name, locks[i].holder->priority, locks[i].holder->original_priority, locks[i].holder->donated?"donated":"not", locks[i].holder->locked?locks[i].holder->locked->holder->name:"NULL");
+  }
+  msg("cur thread: %s", thread_current()->name);
   lock_release (&locks[0]);
+
   msg ("%s finishing with priority %d.", thread_name (),
                                          thread_get_priority ());
 }
@@ -86,12 +92,16 @@ static void
 donor_thread_func (void *locks_) 
 {
   struct lock_pair *locks = locks_;
-
   if (locks->first)
     lock_acquire (locks->first);
 
+  msg("second holder before: %s", locks->second->holder->name);
   lock_acquire (locks->second);
+  msg("second holder after: %s", locks->second->holder->name);
   msg ("%s got lock", thread_name ());
+
+  //test
+  msg("%s has %d locks, priority %d, donated %s", thread_name(),list_size(&thread_current()->lock_list), thread_get_priority(), thread_current()->donated?"true":"false");
 
   lock_release (locks->second);
   msg ("%s should have priority %d. Actual priority: %d", 

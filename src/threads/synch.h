@@ -32,7 +32,7 @@ void priority_donation(struct lock*);
 bool cmp_sema(struct semaphore*, struct semaphore*);
 bool higher_lock(const struct list_elem*, const struct list_elem*, void*);
 bool higher_cond(const struct list_elem*, const struct list_elem*, void*);
-void donation_rollback(struct lock*, struct thread*);
+void donation_rollback(struct lock*);
 // prj1(donation) - sungmin oh - end //
 
 
