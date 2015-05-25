@@ -152,7 +152,7 @@ sema_up (struct semaphore *sema)
   /////////////////////////////////////////
   // prj1(donation) - sungmin oh - start //
   // if highest thraed in waiters is prior to current thread, thread_yield has to be called
-  if(/*!intr_context() &&*/ (highest_thread != NULL) && (highest_thread->priority > thread_get_priority())){
+  if(!intr_context() && (highest_thread != NULL) && (highest_thread->priority > thread_get_priority())){
     thread_yield();
   }
   // prj1(donation) - sungmin oh - end) //
