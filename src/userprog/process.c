@@ -56,7 +56,6 @@ start_process (void *file_name_)
   bool success;
   int len = strlen(file_name);
 
-  putbuf("start",5);
   char *token; // khg : values
   char *temp;
   int argc = 0;
@@ -99,6 +98,9 @@ start_process (void *file_name_)
       if_.esp -= 4;
       *(int  *)(if_.esp) = start + (argv_p[i] - file_name);
   }
+
+  struct thread *cur = thread_current();
+  cur->pname = *(char **)(if_.esp);
   if_.esp -= 4;
   *(int *)(if_.esp) = (char *)(if_.esp) + 4; // argv
 
@@ -140,8 +142,7 @@ int
 process_wait (tid_t child_tid UNUSED) 
 {
   //khg : while(1)
-  while(1)
-      timer_sleep(1);
+  timer_sleep(10000);
   return -1;
 }
 
@@ -485,13 +486,12 @@ setup_stack (void **esp)
   uint8_t *kpage;
   bool success = false;
 
-  putbuf("set",3);
   kpage = palloc_get_page (PAL_USER | PAL_ZERO);
   if (kpage != NULL) 
     {
       success = install_page (((uint8_t *) PHYS_BASE) - PGSIZE, kpage, true);
       if (success)
-        *esp = PHYS_BASE; // khg : origin : no -12
+        *esp = PHYS_BASE;
       else
         palloc_free_page (kpage);
     }

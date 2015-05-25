@@ -50,7 +50,7 @@ syscall_handler (struct intr_frame *f)
   
   int call_num, ret;
   int *esp = (int *)f->esp;
-  
+  // khg : valid check
   if(!address_valid((void *)esp))
       my_exit(-1);
 
@@ -58,6 +58,7 @@ syscall_handler (struct intr_frame *f)
   
   if(call_num < SYS_HALT || call_num > SYS_INUMBER)
     my_exit(-1);
+  // -- end valid check
 
   if(call_num == SYS_WRITE)
     if(address_valid(esp + 1) && address_valid(esp + 2) && address_valid(esp + 3))
@@ -71,7 +72,7 @@ syscall_handler (struct intr_frame *f)
     my_exit(0);
 
 
- //NOT_REACHED ();
+ NOT_REACHED ();
  //  origin code 
  // thread_exit ();
 }
@@ -98,6 +99,7 @@ my_write (int fd, const void *buffer, unsigned length)
 static void
 my_exit(int status)
 {
- putbuf("exit", 4); 
+    struct thread *cur = thread_current();
+    printf("%s: exit(%d)\n", cur->pname, status);
     thread_exit();
 }
