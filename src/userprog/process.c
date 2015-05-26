@@ -17,10 +17,11 @@
 #include "threads/palloc.h"
 #include "threads/thread.h"
 #include "threads/vaddr.h"
+#include "devices/timer.h" // khg
 
 static thread_func start_process NO_RETURN;
 static bool load (const char *cmdline, void (**eip) (void), void **esp);
-
+//khg 
 /* Starts a new thread running a user program loaded from
    FILENAME.  The new thread may be scheduled (and may even exit)
    before process_execute() returns.  Returns the new process's
@@ -53,18 +54,70 @@ start_process (void *file_name_)
   char *file_name = file_name_;
   struct intr_frame if_;
   bool success;
+  int len = strlen(file_name);
+
+  char *token; // khg : values
+  char *temp;
+  int argc = 0;
+  char *argv_p[32] = {}; 
 
   /* Initialize interrupt frame and load executable. */
   memset (&if_, 0, sizeof if_);
   if_.gs = if_.fs = if_.es = if_.ds = if_.ss = SEL_UDSEG;
   if_.cs = SEL_UCSEG;
   if_.eflags = FLAG_IF | FLAG_MBS;
+
+  // khg
+  token = strtok_r(file_name, " ", &temp); // khg : name.
+  // khg
   success = load (file_name, &if_.eip, &if_.esp);
+
+
+  while(token)
+  {
+      while(*temp == ' ') // trim ' '
+          ++temp;
+      argv_p[argc++] = token; // save pointer of argv
+      token = strtok_r(NULL, " ", &temp);
+  }
+  // --------- end parsing -----------
+
+  // khg : stack setup
+  if_.esp -= len + 1; // null at end of file_name
+  char *start = if_.esp; // start of commandline
+  int j;
+  for(j = 0; j < len+1 ; ++j)
+      *((char*)if_.esp + j) = file_name[j];
+  if_.esp -= 4 - (len + 1) % 4; // alignment
+
+  if_.esp -= 4;
+  *(int *)(if_.esp) = NULL; // argv[tail] = NULL
+  int i = argc - 1;
+  for(; i>= 0 ; --i) // push argv
+  {
+      if_.esp -= 4;
+      *(int  *)(if_.esp) = start + (argv_p[i] - file_name);
+  }
+
+  struct thread *cur = thread_current();
+  int len_temp = strlen(*(char **)(if_.esp));
+  strlcpy(cur->pname ,*(char **)(if_.esp), len_temp+1);
+  if_.esp -= 4;
+  *(int *)(if_.esp) = (char *)(if_.esp) + 4; // argv
+
+  if_.esp -= 4;
+  *(int *)(if_.esp) = argc;
+
+  if_.esp -= 4;
+  *(int *)(if_.esp) = 0; // fake return
+  // --------- end stack setup -----------------
 
   /* If load failed, quit. */
   palloc_free_page (file_name);
   if (!success) 
     thread_exit ();
+  
+
 
   /* Start the user process by simulating a return from an
      interrupt, implemented by intr_exit (in
@@ -75,6 +128,7 @@ start_process (void *file_name_)
   asm volatile ("movl %0, %%esp; jmp intr_exit" : : "g" (&if_) : "memory");
   NOT_REACHED ();
 }
+
 
 /* Waits for thread TID to die and returns its exit status.  If
    it was terminated by the kernel (i.e. killed due to an
@@ -88,6 +142,8 @@ start_process (void *file_name_)
 int
 process_wait (tid_t child_tid UNUSED) 
 {
+  //khg : while(1) have to change
+  timer_sleep(10000);
   return -1;
 }
 
@@ -214,7 +270,6 @@ load (const char *file_name, void (**eip) (void), void **esp)
   off_t file_ofs;
   bool success = false;
   int i;
-
   /* Allocate and activate page directory. */
   t->pagedir = pagedir_create ();
   if (t->pagedir == NULL) 
@@ -300,7 +355,7 @@ load (const char *file_name, void (**eip) (void), void **esp)
           break;
         }
     }
-
+  
   /* Set up stack. */
   if (!setup_stack (esp))
     goto done;
