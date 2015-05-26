@@ -100,7 +100,8 @@ start_process (void *file_name_)
   }
 
   struct thread *cur = thread_current();
-  cur->pname = *(char **)(if_.esp);
+  int len_temp = strlen(*(char **)(if_.esp));
+  strlcpy(cur->pname ,*(char **)(if_.esp), len_temp+1);
   if_.esp -= 4;
   *(int *)(if_.esp) = (char *)(if_.esp) + 4; // argv
 
@@ -141,7 +142,7 @@ start_process (void *file_name_)
 int
 process_wait (tid_t child_tid UNUSED) 
 {
-  //khg : while(1)
+  //khg : while(1) have to change
   timer_sleep(10000);
   return -1;
 }
