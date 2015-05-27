@@ -143,7 +143,7 @@ int
 process_wait (tid_t child_tid UNUSED) 
 {
   //khg : while(1) have to change
-  timer_sleep(10000);
+  timer_sleep(2000);
   return -1;
 }
 

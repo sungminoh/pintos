@@ -107,6 +107,7 @@ thread_init (void)
   list_init (&ready_list);
   list_init (&all_list);
 
+
   /////////////////////////////////////
   // prj1(wait) - sungmin oh - start //
   // initiallize wait list
@@ -550,7 +551,11 @@ init_thread (struct thread *t, const char *name, int priority)
   list_init(&t->lock_list);
   // prj1(donation) - sungmin oh - end //
   ///////////////////////////////////////
-  
+	
+	//prj2
+	list_init(&t->file_list);
+	t->fd = 3;
+ 	//
   t->magic = THREAD_MAGIC;
 
   old_level = intr_disable ();
