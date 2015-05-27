@@ -8,8 +8,8 @@
 #include "filesys/file.h"
 #include "filesys/filesys.h"
 #include "threads/init.h"
-
-///
+#include "devices/timer.h"
+//
 struct lock filesys_lock;
 
 struct process_file{
@@ -19,7 +19,7 @@ struct process_file{
 };
 
 struct file* get_file_by_fd (int fd);
-
+struct child_process * get_child_by_tid (int tid);
 ///
 static void syscall_handler (struct intr_frame *);
 
@@ -166,14 +166,17 @@ my_halt(void)
 static pid_t
 my_exec(const char *cmd_line)
 {
-    printf("Not yet : exec\n");
-    my_exit(-1);
+	tid_t tid = process_execute(cmd_line);
+	struct child_process* cp = get_child_by_tid(tid);
+	
+	return tid;
+	
 }
 static int
 my_wait(pid_t pid)
 {
-    printf("Not yet : wait\n");
-    my_exit(-1);
+	timer_sleep(1000);
+	return 999;
 }
 static bool
 my_create(const char *file, unsigned initial_size)
@@ -195,8 +198,17 @@ my_create(const char *file, unsigned initial_size)
 static bool
 my_remove(const char *file)
 {
-    printf("Not yet : remove\n");
-    my_exit(-1);
+	lock_acquire(&filesys_lock);
+	
+	if(file == NULL || !address_valid(file)){
+		lock_release(&filesys_lock);
+		return false;
+	}
+
+	bool success = filesys_remove(file);
+
+	lock_release(&filesys_lock);
+	return success;
 }
 static int 
 my_open(const char *file)
@@ -222,6 +234,7 @@ my_open(const char *file)
     return -1;
 	}
 
+	//file_deny_write (fp);
 	
 	struct process_file *pf = malloc(sizeof(struct process_file));
 	pf->file = fp;
@@ -318,10 +331,10 @@ my_close(int fd)
 	struct list_elem *e = list_begin(&t->file_list);
 	struct process_file *pf;
 	int count = 0;
-
 	while(e != NULL){
 		pf = list_entry (e, struct process_file, elem);
 		if(fd == pf->fd || fd == CLOSE_ALL){
+			//file_allow_write(pf->file);
 			file_close(pf->file);
 			list_remove(&pf->elem);
 			free(pf);
@@ -351,6 +364,20 @@ struct file * get_file_by_fd (int fd){
 		if(fd == pf->fd)
 			return pf->file;
 		if(e == list_end(&t->file_list))
+			break;
+		e = list_next(e);
+	}
+	return NULL;
+}
+struct child_process * get_child_by_tid (int tid){
+	struct thread *t = thread_current();
+	struct list_elem *e = list_begin(&t->child_list);
+	struct child_process * cp;
+	while(e != NULL){
+		cp = list_entry (e, struct child_process, elem);
+		if(tid == cp->tid)
+			return cp;
+		if(e == list_end(&t->child_list))
 			break;
 		e = list_next(e);
 	}

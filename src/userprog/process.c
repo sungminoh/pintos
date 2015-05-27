@@ -18,6 +18,7 @@
 #include "threads/thread.h"
 #include "threads/vaddr.h"
 #include "devices/timer.h" // khg
+#include "userprog/syscall.h"
 
 static thread_func start_process NO_RETURN;
 static bool load (const char *cmdline, void (**eip) (void), void **esp);
@@ -71,8 +72,12 @@ start_process (void *file_name_)
   token = strtok_r(file_name, " ", &temp); // khg : name.
   // khg
   success = load (file_name, &if_.eip, &if_.esp);
-
-
+/*
+	if(success)
+		thread_current()->cp->load = true;
+	else
+		thread_current()->cp->load = false;
+*/
   while(token)
   {
       while(*temp == ' ') // trim ' '
@@ -154,6 +159,7 @@ process_exit (void)
   struct thread *cur = thread_current ();
   uint32_t *pd;
 
+	//my_close(CLOSE_ALL);
   /* Destroy the current process's page directory and switch back
      to the kernel-only page directory. */
   pd = cur->pagedir;

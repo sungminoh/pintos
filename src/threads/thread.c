@@ -85,6 +85,7 @@ static void schedule (void);
 void thread_schedule_tail (struct thread *prev);
 static tid_t allocate_tid (void);
 
+
 /* Initializes the threading system by transforming the code
    that's currently running into a thread.  This can't work in
    general and it is possible in this case only because loader.S
@@ -224,6 +225,18 @@ thread_create (const char *name, int priority,
   sf->eip = switch_entry;
   sf->ebp = 0;
 
+	//
+
+	t->parent = thread_current()->tid;
+
+	//add to child list
+	
+	struct child_process * cp = malloc(sizeof(struct child_process));
+	cp -> tid = t -> tid;
+	list_push_back(&thread_current() -> child_list, &cp -> elem);
+
+
+	//
   /* Add to run queue. */
   thread_unblock (t);
 
@@ -554,6 +567,7 @@ init_thread (struct thread *t, const char *name, int priority)
 	
 	//prj2
 	list_init(&t->file_list);
+	list_init(&t->child_list);
 	t->fd = 3;
  	//
   t->magic = THREAD_MAGIC;

@@ -6,8 +6,6 @@
 #include <stdint.h>
 #include "threads/synch.h"
 
-
-
 /* States in a thread's life cycle. */
 enum thread_status
   {
@@ -26,8 +24,12 @@ typedef int tid_t;
 #define PRI_MIN 0                       /* Lowest priority. */
 #define PRI_DEFAULT 31                  /* Default priority. */
 #define PRI_MAX 63                      /* Highest priority. */
-#define CLOSE_ALL -2
 
+struct child_process{
+	tid_t tid;
+	bool load;
+	struct list_elem elem;
+};
 /* A kernel thread or user process.
 
    Each thread structure is stored in its own 4 kB page.  The
@@ -97,6 +99,9 @@ struct thread
 		// for file
 		int fd; //file discriptor number
 		struct list file_list;
+		struct list child_list;
+		tid_t parent;
+		struct child_process * cp;
 		//
 
     /* Shared between thread.c and synch.c. */
