@@ -9,7 +9,18 @@
 #include "filesys/filesys.h"
 #include "threads/init.h"
 
+///
+struct lock filesys_lock;
 
+struct process_file{
+	struct file * file;
+	int fd;
+	struct list_elem elem;
+};
+
+struct file* get_file_by_fd (int fd);
+
+///
 static void syscall_handler (struct intr_frame *);
 
 typedef int pid_t; // khg : I don't know where it is.
@@ -26,7 +37,7 @@ static int my_read(int fd, void *buffer, unsigned size);
 static int my_write(int fd, const void *buffer, unsigned size);
 static void my_seek(int fd, unsigned position);
 static unsigned my_tell(int fd);
-static int my_close(int fd);
+void my_close(int fd);
 //-----------------------------
 
 // khg : function pointer && make table by syscall num
@@ -43,6 +54,7 @@ static func_p syscall_table[SYS_INUMBER+1] =
 void
 syscall_init (void) 
 {
+	lock_init(&filesys_lock);
   intr_register_int (0x30, 3, INTR_ON, syscall_handler, "syscall");
 }
 
@@ -115,25 +127,26 @@ syscall_handler (struct intr_frame *f)
 static int
 my_write (int fd, const void *buffer, unsigned length)
 {
-  struct file * f;
-  int ret;
- 
- 
+	lock_acquire(&filesys_lock);
+	if(!address_valid(buffer)){
+		lock_release(&filesys_lock);
+		my_exit(-1);
+	}
+  if (fd == STDOUT_FILENO){/* stdout */
+  	putbuf (buffer, length);
+		lock_release(&filesys_lock);
+		return length;
+	}
+	struct file *fp = get_file_by_fd(fd);
 
-  ret = -1;
-  if (fd == STDOUT_FILENO) /* stdout */
-      putbuf (buffer, length);
-  else
-  {
-      /* after main.... there is somthing...
-      printf("Not yet : write\n");
-      my_exit(-1);
-      */
-      my_exit(0);
-  }
-  
+	if(fp == NULL){
+		lock_release(&filesys_lock);
+		return -1;
+	}
 
-  return ret;
+	int byte = file_write(fp, buffer, length);
+	lock_release(&filesys_lock);
+	return byte;
 }
 
 static void
@@ -165,8 +178,19 @@ my_wait(pid_t pid)
 static bool
 my_create(const char *file, unsigned initial_size)
 {
-    printf("Not yet : creat\n");
-    my_exit(-1);
+	lock_acquire(&filesys_lock);
+	
+	if(file == NULL){
+		my_exit(-1);
+	}
+	if(!address_valid(file)){
+		lock_release(&filesys_lock);
+		my_exit(-1);
+	}
+
+	bool success = filesys_create(file, initial_size);
+	lock_release(&filesys_lock);
+	return success;
 }
 static bool
 my_remove(const char *file)
@@ -177,36 +201,158 @@ my_remove(const char *file)
 static int 
 my_open(const char *file)
 {
-    printf("Not yet : open\n");
-    my_exit(-1);
+	lock_acquire(&filesys_lock);
+
+	if(file == NULL){
+		lock_release(&filesys_lock);
+		return -1;
+	}
+	
+	if(!address_valid(file)){
+		lock_release(&filesys_lock);
+		my_exit(-1);
+	}
+
+	struct file *fp = filesys_open(file);
+	int fd = thread_current()->fd;
+
+	if(!fp){
+		lock_release(&filesys_lock);
+  //  printf("file open error\n");
+    return -1;
+	}
+
+	
+	struct process_file *pf = malloc(sizeof(struct process_file));
+	pf->file = fp;
+	pf->fd = fd;
+	thread_current()->fd++;
+	list_push_back(&thread_current()->file_list, &pf->elem);
+
+	lock_release(&filesys_lock);
+
+	return fd;	
 }
 static int 
 my_filesize(int fd)
 {
-    printf("Not yet : filesize\n");
-    my_exit(-1);
+	lock_acquire(&filesys_lock);
+	struct file * fp = get_file_by_fd(fd);
+
+	if(fp == NULL){
+		lock_release(&filesys_lock);
+		return -1;
+	}
+	lock_release(&filesys_lock);
+	return file_length(fp);
+
 }
 static int 
 my_read(int fd, void *buffer, unsigned size)
 {
-    printf("Not yet : read\n");
-    my_exit(-1);
+	lock_acquire(&filesys_lock);
+	if(!address_valid(buffer)){
+		lock_release(&filesys_lock);
+		my_exit(-1);
+	}
+	if(fd == STDIN_FILENO){
+		unsigned i = 0;
+		uint8_t* local_buffer = (uint8_t *)buffer;
+		for(;i< size; i++)
+			local_buffer[i] = input_getc();
+		lock_release(&filesys_lock);
+		return size;
+	}
+	
+	struct file * fp = get_file_by_fd(fd);
+	
+	if(!fp){
+		lock_release(&filesys_lock);
+		return -1;
+	}
+	
+	int byte = file_read(fp, buffer, size);
+	lock_release(&filesys_lock);
+	return byte;
+
 }
 static void 
 my_seek(int fd, unsigned position)
 {
-    printf("Not yet : seek\n");
-    my_exit(-1);
+	lock_acquire(&filesys_lock);
+	
+	struct file *fp = get_file_by_fd(fd);
+	
+	if(fp =  NULL){
+		lock_release(&filesys_lock);
+		return;
+	}
+	file_seek(fp, position);
+	lock_release(&filesys_lock);
+	return;
 }
 static unsigned
 my_tell(int fd)
 {
-    printf("Not yet : tell\n");
-    my_exit(-1);
+	lock_acquire(&filesys_lock);
+	
+	struct file * fp = get_file_by_fd(fd);
+
+	if(fd == NULL){
+		lock_release(&filesys_lock);
+		return -1;
+	}
+
+	off_t off = file_tell(fp);
+
+	lock_release(&filesys_lock);
+	return off;
 }
-static int
+
+void
 my_close(int fd)
 {
-    printf("Not yet : close\n");
-    my_exit(-1);
+	lock_acquire(&filesys_lock);
+
+	struct thread *t = thread_current();
+	struct list_elem *e = list_begin(&t->file_list);
+	struct process_file *pf;
+	int count = 0;
+
+	while(e != NULL){
+		pf = list_entry (e, struct process_file, elem);
+		if(fd == pf->fd || fd == CLOSE_ALL){
+			file_close(pf->file);
+			list_remove(&pf->elem);
+			free(pf);
+			count++;
+			if(fd != CLOSE_ALL)
+				break;
+		}
+		if(e == list_end(&t->file_list))
+			break;	
+		e = list_next(e);
+	}
+	
+	lock_release(&filesys_lock);
+	
+	if(count == 0)
+		my_exit(-1);
+	
+	return;
+}
+
+struct file * get_file_by_fd (int fd){
+	struct thread *t = thread_current();
+	struct list_elem *e = list_begin(&t->file_list);
+	struct process_file *pf;
+	while(e != NULL){
+		pf = list_entry (e, struct process_file, elem);
+		if(fd == pf->fd)
+			return pf->file;
+		if(e == list_end(&t->file_list))
+			break;
+		e = list_next(e);
+	}
+	return NULL;
 }
