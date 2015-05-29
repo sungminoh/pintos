@@ -39,9 +39,10 @@ process_execute (const char *file_name)
   if (fn_copy == NULL)
     return TID_ERROR;
   strlcpy (fn_copy, file_name, PGSIZE);
-
+  //printf("before thread_create in process_execute\n");
   /* Create a new thread to execute FILE_NAME. */
   tid = thread_create (file_name, PRI_DEFAULT, start_process, fn_copy);
+  //printf("after thread_create in process_execute tid %d\n",tid);
   if (tid == TID_ERROR)
     palloc_free_page (fn_copy); 
  // printf("process_execute end tid (er : %d): %d\n", TID_ERROR, tid);
@@ -53,6 +54,7 @@ process_execute (const char *file_name)
 static void
 start_process (void *file_name_)
 {
+  //printf("start_process : %s\n", thread_current()->pname);
   char *file_name = file_name_;
   struct intr_frame if_;
   bool success;
@@ -77,11 +79,18 @@ start_process (void *file_name_)
   //printf("after load\n");
 
   if(success)
+  {
       thread_current()->cp->load = true;
+      thread_current()->cp->not_load = false;
+  }
   else
+  {
       thread_current()->cp->load = false;
+      thread_current()->cp->not_load = true;
+  }
 
-  //printf("after change cp->load\n");
+  //printf("after change cp->load %d\n", thread_current()->cp -> load);
+
   if (!success) 
     thread_exit ();
 
@@ -152,10 +161,41 @@ start_process (void *file_name_)
    does nothing. */
 int
 process_wait (tid_t child_tid UNUSED) 
-{
-  //khg : while(1) have to change
-  timer_sleep(30000);
-  return -1;
+{ 
+  struct child_process* cp = get_child_by_tid(child_tid);
+
+
+  //printf("cp %p\n", cp);
+  if (!cp)
+  {
+      return -1;
+  }
+  while(cp->wait)
+      timer_sleep(1);
+
+
+  return (cp->exit);
+
+
+  struct thread *cur = thread_current();
+
+
+
+  /*if (cp->wait)
+  {
+      return ERROR;
+  }
+  cp->wait = true;
+  
+  
+  while (!cp->exit)
+  {
+      barrier();
+  }
+  int status = cp->status;
+  remove_child_process(cp);
+  return status;
+  */
 }
 
 /* Free the current process's resources. */

@@ -28,6 +28,9 @@ typedef int tid_t;
 struct child_process{
 	tid_t tid;
 	bool load;
+    bool not_load;
+    bool wait; // true : parent should wait.
+    int exit;
 	struct list_elem elem;
 };
 /* A kernel thread or user process.

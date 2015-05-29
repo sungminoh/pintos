@@ -154,6 +154,8 @@ my_exit(int status)
 {
     struct thread *cur = thread_current();
     printf("%s: exit(%d)\n", cur->pname, status);
+    cur->cp->exit = status;
+    cur->cp->wait = false;
     thread_exit();
 }
 
@@ -166,28 +168,34 @@ my_halt(void)
 static pid_t
 my_exec(const char *cmd_line)
 {
+    //printf("execute\n");
     if(!address_valid(cmd_line))
         my_exit(-1);
 
     struct thread *t = thread_current();
     //printf("process_execute start\n");
 	tid_t tid = process_execute(cmd_line);
+    //printf("process_execute finish tid %d\n",tid);
     //printf("my_exec_new_tid : %d\n", tid);
     //printf("my_exec : %p, tid : %d, name : %s\n", t, t->tid, t->pname);
 	struct child_process* cp = get_child_by_tid(tid);
-	//printf("cp : %p\n", cp);
+	//printf("cp in exec : %p : load : %d\n", cp, cp->load);
     //printf("process_execute end tid: %d && cp->load : %d\n", tid, cp->load);
+    while(cp->not_load == true)
+        timer_sleep(1);
     if(cp->load == false)
         return -1;
-	return tid;
+   // printf("exec return tid: %d\n",tid);
+    return tid;
 	
 }
 static int
 my_wait(pid_t pid)
 {
+    //printf("wait\n");
+    //printf("wait start  tid: %d\n",thread_current()->tid);
     tid_t tid = (tid_t) pid;
-	timer_sleep(3000);
-	return 999;
+    process_wait(tid);
 }
 static bool
 my_create(const char *file, unsigned initial_size)
@@ -389,7 +397,7 @@ struct child_process * get_child_by_tid (int tid){
 	struct child_process * cp;
 	while(e != list_end(&t->child_list)){
 		cp = list_entry (e, struct child_process, elem);
-		//printf("cp : %p : tid = %d\n",cp, cp->tid);
+		//printf("cp : %p : tid = %d current : %s\n",cp, cp->tid, t->pname);
         e = list_next(e);
 		if(tid == cp->tid)
 			return cp;

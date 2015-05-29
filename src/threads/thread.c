@@ -233,9 +233,12 @@ thread_create (const char *name, int priority,
 
 	//add to child list
 	
+    //printf("child info update\n");
 	struct child_process * cp = malloc(sizeof(struct child_process));
 	cp -> tid = t -> tid;
     cp -> load = false;
+    cp-> not_load = true;
+    cp -> wait = true; 
 	list_push_back(&thread_current() -> child_list, &cp -> elem);
     t->cp = cp;
 
