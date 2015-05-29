@@ -44,6 +44,7 @@ process_execute (const char *file_name)
   tid = thread_create (file_name, PRI_DEFAULT, start_process, fn_copy);
   if (tid == TID_ERROR)
     palloc_free_page (fn_copy); 
+ // printf("process_execute end tid (er : %d): %d\n", TID_ERROR, tid);
   return tid;
 }
 
@@ -71,13 +72,19 @@ start_process (void *file_name_)
   // khg
   token = strtok_r(file_name, " ", &temp); // khg : name.
   // khg
+  //printf("before load\n");
   success = load (file_name, &if_.eip, &if_.esp);
-/*
-	if(success)
-		thread_current()->cp->load = true;
-	else
-		thread_current()->cp->load = false;
-*/
+  //printf("after load\n");
+
+  if(success)
+      thread_current()->cp->load = true;
+  else
+      thread_current()->cp->load = false;
+
+  //printf("after change cp->load\n");
+  if (!success) 
+    thread_exit ();
+
   while(token)
   {
       while(*temp == ' ') // trim ' '
@@ -116,11 +123,10 @@ start_process (void *file_name_)
   if_.esp -= 4;
   *(int *)(if_.esp) = 0; // fake return
   // --------- end stack setup -----------------
+  
 
   /* If load failed, quit. */
   palloc_free_page (file_name);
-  if (!success) 
-    thread_exit ();
   
 
 
@@ -148,7 +154,7 @@ int
 process_wait (tid_t child_tid UNUSED) 
 {
   //khg : while(1) have to change
-  timer_sleep(2000);
+  timer_sleep(30000);
   return -1;
 }
 
@@ -159,7 +165,7 @@ process_exit (void)
   struct thread *cur = thread_current ();
   uint32_t *pd;
 
-	//my_close(CLOSE_ALL);
+  my_close(CLOSE_ALL);
   /* Destroy the current process's page directory and switch back
      to the kernel-only page directory. */
   pd = cur->pagedir;
@@ -374,6 +380,7 @@ load (const char *file_name, void (**eip) (void), void **esp)
  done:
   /* We arrive here whether the load is successful or not. */
   file_close (file);
+  //printf("load done end before return\n");
   return success;
 }
 

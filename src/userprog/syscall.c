@@ -26,7 +26,7 @@ static void syscall_handler (struct intr_frame *);
 typedef int pid_t; // khg : I don't know where it is.
 // khg : proto type
 static void my_halt(void);
-static void my_exit(int status);
+//void my_exit(int status);
 static pid_t my_exec(const char *cmd_line);
 static int my_wait(pid_t pid); 
 static bool my_create(const char *file, unsigned initial_size); 
@@ -149,7 +149,7 @@ my_write (int fd, const void *buffer, unsigned length)
 	return byte;
 }
 
-static void
+void
 my_exit(int status)
 {
     struct thread *cur = thread_current();
@@ -166,16 +166,27 @@ my_halt(void)
 static pid_t
 my_exec(const char *cmd_line)
 {
+    if(!address_valid(cmd_line))
+        my_exit(-1);
+
+    struct thread *t = thread_current();
+    //printf("process_execute start\n");
 	tid_t tid = process_execute(cmd_line);
+    //printf("my_exec_new_tid : %d\n", tid);
+    //printf("my_exec : %p, tid : %d, name : %s\n", t, t->tid, t->pname);
 	struct child_process* cp = get_child_by_tid(tid);
-	
+	//printf("cp : %p\n", cp);
+    //printf("process_execute end tid: %d && cp->load : %d\n", tid, cp->load);
+    if(cp->load == false)
+        return -1;
 	return tid;
 	
 }
 static int
 my_wait(pid_t pid)
 {
-	timer_sleep(1000);
+    tid_t tid = (tid_t) pid;
+	timer_sleep(3000);
 	return 999;
 }
 static bool
@@ -184,7 +195,8 @@ my_create(const char *file, unsigned initial_size)
 	lock_acquire(&filesys_lock);
 	
 	if(file == NULL){
-		my_exit(-1);
+        lock_release(&filesys_lock);
+        my_exit(-1);
 	}
 	if(!address_valid(file)){
 		lock_release(&filesys_lock);
@@ -239,7 +251,7 @@ my_open(const char *file)
 	struct process_file *pf = malloc(sizeof(struct process_file));
 	pf->file = fp;
 	pf->fd = fd;
-	thread_current()->fd++;
+	(thread_current()->fd)++;
 	list_push_back(&thread_current()->file_list, &pf->elem);
 
 	lock_release(&filesys_lock);
@@ -331,25 +343,28 @@ my_close(int fd)
 	struct list_elem *e = list_begin(&t->file_list);
 	struct process_file *pf;
 	int count = 0;
-	while(e != NULL){
+	while(e != list_end(&t->file_list)){
 		pf = list_entry (e, struct process_file, elem);
+		// khg : order is important
+        e = list_next(e);
 		if(fd == pf->fd || fd == CLOSE_ALL){
 			//file_allow_write(pf->file);
 			file_close(pf->file);
 			list_remove(&pf->elem);
 			free(pf);
 			count++;
+
+            // khg : fd reset....
+            //(t->fd)--;
 			if(fd != CLOSE_ALL)
 				break;
-		}
-		if(e == list_end(&t->file_list))
-			break;	
-		e = list_next(e);
+
+        }
 	}
 	
 	lock_release(&filesys_lock);
 	
-	if(count == 0)
+	if(count == 0 && fd != CLOSE_ALL)
 		my_exit(-1);
 	
 	return;
@@ -359,27 +374,25 @@ struct file * get_file_by_fd (int fd){
 	struct thread *t = thread_current();
 	struct list_elem *e = list_begin(&t->file_list);
 	struct process_file *pf;
-	while(e != NULL){
+	while(e != list_end(&t->file_list)){
 		pf = list_entry (e, struct process_file, elem);
+		e = list_next(e);
 		if(fd == pf->fd)
 			return pf->file;
-		if(e == list_end(&t->file_list))
-			break;
-		e = list_next(e);
 	}
 	return NULL;
 }
 struct child_process * get_child_by_tid (int tid){
 	struct thread *t = thread_current();
+    //printf("child_process_t : %p, tid : %d, name : %s\n", t, t->tid, t->pname);
 	struct list_elem *e = list_begin(&t->child_list);
 	struct child_process * cp;
-	while(e != NULL){
+	while(e != list_end(&t->child_list)){
 		cp = list_entry (e, struct child_process, elem);
+		//printf("cp : %p : tid = %d\n",cp, cp->tid);
+        e = list_next(e);
 		if(tid == cp->tid)
 			return cp;
-		if(e == list_end(&t->child_list))
-			break;
-		e = list_next(e);
 	}
 	return NULL;
 }

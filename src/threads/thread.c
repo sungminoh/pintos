@@ -51,6 +51,8 @@ static struct thread *initial_thread;
 /* Lock used by allocate_tid(). */
 static struct lock tid_lock;
 
+
+
 /* Stack frame for kernel_thread(). */
 struct kernel_thread_frame 
   {
@@ -203,7 +205,7 @@ thread_create (const char *name, int priority,
 
   /* Allocate thread. */
   t = palloc_get_page (PAL_ZERO);
-  if (t == NULL)
+  if (t == NULL) // t is new thread! maybe... child!
     return TID_ERROR;
 
   /* Initialize thread. */
@@ -233,7 +235,9 @@ thread_create (const char *name, int priority,
 	
 	struct child_process * cp = malloc(sizeof(struct child_process));
 	cp -> tid = t -> tid;
+    cp -> load = false;
 	list_push_back(&thread_current() -> child_list, &cp -> elem);
+    t->cp = cp;
 
 
 	//
@@ -245,7 +249,7 @@ thread_create (const char *name, int priority,
   // when the new thread is created
   // if priority of this new thread is higher than that of current thread,
   // than preemption occur
-  if (priority > thread_current()->priority){
+  if (priority >= (thread_current()->priority)){
     thread_yield();
   }
   // prj1(priority) - sungmin oh - end //
