@@ -86,7 +86,7 @@ start_process (void *file_name_)
   else
   {
       thread_current()->cp->load = false;
-      thread_current()->cp->not_load = true;
+      thread_current()->cp->not_load = false;
   }
 
   //printf("after change cp->load %d\n", thread_current()->cp -> load);
@@ -172,9 +172,13 @@ process_wait (tid_t child_tid UNUSED)
   }
   while(cp->wait)
       timer_sleep(1);
+	
+	int status = cp->exit;
 
+ 	list_remove(&cp->elem);
+	free(cp);
 
-  return (cp->exit);
+  return status;
 
 
   struct thread *cur = thread_current();
@@ -206,7 +210,22 @@ process_exit (void)
   uint32_t *pd;
 
   my_close(CLOSE_ALL);
-  /* Destroy the current process's page directory and switch back
+  
+	//printf("remove all child_list\n");
+	struct list_elem * e = list_begin(&cur->child_list);
+	struct child_process * cp;
+	
+	while(e!=list_end(&cur->child_list)){
+		//printf("while\n");
+		cp = list_entry (e, struct child_process, elem);
+		//printf("tid is %d\n", cp->tid);
+		e = list_next(e);
+		list_remove(&cp->elem);
+		free(cp);
+	}
+	//
+	//printf("remove finish\n");
+	/* Destroy the current process's page directory and switch back
      to the kernel-only page directory. */
   pd = cur->pagedir;
   if (pd != NULL) 

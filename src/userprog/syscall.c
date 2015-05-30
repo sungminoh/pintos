@@ -138,12 +138,11 @@ my_write (int fd, const void *buffer, unsigned length)
 		return length;
 	}
 	struct file *fp = get_file_by_fd(fd);
-
 	if(fp == NULL){
 		lock_release(&filesys_lock);
 		return -1;
 	}
-
+	
 	int byte = file_write(fp, buffer, length);
 	lock_release(&filesys_lock);
 	return byte;
@@ -175,13 +174,14 @@ my_exec(const char *cmd_line)
     struct thread *t = thread_current();
     //printf("process_execute start\n");
 	tid_t tid = process_execute(cmd_line);
-    //printf("process_execute finish tid %d\n",tid);
+   	//printf("process_execute finish tid %d\n",tid);
     //printf("my_exec_new_tid : %d\n", tid);
     //printf("my_exec : %p, tid : %d, name : %s\n", t, t->tid, t->pname);
 	struct child_process* cp = get_child_by_tid(tid);
 	//printf("cp in exec : %p : load : %d\n", cp, cp->load);
     //printf("process_execute end tid: %d && cp->load : %d\n", tid, cp->load);
-    while(cp->not_load == true)
+
+	 	while(cp->not_load == true)
         timer_sleep(1);
     if(cp->load == false)
         return -1;
@@ -193,7 +193,7 @@ static int
 my_wait(pid_t pid)
 {
     //printf("wait\n");
-    //printf("wait start  tid: %d\n",thread_current()->tid);
+   	//printf("wait start  tid: %d\n",thread_current()->tid);
     tid_t tid = (tid_t) pid;
     process_wait(tid);
 }
@@ -316,7 +316,7 @@ my_seek(int fd, unsigned position)
 	
 	struct file *fp = get_file_by_fd(fd);
 	
-	if(fp =  NULL){
+	if(fp == NULL){
 		lock_release(&filesys_lock);
 		return;
 	}
