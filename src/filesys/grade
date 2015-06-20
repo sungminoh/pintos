@@ -1,0 +1,2698 @@
+TOTAL TESTING SCORE: 36.8%
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+SUMMARY BY TEST SET
+
+Test Set                                      Pts Max  % Ttl  % Max
+--------------------------------------------- --- --- ------ ------
+tests/filesys/extended/Rubric.functionality     1/ 34   0.9%/ 30.0%
+tests/filesys/extended/Rubric.robustness        1/ 10   1.5%/ 15.0%
+tests/filesys/extended/Rubric.persistence       0/ 23   0.0%/ 20.0%
+tests/filesys/base/Rubric                      30/ 30  20.0%/ 20.0%
+tests/userprog/Rubric.functionality           102/108   9.4%/ 10.0%
+tests/userprog/Rubric.robustness               88/ 88   5.0%/  5.0%
+--------------------------------------------- --- --- ------ ------
+Total                                                  36.8%/100.0%
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+SUMMARY OF INDIVIDUAL TESTS
+
+Functionality of extended file system (tests/filesys/extended/Rubric.functionality):
+	- Test directory support.
+	  ** 0/ 1 tests/filesys/extended/dir-mkdir
+	  ** 0/ 3 tests/filesys/extended/dir-mk-tree
+
+	  ** 0/ 1 tests/filesys/extended/dir-rmdir
+	  ** 0/ 3 tests/filesys/extended/dir-rm-tree
+
+	  ** 0/ 5 tests/filesys/extended/dir-vine
+
+	- Test file growth.
+	     1/ 1 tests/filesys/extended/grow-create
+	  ** 0/ 1 tests/filesys/extended/grow-seq-sm
+	  ** 0/ 3 tests/filesys/extended/grow-seq-lg
+	  ** 0/ 3 tests/filesys/extended/grow-sparse
+	  ** 0/ 3 tests/filesys/extended/grow-two-files
+	  ** 0/ 1 tests/filesys/extended/grow-tell
+	  ** 0/ 1 tests/filesys/extended/grow-file-size
+
+	- Test directory growth.
+	  ** 0/ 1 tests/filesys/extended/grow-dir-lg
+	  ** 0/ 1 tests/filesys/extended/grow-root-sm
+	  ** 0/ 1 tests/filesys/extended/grow-root-lg
+
+	- Test writing from multiple processes.
+	  ** 0/ 5 tests/filesys/extended/syn-rw
+
+	- Section summary.
+	      1/ 16 tests passed
+	      1/ 34 points subtotal
+
+Robustness of file system (tests/filesys/extended/Rubric.robustness):
+	  ** 0/ 1 tests/filesys/extended/dir-empty-name
+	  ** 0/ 1 tests/filesys/extended/dir-open
+	  ** 0/ 1 tests/filesys/extended/dir-over-file
+	  ** 0/ 1 tests/filesys/extended/dir-under-file
+
+	  ** 0/ 3 tests/filesys/extended/dir-rm-cwd
+	  ** 0/ 2 tests/filesys/extended/dir-rm-parent
+	     1/ 1 tests/filesys/extended/dir-rm-root
+
+	- Section summary.
+	      1/  7 tests passed
+	      1/ 10 points subtotal
+
+Persistence of file system (tests/filesys/extended/Rubric.persistence):
+	  ** 0/ 1 tests/filesys/extended/dir-empty-name-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-mk-tree-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-mkdir-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-open-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-over-file-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-rm-cwd-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-rm-parent-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-rm-root-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-rm-tree-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-rmdir-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-under-file-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-vine-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-create-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-dir-lg-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-file-size-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-root-lg-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-root-sm-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-seq-lg-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-seq-sm-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-sparse-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-tell-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-two-files-persistence
+	  ** 0/ 1 tests/filesys/extended/syn-rw-persistence
+
+	- Section summary.
+	      0/ 23 tests passed
+	      0/ 23 points subtotal
+
+Functionality of base file system (tests/filesys/base/Rubric):
+	- Test basic support for small files.
+	     1/ 1 tests/filesys/base/sm-create
+	     2/ 2 tests/filesys/base/sm-full
+	     2/ 2 tests/filesys/base/sm-random
+	     2/ 2 tests/filesys/base/sm-seq-block
+	     3/ 3 tests/filesys/base/sm-seq-random
+
+	- Test basic support for large files.
+	     1/ 1 tests/filesys/base/lg-create
+	     2/ 2 tests/filesys/base/lg-full
+	     2/ 2 tests/filesys/base/lg-random
+	     2/ 2 tests/filesys/base/lg-seq-block
+	     3/ 3 tests/filesys/base/lg-seq-random
+
+	- Test synchronized multiprogram access to files.
+	     4/ 4 tests/filesys/base/syn-read
+	     4/ 4 tests/filesys/base/syn-write
+	     2/ 2 tests/filesys/base/syn-remove
+
+	- Section summary.
+	     13/ 13 tests passed
+	     30/ 30 points subtotal
+
+Functionality of system calls (tests/userprog/Rubric.functionality):
+	- Test argument passing on Pintos command line.
+	     3/ 3 tests/userprog/args-none
+	     3/ 3 tests/userprog/args-single
+	     3/ 3 tests/userprog/args-multiple
+	     3/ 3 tests/userprog/args-many
+	     3/ 3 tests/userprog/args-dbl-space
+
+	- Test "create" system call.
+	     3/ 3 tests/userprog/create-empty
+	     3/ 3 tests/userprog/create-long
+	     3/ 3 tests/userprog/create-normal
+	     3/ 3 tests/userprog/create-exists
+
+	- Test "open" system call.
+	     3/ 3 tests/userprog/open-missing
+	     3/ 3 tests/userprog/open-normal
+	     3/ 3 tests/userprog/open-twice
+
+	- Test "read" system call.
+	     3/ 3 tests/userprog/read-normal
+	     3/ 3 tests/userprog/read-zero
+
+	- Test "write" system call.
+	     3/ 3 tests/userprog/write-normal
+	     3/ 3 tests/userprog/write-zero
+
+	- Test "close" system call.
+	     3/ 3 tests/userprog/close-normal
+
+	- Test "exec" system call.
+	     5/ 5 tests/userprog/exec-once
+	     5/ 5 tests/userprog/exec-multiple
+	     5/ 5 tests/userprog/exec-arg
+
+	- Test "wait" system call.
+	     5/ 5 tests/userprog/wait-simple
+	     5/ 5 tests/userprog/wait-twice
+
+	- Test "exit" system call.
+	     5/ 5 tests/userprog/exit
+
+	- Test "halt" system call.
+	     3/ 3 tests/userprog/halt
+
+	- Test recursive execution of user programs.
+	    15/15 tests/userprog/multi-recurse
+
+	- Test read-only executable feature.
+	     3/ 3 tests/userprog/rox-simple
+	  ** 0/ 3 tests/userprog/rox-child
+	  ** 0/ 3 tests/userprog/rox-multichild
+
+	- Section summary.
+	     26/ 28 tests passed
+	    102/108 points subtotal
+
+Robustness of system calls (tests/userprog/Rubric.robustness):
+	- Test robustness of file descriptor handling.
+	     2/ 2 tests/userprog/close-stdin
+	     2/ 2 tests/userprog/close-stdout
+	     2/ 2 tests/userprog/close-bad-fd
+	     2/ 2 tests/userprog/close-twice
+	     2/ 2 tests/userprog/read-bad-fd
+	     2/ 2 tests/userprog/read-stdout
+	     2/ 2 tests/userprog/write-bad-fd
+	     2/ 2 tests/userprog/write-stdin
+	     2/ 2 tests/userprog/multi-child-fd
+
+	- Test robustness of pointer handling.
+	     3/ 3 tests/userprog/create-bad-ptr
+	     3/ 3 tests/userprog/exec-bad-ptr
+	     3/ 3 tests/userprog/open-bad-ptr
+	     3/ 3 tests/userprog/read-bad-ptr
+	     3/ 3 tests/userprog/write-bad-ptr
+
+	- Test robustness of buffer copying across page boundaries.
+	     3/ 3 tests/userprog/create-bound
+	     3/ 3 tests/userprog/open-boundary
+	     3/ 3 tests/userprog/read-boundary
+	     3/ 3 tests/userprog/write-boundary
+
+	- Test handling of null pointer and empty strings.
+	     2/ 2 tests/userprog/create-null
+	     2/ 2 tests/userprog/open-null
+	     2/ 2 tests/userprog/open-empty
+
+	- Test robustness of system call implementation.
+	     3/ 3 tests/userprog/sc-bad-arg
+	     3/ 3 tests/userprog/sc-bad-sp
+	     5/ 5 tests/userprog/sc-boundary
+	     5/ 5 tests/userprog/sc-boundary-2
+
+	- Test robustness of "exec" and "wait" system calls.
+	     5/ 5 tests/userprog/exec-missing
+	     5/ 5 tests/userprog/wait-bad-pid
+	     5/ 5 tests/userprog/wait-killed
+
+	- Test robustness of exception handling.
+	     1/ 1 tests/userprog/bad-read
+	     1/ 1 tests/userprog/bad-write
+	     1/ 1 tests/userprog/bad-jump
+	     1/ 1 tests/userprog/bad-read2
+	     1/ 1 tests/userprog/bad-write2
+	     1/ 1 tests/userprog/bad-jump2
+
+	- Section summary.
+	     34/ 34 tests passed
+	     88/ 88 points subtotal
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-mkdir FAILURE:
+
+Test output failed to match any acceptable form.
+
+Acceptable output:
+  (dir-mkdir) begin
+  (dir-mkdir) mkdir "a"
+  (dir-mkdir) create "a/b"
+  (dir-mkdir) chdir "a"
+  (dir-mkdir) open "b"
+  (dir-mkdir) end
+Differences in `diff -u' format:
+  (dir-mkdir) begin
+  (dir-mkdir) mkdir "a"
+- (dir-mkdir) create "a/b"
+- (dir-mkdir) chdir "a"
+- (dir-mkdir) open "b"
+- (dir-mkdir) end
+
+(Process exit codes are excluded for matching purposes.)
+
+OUTPUT FROM tests/filesys/extended/dir-mkdir:
+
+Copying tests/filesys/extended/dir-mkdir to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/Oe34LAC3di.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run dir-mkdir
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  314,163,200 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 232 sectors (116 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'dir-mkdir' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'dir-mkdir':
+(dir-mkdir) begin
+(dir-mkdir) mkdir "a"
+dir-mkdir: exit(-1)
+Execution of 'dir-mkdir' complete.
+Timer: 64 ticks
+Thread: 30 idle ticks, 33 kernel ticks, 1 user ticks
+hdb1 (filesys): 338 reads, 712 writes
+hda2 (scratch): 231 reads, 2 writes
+Console: 1002 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-mk-tree FAILURE:
+
+Test output failed to match any acceptable form.
+
+Acceptable output:
+  (dir-mk-tree) begin
+  (dir-mk-tree) creating /0/0/0/0 through /3/2/2/3...
+  (dir-mk-tree) open "/0/2/0/3"
+  (dir-mk-tree) close "/0/2/0/3"
+  (dir-mk-tree) end
+Differences in `diff -u' format:
+  (dir-mk-tree) begin
+  (dir-mk-tree) creating /0/0/0/0 through /3/2/2/3...
+- (dir-mk-tree) open "/0/2/0/3"
+- (dir-mk-tree) close "/0/2/0/3"
+- (dir-mk-tree) end
+
+(Process exit codes are excluded for matching purposes.)
+
+OUTPUT FROM tests/filesys/extended/dir-mk-tree:
+
+Copying tests/filesys/extended/dir-mk-tree to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/lKrwrL7aBX.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run dir-mk-tree
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  399,360,000 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 237 sectors (118 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'dir-mk-tree' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'dir-mk-tree':
+(dir-mk-tree) begin
+(dir-mk-tree) creating /0/0/0/0 through /3/2/2/3...
+dir-mk-tree: exit(-1)
+Execution of 'dir-mk-tree' complete.
+Timer: 65 ticks
+Thread: 30 idle ticks, 34 kernel ticks, 1 user ticks
+hdb1 (filesys): 333 reads, 727 writes
+hda2 (scratch): 236 reads, 2 writes
+Console: 1044 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-rmdir FAILURE:
+
+Test output failed to match any acceptable form.
+
+Acceptable output:
+  (dir-rmdir) begin
+  (dir-rmdir) mkdir "a"
+  (dir-rmdir) rmdir "a"
+  (dir-rmdir) chdir "a" (must return false)
+  (dir-rmdir) end
+Differences in `diff -u' format:
+  (dir-rmdir) begin
+  (dir-rmdir) mkdir "a"
+- (dir-rmdir) rmdir "a"
+- (dir-rmdir) chdir "a" (must return false)
+- (dir-rmdir) end
+
+(Process exit codes are excluded for matching purposes.)
+
+OUTPUT FROM tests/filesys/extended/dir-rmdir:
+
+Copying tests/filesys/extended/dir-rmdir to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/T4RbNwOLH6.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run dir-rmdir
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  209,510,400 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 232 sectors (116 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'dir-rmdir' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'dir-rmdir':
+(dir-rmdir) begin
+(dir-rmdir) mkdir "a"
+dir-rmdir: exit(-1)
+Execution of 'dir-rmdir' complete.
+Timer: 61 ticks
+Thread: 30 idle ticks, 31 kernel ticks, 1 user ticks
+hdb1 (filesys): 336 reads, 712 writes
+hda2 (scratch): 231 reads, 2 writes
+Console: 1002 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-rm-tree FAILURE:
+
+Test output failed to match any acceptable form.
+
+Acceptable output:
+  (dir-rm-tree) begin
+  (dir-rm-tree) creating /0/0/0/0 through /3/2/2/3...
+  (dir-rm-tree) open "/0/2/0/3"
+  (dir-rm-tree) close "/0/2/0/3"
+  (dir-rm-tree) removing /0/0/0/0 through /3/2/2/3...
+  (dir-rm-tree) open "/3/0/2/0" (must return -1)
+  (dir-rm-tree) end
+Differences in `diff -u' format:
+  (dir-rm-tree) begin
+  (dir-rm-tree) creating /0/0/0/0 through /3/2/2/3...
+- (dir-rm-tree) open "/0/2/0/3"
+- (dir-rm-tree) close "/0/2/0/3"
+- (dir-rm-tree) removing /0/0/0/0 through /3/2/2/3...
+- (dir-rm-tree) open "/3/0/2/0" (must return -1)
+- (dir-rm-tree) end
+
+(Process exit codes are excluded for matching purposes.)
+
+OUTPUT FROM tests/filesys/extended/dir-rm-tree:
+
+Copying tests/filesys/extended/dir-rm-tree to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/DIpNh2WPGv.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run dir-rm-tree
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  419,020,800 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 241 sectors (120 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'dir-rm-tree' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'dir-rm-tree':
+(dir-rm-tree) begin
+(dir-rm-tree) creating /0/0/0/0 through /3/2/2/3...
+dir-rm-tree: exit(-1)
+Execution of 'dir-rm-tree' complete.
+Timer: 63 ticks
+Thread: 30 idle ticks, 32 kernel ticks, 1 user ticks
+hdb1 (filesys): 341 reads, 739 writes
+hda2 (scratch): 240 reads, 2 writes
+Console: 1044 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-vine FAILURE:
+
+Test output failed to match any acceptable form.
+
+Acceptable output:
+  (dir-vine) begin
+  (dir-vine) creating many levels of files and directories...
+  (dir-vine) removing all but top 10 levels of files and directories...
+  (dir-vine) end
+Differences in `diff -u' format:
+  (dir-vine) begin
+  (dir-vine) creating many levels of files and directories...
+- (dir-vine) removing all but top 10 levels of files and directories...
+- (dir-vine) end
+
+(Process exit codes are excluded for matching purposes.)
+
+OUTPUT FROM tests/filesys/extended/dir-vine:
+
+Copying tests/filesys/extended/dir-vine to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/9wWvFG4tXA.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run dir-vine
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  419,020,800 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 239 sectors (119 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'dir-vine' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'dir-vine':
+(dir-vine) begin
+(dir-vine) creating many levels of files and directories...
+dir-vine: exit(-1)
+Execution of 'dir-vine' complete.
+Timer: 63 ticks
+Thread: 30 idle ticks, 32 kernel ticks, 1 user ticks
+hdb1 (filesys): 339 reads, 733 writes
+hda2 (scratch): 238 reads, 2 writes
+Console: 1034 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-seq-sm FAILURE:
+
+run: write 1234 bytes at offset 0 in "testme" failed: FAILED
+
+OUTPUT FROM tests/filesys/extended/grow-seq-sm:
+
+Copying tests/filesys/extended/grow-seq-sm to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/viV0fYBzLf.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run grow-seq-sm
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  392,806,400 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 231 sectors (115 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'grow-seq-sm' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'grow-seq-sm':
+(grow-seq-sm) begin
+(grow-seq-sm) create "testme"
+(grow-seq-sm) open "testme"
+(grow-seq-sm) writing "testme"
+(grow-seq-sm) write 1234 bytes at offset 0 in "testme" failed: FAILED
+grow-seq-sm: exit(1)
+Execution of 'grow-seq-sm' complete.
+Timer: 64 ticks
+Thread: 30 idle ticks, 32 kernel ticks, 2 user ticks
+hdb1 (filesys): 361 reads, 716 writes
+hda2 (scratch): 230 reads, 2 writes
+Console: 1150 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-seq-lg FAILURE:
+
+run: write 1234 bytes at offset 0 in "testme" failed: FAILED
+
+OUTPUT FROM tests/filesys/extended/grow-seq-lg:
+
+Copying tests/filesys/extended/grow-seq-lg to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/YdInebEczw.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run grow-seq-lg
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  415,744,000 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 232 sectors (116 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'grow-seq-lg' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'grow-seq-lg':
+(grow-seq-lg) begin
+(grow-seq-lg) create "testme"
+(grow-seq-lg) open "testme"
+(grow-seq-lg) writing "testme"
+(grow-seq-lg) write 1234 bytes at offset 0 in "testme" failed: FAILED
+grow-seq-lg: exit(1)
+Execution of 'grow-seq-lg' complete.
+Timer: 66 ticks
+Thread: 30 idle ticks, 34 kernel ticks, 2 user ticks
+hdb1 (filesys): 363 reads, 719 writes
+hda2 (scratch): 231 reads, 2 writes
+Console: 1150 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-sparse FAILURE:
+
+run: write "testfile": FAILED
+
+OUTPUT FROM tests/filesys/extended/grow-sparse:
+
+Copying tests/filesys/extended/grow-sparse to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/t29ziWDCUd.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run grow-sparse
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  419,020,800 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 233 sectors (116 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'grow-sparse' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'grow-sparse':
+(grow-sparse) begin
+(grow-sparse) create "testfile"
+(grow-sparse) open "testfile"
+(grow-sparse) seek "testfile"
+(grow-sparse) write "testfile"
+(grow-sparse) write "testfile": FAILED
+grow-sparse: exit(1)
+Execution of 'grow-sparse' complete.
+Timer: 63 ticks
+Thread: 30 idle ticks, 33 kernel ticks, 1 user ticks
+hdb1 (filesys): 368 reads, 722 writes
+hda2 (scratch): 232 reads, 2 writes
+Console: 1153 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-two-files FAILURE:
+
+run: write 250 bytes at offset 0 in "a" returned 0: FAILED
+
+OUTPUT FROM tests/filesys/extended/grow-two-files:
+
+Copying tests/filesys/extended/grow-two-files to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/TTq3Ec4nVU.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run grow-two-files
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  418,201,600 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 236 sectors (118 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'grow-two-files' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'grow-two-files':
+(grow-two-files) begin
+(grow-two-files) create "a"
+(grow-two-files) create "b"
+(grow-two-files) open "a"
+(grow-two-files) open "b"
+(grow-two-files) write "a" and "b" alternately
+(grow-two-files) write 250 bytes at offset 0 in "a" returned 0: FAILED
+grow-two-files: exit(1)
+Execution of 'grow-two-files' complete.
+Timer: 65 ticks
+Thread: 30 idle ticks, 34 kernel ticks, 2 user ticks
+hdb1 (filesys): 388 reads, 738 writes
+hda2 (scratch): 235 reads, 2 writes
+Console: 1235 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-tell FAILURE:
+
+run: write 37 bytes at offset 0 in "foobar" failed: FAILED
+
+OUTPUT FROM tests/filesys/extended/grow-tell:
+
+Copying tests/filesys/extended/grow-tell to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/F9l5Ob0xDZ.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run grow-tell
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  310,886,400 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 232 sectors (116 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'grow-tell' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'grow-tell':
+(grow-tell) begin
+(grow-tell) create "foobar"
+(grow-tell) open "foobar"
+(grow-tell) writing "foobar"
+(grow-tell) write 37 bytes at offset 0 in "foobar" failed: FAILED
+grow-tell: exit(1)
+Execution of 'grow-tell' complete.
+Timer: 69 ticks
+Thread: 30 idle ticks, 36 kernel ticks, 3 user ticks
+hdb1 (filesys): 363 reads, 719 writes
+hda2 (scratch): 231 reads, 2 writes
+Console: 1128 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-file-size FAILURE:
+
+run: write 37 bytes at offset 0 in "testfile" failed: FAILED
+
+OUTPUT FROM tests/filesys/extended/grow-file-size:
+
+Copying tests/filesys/extended/grow-file-size to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/GH28anoi36.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run grow-file-size
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  419,020,800 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 232 sectors (116 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'grow-file-size' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'grow-file-size':
+(grow-file-size) begin
+(grow-file-size) create "testfile"
+(grow-file-size) open "testfile"
+(grow-file-size) writing "testfile"
+(grow-file-size) write 37 bytes at offset 0 in "testfile" failed: FAILED
+grow-file-size: exit(1)
+Execution of 'grow-file-size' complete.
+Timer: 64 ticks
+Thread: 30 idle ticks, 32 kernel ticks, 2 user ticks
+hdb1 (filesys): 363 reads, 719 writes
+hda2 (scratch): 231 reads, 2 writes
+Console: 1186 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-dir-lg FAILURE:
+
+Test output failed to match any acceptable form.
+
+Acceptable output:
+  (grow-dir-lg) begin
+  (grow-dir-lg) mkdir /x
+  (grow-dir-lg) creating and checking "/x/file0"
+  (grow-dir-lg) creating and checking "/x/file1"
+  (grow-dir-lg) creating and checking "/x/file2"
+  (grow-dir-lg) creating and checking "/x/file3"
+  (grow-dir-lg) creating and checking "/x/file4"
+  (grow-dir-lg) creating and checking "/x/file5"
+  (grow-dir-lg) creating and checking "/x/file6"
+  (grow-dir-lg) creating and checking "/x/file7"
+  (grow-dir-lg) creating and checking "/x/file8"
+  (grow-dir-lg) creating and checking "/x/file9"
+  (grow-dir-lg) creating and checking "/x/file10"
+  (grow-dir-lg) creating and checking "/x/file11"
+  (grow-dir-lg) creating and checking "/x/file12"
+  (grow-dir-lg) creating and checking "/x/file13"
+  (grow-dir-lg) creating and checking "/x/file14"
+  (grow-dir-lg) creating and checking "/x/file15"
+  (grow-dir-lg) creating and checking "/x/file16"
+  (grow-dir-lg) creating and checking "/x/file17"
+  (grow-dir-lg) creating and checking "/x/file18"
+  (grow-dir-lg) creating and checking "/x/file19"
+  (grow-dir-lg) creating and checking "/x/file20"
+  (grow-dir-lg) creating and checking "/x/file21"
+  (grow-dir-lg) creating and checking "/x/file22"
+  (grow-dir-lg) creating and checking "/x/file23"
+  (grow-dir-lg) creating and checking "/x/file24"
+  (grow-dir-lg) creating and checking "/x/file25"
+  (grow-dir-lg) creating and checking "/x/file26"
+  (grow-dir-lg) creating and checking "/x/file27"
+  (grow-dir-lg) creating and checking "/x/file28"
+  (grow-dir-lg) creating and checking "/x/file29"
+  (grow-dir-lg) creating and checking "/x/file30"
+  (grow-dir-lg) creating and checking "/x/file31"
+  (grow-dir-lg) creating and checking "/x/file32"
+  (grow-dir-lg) creating and checking "/x/file33"
+  (grow-dir-lg) creating and checking "/x/file34"
+  (grow-dir-lg) creating and checking "/x/file35"
+  (grow-dir-lg) creating and checking "/x/file36"
+  (grow-dir-lg) creating and checking "/x/file37"
+  (grow-dir-lg) creating and checking "/x/file38"
+  (grow-dir-lg) creating and checking "/x/file39"
+  (grow-dir-lg) creating and checking "/x/file40"
+  (grow-dir-lg) creating and checking "/x/file41"
+  (grow-dir-lg) creating and checking "/x/file42"
+  (grow-dir-lg) creating and checking "/x/file43"
+  (grow-dir-lg) creating and checking "/x/file44"
+  (grow-dir-lg) creating and checking "/x/file45"
+  (grow-dir-lg) creating and checking "/x/file46"
+  (grow-dir-lg) creating and checking "/x/file47"
+  (grow-dir-lg) creating and checking "/x/file48"
+  (grow-dir-lg) creating and checking "/x/file49"
+  (grow-dir-lg) end
+Differences in `diff -u' format:
+  (grow-dir-lg) begin
+  (grow-dir-lg) mkdir /x
+- (grow-dir-lg) creating and checking "/x/file0"
+- (grow-dir-lg) creating and checking "/x/file1"
+- (grow-dir-lg) creating and checking "/x/file2"
+- (grow-dir-lg) creating and checking "/x/file3"
+- (grow-dir-lg) creating and checking "/x/file4"
+- (grow-dir-lg) creating and checking "/x/file5"
+- (grow-dir-lg) creating and checking "/x/file6"
+- (grow-dir-lg) creating and checking "/x/file7"
+- (grow-dir-lg) creating and checking "/x/file8"
+- (grow-dir-lg) creating and checking "/x/file9"
+- (grow-dir-lg) creating and checking "/x/file10"
+- (grow-dir-lg) creating and checking "/x/file11"
+- (grow-dir-lg) creating and checking "/x/file12"
+- (grow-dir-lg) creating and checking "/x/file13"
+- (grow-dir-lg) creating and checking "/x/file14"
+- (grow-dir-lg) creating and checking "/x/file15"
+- (grow-dir-lg) creating and checking "/x/file16"
+- (grow-dir-lg) creating and checking "/x/file17"
+- (grow-dir-lg) creating and checking "/x/file18"
+- (grow-dir-lg) creating and checking "/x/file19"
+- (grow-dir-lg) creating and checking "/x/file20"
+- (grow-dir-lg) creating and checking "/x/file21"
+- (grow-dir-lg) creating and checking "/x/file22"
+- (grow-dir-lg) creating and checking "/x/file23"
+- (grow-dir-lg) creating and checking "/x/file24"
+- (grow-dir-lg) creating and checking "/x/file25"
+- (grow-dir-lg) creating and checking "/x/file26"
+- (grow-dir-lg) creating and checking "/x/file27"
+- (grow-dir-lg) creating and checking "/x/file28"
+- (grow-dir-lg) creating and checking "/x/file29"
+- (grow-dir-lg) creating and checking "/x/file30"
+- (grow-dir-lg) creating and checking "/x/file31"
+- (grow-dir-lg) creating and checking "/x/file32"
+- (grow-dir-lg) creating and checking "/x/file33"
+- (grow-dir-lg) creating and checking "/x/file34"
+- (grow-dir-lg) creating and checking "/x/file35"
+- (grow-dir-lg) creating and checking "/x/file36"
+- (grow-dir-lg) creating and checking "/x/file37"
+- (grow-dir-lg) creating and checking "/x/file38"
+- (grow-dir-lg) creating and checking "/x/file39"
+- (grow-dir-lg) creating and checking "/x/file40"
+- (grow-dir-lg) creating and checking "/x/file41"
+- (grow-dir-lg) creating and checking "/x/file42"
+- (grow-dir-lg) creating and checking "/x/file43"
+- (grow-dir-lg) creating and checking "/x/file44"
+- (grow-dir-lg) creating and checking "/x/file45"
+- (grow-dir-lg) creating and checking "/x/file46"
+- (grow-dir-lg) creating and checking "/x/file47"
+- (grow-dir-lg) creating and checking "/x/file48"
+- (grow-dir-lg) creating and checking "/x/file49"
+- (grow-dir-lg) end
+
+(Process exit codes are excluded for matching purposes.)
+
+OUTPUT FROM tests/filesys/extended/grow-dir-lg:
+
+Copying tests/filesys/extended/grow-dir-lg to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/vmzUx3Vufp.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run grow-dir-lg
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  415,744,000 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 233 sectors (116 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'grow-dir-lg' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'grow-dir-lg':
+(grow-dir-lg) begin
+(grow-dir-lg) mkdir /x
+grow-dir-lg: exit(-1)
+Execution of 'grow-dir-lg' complete.
+Timer: 64 ticks
+Thread: 30 idle ticks, 33 kernel ticks, 1 user ticks
+hdb1 (filesys): 341 reads, 715 writes
+hda2 (scratch): 232 reads, 2 writes
+Console: 1015 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-root-sm FAILURE:
+
+run: write 512 bytes at offset 0 in "file1" failed: FAILED
+
+OUTPUT FROM tests/filesys/extended/grow-root-sm:
+
+Copying tests/filesys/extended/grow-root-sm to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/B_hlvIfLiX.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run grow-root-sm
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  419,020,800 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 233 sectors (116 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'grow-root-sm' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'grow-root-sm':
+(grow-root-sm) begin
+(grow-root-sm) creating and checking "file0"
+(grow-root-sm) creating and checking "file1"
+(grow-root-sm) write 512 bytes at offset 0 in "file1" failed: FAILED
+grow-root-sm: exit(1)
+Execution of 'grow-root-sm' complete.
+Timer: 64 ticks
+Thread: 30 idle ticks, 32 kernel ticks, 2 user ticks
+hdb1 (filesys): 403 reads, 736 writes
+hda2 (scratch): 232 reads, 2 writes
+Console: 1156 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-root-lg FAILURE:
+
+run: write 512 bytes at offset 0 in "file1" failed: FAILED
+
+OUTPUT FROM tests/filesys/extended/grow-root-lg:
+
+Copying tests/filesys/extended/grow-root-lg to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/iWB4f3Tz_O.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run grow-root-lg
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  419,020,800 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 233 sectors (116 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'grow-root-lg' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'grow-root-lg':
+(grow-root-lg) begin
+(grow-root-lg) creating and checking "file0"
+(grow-root-lg) creating and checking "file1"
+(grow-root-lg) write 512 bytes at offset 0 in "file1" failed: FAILED
+grow-root-lg: exit(1)
+Execution of 'grow-root-lg' complete.
+Timer: 64 ticks
+Thread: 30 idle ticks, 32 kernel ticks, 2 user ticks
+hdb1 (filesys): 403 reads, 736 writes
+hda2 (scratch): 232 reads, 2 writes
+Console: 1156 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/syn-rw FAILURE:
+
+run: TIMEOUT after 61 seconds of wall-clock time - load average: 0.92, 0.57, 0.42
+
+OUTPUT FROM tests/filesys/extended/syn-rw:
+
+Copying tests/filesys/extended/syn-rw to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+Copying tests/filesys/extended/child-syn-rw to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/C5ouwb8uwj.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run syn-rw
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  405,913,600 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 351 sectors (175 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'syn-rw' into the file system...
+Putting 'tar' into the file system...
+Putting 'child-syn-rw' into the file system...
+Erasing ustar archive...
+Executing 'syn-rw':
+(syn-rw) begin
+(syn-rw) create "logfile"
+(syn-rw) open "logfile"
+(syn-rw) exec child 1 of 4: "child-syn-rw 0"
+
+TIMEOUT after 61 seconds of wall-clock time - load average: 0.92, 0.57, 0.42
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-empty-name FAILURE:
+
+Test output failed to match any acceptable form.
+
+Acceptable output:
+  (dir-empty-name) begin
+  (dir-empty-name) mkdir "" (must return false)
+  (dir-empty-name) end
+Differences in `diff -u' format:
+  (dir-empty-name) begin
+  (dir-empty-name) mkdir "" (must return false)
+- (dir-empty-name) end
+
+(Process exit codes are excluded for matching purposes.)
+
+OUTPUT FROM tests/filesys/extended/dir-empty-name:
+
+Copying tests/filesys/extended/dir-empty-name to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/7ajQZCr2Oa.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run dir-empty-name
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  314,163,200 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 231 sectors (115 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'dir-empty-name' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'dir-empty-name':
+(dir-empty-name) begin
+(dir-empty-name) mkdir "" (must return false)
+dir-empty-name: exit(-1)
+Execution of 'dir-empty-name' complete.
+Timer: 65 ticks
+Thread: 30 idle ticks, 34 kernel ticks, 1 user ticks
+hdb1 (filesys): 335 reads, 709 writes
+hda2 (scratch): 230 reads, 2 writes
+Console: 1056 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-open FAILURE:
+
+Test output failed to match any acceptable form.
+
+Acceptable output:
+  (dir-open) begin
+  (dir-open) mkdir "xyzzy"
+  (dir-open) open "xyzzy"
+  (dir-open) write "xyzzy"
+  (dir-open) write "xyzzy" (must return -1, actually -1)
+  (dir-open) end
+  dir-open: exit(0)
+Differences in `diff -u' format:
+  (dir-open) begin
+  (dir-open) mkdir "xyzzy"
+- (dir-open) open "xyzzy"
+- (dir-open) write "xyzzy"
+- (dir-open) write "xyzzy" (must return -1, actually -1)
+- (dir-open) end
+- dir-open: exit(0)
++ dir-open: exit(-1)
+Acceptable output:
+  (dir-open) begin
+  (dir-open) mkdir "xyzzy"
+  (dir-open) open "xyzzy"
+  (dir-open) write "xyzzy"
+  dir-open: exit(-1)
+Differences in `diff -u' format:
+  (dir-open) begin
+  (dir-open) mkdir "xyzzy"
+- (dir-open) open "xyzzy"
+- (dir-open) write "xyzzy"
+  dir-open: exit(-1)
+
+OUTPUT FROM tests/filesys/extended/dir-open:
+
+Copying tests/filesys/extended/dir-open to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/Vu_k3Menbj.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run dir-open
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  261,324,800 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 232 sectors (116 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'dir-open' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'dir-open':
+(dir-open) begin
+(dir-open) mkdir "xyzzy"
+dir-open: exit(-1)
+Execution of 'dir-open' complete.
+Timer: 67 ticks
+Thread: 30 idle ticks, 36 kernel ticks, 1 user ticks
+hdb1 (filesys): 340 reads, 712 writes
+hda2 (scratch): 231 reads, 2 writes
+Console: 999 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-over-file FAILURE:
+
+Test output failed to match any acceptable form.
+
+Acceptable output:
+  (dir-over-file) begin
+  (dir-over-file) mkdir "abc"
+  (dir-over-file) create "abc" (must return false)
+  (dir-over-file) end
+Differences in `diff -u' format:
+  (dir-over-file) begin
+  (dir-over-file) mkdir "abc"
+- (dir-over-file) create "abc" (must return false)
+- (dir-over-file) end
+
+(Process exit codes are excluded for matching purposes.)
+
+OUTPUT FROM tests/filesys/extended/dir-over-file:
+
+Copying tests/filesys/extended/dir-over-file to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/pT___mV_13.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run dir-over-file
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  419,020,800 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 232 sectors (116 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'dir-over-file' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'dir-over-file':
+(dir-over-file) begin
+(dir-over-file) mkdir "abc"
+dir-over-file: exit(-1)
+Execution of 'dir-over-file' complete.
+Timer: 64 ticks
+Thread: 30 idle ticks, 34 kernel ticks, 0 user ticks
+hdb1 (filesys): 336 reads, 712 writes
+hda2 (scratch): 231 reads, 2 writes
+Console: 1032 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-under-file FAILURE:
+
+Test output failed to match any acceptable form.
+
+Acceptable output:
+  (dir-under-file) begin
+  (dir-under-file) create "abc"
+  (dir-under-file) mkdir "abc" (must return false)
+  (dir-under-file) end
+Differences in `diff -u' format:
+  (dir-under-file) begin
+  (dir-under-file) create "abc"
+  (dir-under-file) mkdir "abc" (must return false)
+- (dir-under-file) end
+
+(Process exit codes are excluded for matching purposes.)
+
+OUTPUT FROM tests/filesys/extended/dir-under-file:
+
+Copying tests/filesys/extended/dir-under-file to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/yPeeul4upL.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run dir-under-file
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  419,020,800 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 232 sectors (116 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'dir-under-file' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'dir-under-file':
+(dir-under-file) begin
+(dir-under-file) create "abc"
+(dir-under-file) mkdir "abc" (must return false)
+dir-under-file: exit(-1)
+Execution of 'dir-under-file' complete.
+Timer: 64 ticks
+Thread: 30 idle ticks, 33 kernel ticks, 1 user ticks
+hdb1 (filesys): 358 reads, 717 writes
+hda2 (scratch): 231 reads, 2 writes
+Console: 1089 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-rm-cwd FAILURE:
+
+Kernel panic in run: PANIC at ../../threads/synch.c:267 in lock_acquire(): assertion `!lock_held_by_current_thread (lock)' failed.
+Call stack: 0xc00286ae 0x804a759
+Translation of call stack:
+In kernel.o:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+In tests/filesys/extended/dir-rm-cwd:
+0x0804a759: write (...../lib/user/syscall.c:123)
+Translations of user virtual addresses above are based on a guess at
+the binary to use.  If this guess is incorrect, then those
+translations will be misleading.
+
+OUTPUT FROM tests/filesys/extended/dir-rm-cwd:
+
+Copying tests/filesys/extended/dir-rm-cwd to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/0As3xrlgfm.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run dir-rm-cwd
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  313,753,600 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 239 sectors (119 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'dir-rm-cwd' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'dir-rm-cwd':
+(dir-rm-cwd) begin
+(dir-rm-cwd) open "/"
+Kernel PANIC at ../../threads/synch.c:267 in lock_acquire(): assertion `!lock_held_by_current_thread (lock)' failed.
+Call stack: 0xc00286ae 0x804a759.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 65 ticks
+Thread: 30 idle ticks, 35 kernel ticks, 0 user ticks
+hdb1 (filesys): 340 reads, 732 writes
+hda2 (scratch): 238 reads, 2 writes
+Console: 1330 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-rm-parent FAILURE:
+
+Test output failed to match any acceptable form.
+
+Acceptable output:
+  (dir-rm-parent) begin
+  (dir-rm-parent) mkdir "a"
+  (dir-rm-parent) chdir "a"
+  (dir-rm-parent) mkdir "b"
+  (dir-rm-parent) chdir "b"
+  (dir-rm-parent) remove "/a" (must fail)
+  (dir-rm-parent) end
+Differences in `diff -u' format:
+  (dir-rm-parent) begin
+  (dir-rm-parent) mkdir "a"
+- (dir-rm-parent) chdir "a"
+- (dir-rm-parent) mkdir "b"
+- (dir-rm-parent) chdir "b"
+- (dir-rm-parent) remove "/a" (must fail)
+- (dir-rm-parent) end
+
+(Process exit codes are excluded for matching purposes.)
+
+OUTPUT FROM tests/filesys/extended/dir-rm-parent:
+
+Copying tests/filesys/extended/dir-rm-parent to scratch partition...
+Copying tests/filesys/extended/tar to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/UiXXOOS7fU.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run dir-rm-parent
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  209,510,400 loops/s.
+hda: 1,008 sectors (504 kB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 232 sectors (116 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'dir-rm-parent' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'dir-rm-parent':
+(dir-rm-parent) begin
+(dir-rm-parent) mkdir "a"
+dir-rm-parent: exit(-1)
+Execution of 'dir-rm-parent' complete.
+Timer: 64 ticks
+Thread: 30 idle ticks, 33 kernel ticks, 1 user ticks
+hdb1 (filesys): 340 reads, 712 writes
+hda2 (scratch): 231 reads, 2 writes
+Console: 1030 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-empty-name-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/dir-empty-name failed.
+
+OUTPUT FROM tests/filesys/extended/dir-empty-name-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/sMCdq2p3Co.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  418,201,600 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 56 ticks
+Thread: 30 idle ticks, 24 kernel ticks, 2 user ticks
+hdb1 (filesys): 102 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/dir-empty-name.tar out of /tmp/sMCdq2p3Co.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-mk-tree-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/dir-mk-tree failed.
+
+OUTPUT FROM tests/filesys/extended/dir-mk-tree-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/jCiBzcrDT9.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  419,020,800 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 55 ticks
+Thread: 30 idle ticks, 23 kernel ticks, 2 user ticks
+hdb1 (filesys): 102 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/dir-mk-tree.tar out of /tmp/jCiBzcrDT9.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-mkdir-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/dir-mkdir failed.
+
+OUTPUT FROM tests/filesys/extended/dir-mkdir-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/2sx96D1FYR.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  418,201,600 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 56 ticks
+Thread: 30 idle ticks, 24 kernel ticks, 2 user ticks
+hdb1 (filesys): 102 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/dir-mkdir.tar out of /tmp/2sx96D1FYR.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-open-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/dir-open failed.
+
+OUTPUT FROM tests/filesys/extended/dir-open-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/Bs5SOOow4L.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  405,094,400 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 57 ticks
+Thread: 30 idle ticks, 25 kernel ticks, 2 user ticks
+hdb1 (filesys): 102 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/dir-open.tar out of /tmp/Bs5SOOow4L.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-over-file-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/dir-over-file failed.
+
+OUTPUT FROM tests/filesys/extended/dir-over-file-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/00MSfYmfKQ.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  274,841,600 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 58 ticks
+Thread: 30 idle ticks, 26 kernel ticks, 2 user ticks
+hdb1 (filesys): 102 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/dir-over-file.tar out of /tmp/00MSfYmfKQ.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-rm-cwd-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/dir-rm-cwd failed.
+
+OUTPUT FROM tests/filesys/extended/dir-rm-cwd-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/KyTguQC3be.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  209,510,400 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 54 ticks
+Thread: 30 idle ticks, 22 kernel ticks, 2 user ticks
+hdb1 (filesys): 102 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/dir-rm-cwd.tar out of /tmp/KyTguQC3be.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-rm-parent-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/dir-rm-parent failed.
+
+OUTPUT FROM tests/filesys/extended/dir-rm-parent-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/0Ju8KFkasO.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  419,020,800 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 55 ticks
+Thread: 30 idle ticks, 23 kernel ticks, 2 user ticks
+hdb1 (filesys): 102 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/dir-rm-parent.tar out of /tmp/0Ju8KFkasO.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-rm-root-persistence FAILURE:
+
+Kernel panic in file system extraction run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae
+Translation of call stack:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+
+OUTPUT FROM tests/filesys/extended/dir-rm-root-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/MrWMn6OEPK.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  419,020,800 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 55 ticks
+Thread: 30 idle ticks, 23 kernel ticks, 2 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/dir-rm-root.tar out of /tmp/MrWMn6OEPK.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-rm-tree-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/dir-rm-tree failed.
+
+OUTPUT FROM tests/filesys/extended/dir-rm-tree-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/XpyrkAXQf0.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  418,611,200 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 56 ticks
+Thread: 30 idle ticks, 24 kernel ticks, 2 user ticks
+hdb1 (filesys): 102 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/dir-rm-tree.tar out of /tmp/XpyrkAXQf0.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-rmdir-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/dir-rmdir failed.
+
+OUTPUT FROM tests/filesys/extended/dir-rmdir-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/OxZe2mvUbJ.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  314,163,200 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 56 ticks
+Thread: 30 idle ticks, 24 kernel ticks, 2 user ticks
+hdb1 (filesys): 102 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/dir-rmdir.tar out of /tmp/OxZe2mvUbJ.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-under-file-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/dir-under-file failed.
+
+OUTPUT FROM tests/filesys/extended/dir-under-file-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/2Edhf8nli4.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  366,592,000 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 56 ticks
+Thread: 30 idle ticks, 24 kernel ticks, 2 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/dir-under-file.tar out of /tmp/2Edhf8nli4.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-vine-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/dir-vine failed.
+
+OUTPUT FROM tests/filesys/extended/dir-vine-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/6VSmjAzYCo.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  417,382,400 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 57 ticks
+Thread: 30 idle ticks, 24 kernel ticks, 3 user ticks
+hdb1 (filesys): 102 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/dir-vine.tar out of /tmp/6VSmjAzYCo.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-create-persistence FAILURE:
+
+Kernel panic in file system extraction run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae
+Translation of call stack:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+
+OUTPUT FROM tests/filesys/extended/grow-create-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/lwwRZjomJ6.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  415,744,000 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 56 ticks
+Thread: 30 idle ticks, 24 kernel ticks, 2 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/grow-create.tar out of /tmp/lwwRZjomJ6.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-dir-lg-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/grow-dir-lg failed.
+
+OUTPUT FROM tests/filesys/extended/grow-dir-lg-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/R2Mk42J1S_.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  314,163,200 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 58 ticks
+Thread: 30 idle ticks, 26 kernel ticks, 2 user ticks
+hdb1 (filesys): 102 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/grow-dir-lg.tar out of /tmp/R2Mk42J1S_.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-file-size-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/grow-file-size failed.
+
+OUTPUT FROM tests/filesys/extended/grow-file-size-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/PUSbFg_Hl8.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  408,780,800 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 59 ticks
+Thread: 30 idle ticks, 27 kernel ticks, 2 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/grow-file-size.tar out of /tmp/PUSbFg_Hl8.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-root-lg-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/grow-root-lg failed.
+
+OUTPUT FROM tests/filesys/extended/grow-root-lg-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/e5YwpyJSqV.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  419,020,800 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 55 ticks
+Thread: 30 idle ticks, 23 kernel ticks, 2 user ticks
+hdb1 (filesys): 106 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/grow-root-lg.tar out of /tmp/e5YwpyJSqV.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-root-sm-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/grow-root-sm failed.
+
+OUTPUT FROM tests/filesys/extended/grow-root-sm-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/xnwdWNTdLn.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  419,020,800 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 55 ticks
+Thread: 30 idle ticks, 23 kernel ticks, 2 user ticks
+hdb1 (filesys): 106 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/grow-root-sm.tar out of /tmp/xnwdWNTdLn.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-seq-lg-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/grow-seq-lg failed.
+
+OUTPUT FROM tests/filesys/extended/grow-seq-lg-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/TOr3lIh177.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  412,467,200 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 56 ticks
+Thread: 30 idle ticks, 24 kernel ticks, 2 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/grow-seq-lg.tar out of /tmp/TOr3lIh177.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-seq-sm-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/grow-seq-sm failed.
+
+OUTPUT FROM tests/filesys/extended/grow-seq-sm-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/zMkkAs7D6x.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  419,020,800 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 55 ticks
+Thread: 30 idle ticks, 23 kernel ticks, 2 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/grow-seq-sm.tar out of /tmp/zMkkAs7D6x.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-sparse-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/grow-sparse failed.
+
+OUTPUT FROM tests/filesys/extended/grow-sparse-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/NtwStijCP3.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  419,020,800 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 55 ticks
+Thread: 30 idle ticks, 23 kernel ticks, 2 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/grow-sparse.tar out of /tmp/NtwStijCP3.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-tell-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/grow-tell failed.
+
+OUTPUT FROM tests/filesys/extended/grow-tell-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/lmEGv28obC.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  415,744,000 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 56 ticks
+Thread: 30 idle ticks, 24 kernel ticks, 2 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/grow-tell.tar out of /tmp/lmEGv28obC.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-two-files-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/grow-two-files failed.
+
+OUTPUT FROM tests/filesys/extended/grow-two-files-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/GGB3PDLyNA.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  419,020,800 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 55 ticks
+Thread: 30 idle ticks, 23 kernel ticks, 2 user ticks
+hdb1 (filesys): 106 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/grow-two-files.tar out of /tmp/GGB3PDLyNA.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/syn-rw-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/syn-rw failed.
+
+OUTPUT FROM tests/filesys/extended/syn-rw-persistence:
+
+qemu-system-i386 -device isa-debug-exit -hda /tmp/R4R50DyIgU.dsk -hdb tmp.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.tar /' append fs.tar
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  419,020,800 loops/s.
+hda: 3,024 sectors (1 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "QM00002", serial "QEMU HARDDISK"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 55 ticks
+Thread: 30 idle ticks, 23 kernel ticks, 2 user ticks
+hdb1 (filesys): 106 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...
+Copying tests/filesys/extended/syn-rw.tar out of /tmp/R4R50DyIgU.dsk...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/userprog/rox-child FAILURE:
+
+run: try to write "child-rox": FAILED
+
+OUTPUT FROM tests/userprog/rox-child:
+
+Copying tests/userprog/rox-child to scratch partition...
+Copying tests/userprog/child-rox to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/Mqmk3jAPfG.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run rox-child
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  314,163,200 loops/s.
+hda: 5,040 sectors (2 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 4,096 sectors (2 MB), Pintos file system (21)
+hda3: 217 sectors (108 kB), Pintos scratch (22)
+filesys: using hda2
+scratch: using hda3
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'rox-child' into the file system...
+Putting 'child-rox' into the file system...
+Erasing ustar archive...
+Executing 'rox-child':
+(rox-child) begin
+(rox-child) open "child-rox"
+(rox-child) read "child-rox"
+(rox-child) write "child-rox"
+(rox-child) exec "child-rox 1"
+(child-rox) begin
+(child-rox) try to write "child-rox"
+(child-rox) try to write "child-rox"
+(child-rox) try to write "child-rox": FAILED
+child-rox: exit(1)
+(rox-child) wait for child: FAILED
+rox-child: exit(1)
+Execution of 'rox-child' complete.
+Timer: 66 ticks
+Thread: 30 idle ticks, 33 kernel ticks, 3 user ticks
+hda2 (filesys): 392 reads, 672 writes
+hda3 (scratch): 216 reads, 2 writes
+Console: 1226 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/userprog/rox-multichild FAILURE:
+
+run: try to write "child-rox": FAILED
+
+OUTPUT FROM tests/userprog/rox-multichild:
+
+Copying tests/userprog/rox-multichild to scratch partition...
+Copying tests/userprog/child-rox to scratch partition...
+qemu-system-i386 -device isa-debug-exit -hda /tmp/Oi6EfsWa5W.dsk -m 4 -net none -nographic -monitor null
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run rox-multichild
+Pintos booting with 3,968 kB RAM...
+367 pages available in kernel pool.
+367 pages available in user pool.
+Calibrating timer...  209,510,400 loops/s.
+hda: 5,040 sectors (2 MB), model "QM00001", serial "QEMU HARDDISK"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 4,096 sectors (2 MB), Pintos file system (21)
+hda3: 217 sectors (108 kB), Pintos scratch (22)
+filesys: using hda2
+scratch: using hda3
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'rox-multichild' into the file system...
+Putting 'child-rox' into the file system...
+Erasing ustar archive...
+Executing 'rox-multichild':
+(rox-multichild) begin
+(rox-multichild) open "child-rox"
+(rox-multichild) read "child-rox"
+(rox-multichild) write "child-rox"
+(rox-multichild) exec "child-rox 5"
+(child-rox) begin
+(child-rox) try to write "child-rox"
+(child-rox) exec "child-rox 4"
+(child-rox) begin
+(child-rox) try to write "child-rox"
+(child-rox) exec "child-rox 3"
+(child-rox) begin
+(child-rox) try to write "child-rox"
+(child-rox) exec "child-rox 2"
+(child-rox) begin
+(child-rox) try to write "child-rox"
+(child-rox) exec "child-rox 1"
+(child-rox) begin
+(child-rox) try to write "child-rox"
+(child-rox) try to write "child-rox"
+(child-rox) try to write "child-rox": FAILED
+child-rox: exit(1)
+(child-rox) wait for "child-rox": FAILED
+child-rox: exit(1)
+(child-rox) wait for "child-rox": FAILED
+child-rox: exit(1)
+(child-rox) wait for "child-rox": FAILED
+child-rox: exit(1)
+(child-rox) wait for "child-rox": FAILED
+child-rox: exit(1)
+(rox-multichild) wait for child: FAILED
+rox-multichild: exit(1)
+Execution of 'rox-multichild' complete.
+Timer: 70 ticks
+Thread: 33 idle ticks, 30 kernel ticks, 7 user ticks
+hda2 (filesys): 632 reads, 680 writes
+hda3 (scratch): 216 reads, 2 writes
+Console: 1865 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
