@@ -152,19 +152,19 @@ bool my_mkdir(const char* dir){
   return filesys_create(dir, 0, true);
 }
 bool my_readdir(int fd, char* name){
-  struct process_file *pf = process_get_file(fd);
+  struct process_file *pf = get_process_file_by_fd(fd);
   if(!pf) return false;
   if(!pf->isdir) return false;
   if(!dir_readdir(pf->dir, name)) return false;
   return true;
 }
 bool my_isdir(int fd){
-  struct process_file* pf = process_get_file(fd);
+  struct process_file* pf = get_process_file_by_fd(fd);
   if(!pf) my_exit(-1);
   return pf->isdir;
 }
-int inumber(int fd){
-  struct process_file* pf = process_get_file(fd);
+int my_inumber(int fd){
+  struct process_file* pf = get_process_file_by_fd(fd);
   if(!pf) my_exit(-1);
   block_sector_t inumber;
   if(pf->isdir){
@@ -402,7 +402,7 @@ static int
 my_filesize(int fd)
 {
 	lock_acquire(&filesys_lock);
-	struct process_file * fp = get_process_file_by_fd(fd);
+	struct process_file * pf = get_process_file_by_fd(fd);
 
 	if(pf == NULL){
 		lock_release(&filesys_lock);
@@ -430,7 +430,7 @@ my_read(int fd, void *buffer, unsigned size)
 		return size;
 	}
 	
-	struct process_file * fp = get_process_file_by_fd(fd);
+	struct process_file * pf = get_process_file_by_fd(fd);
 	
 	if(!pf){
 		lock_release(&filesys_lock);
@@ -466,7 +466,7 @@ my_tell(int fd)
 {
 	lock_acquire(&filesys_lock);
 	
-	struct process_file * fp = get_process_file_by_fd(fd);
+	struct process_file * pf = get_process_file_by_fd(fd);
 
 	if(!pf){
 		lock_release(&filesys_lock);
@@ -520,7 +520,7 @@ my_close(int fd)
 }
 
 /* sungmin - start */
-struct file * get_process_file_by_fd(int fd){
+struct process_file * get_process_file_by_fd(int fd){
   struct thread *t = thread_current();
 	struct list_elem *e = list_begin(&t->file_list);
 	struct process_file *pf;
@@ -565,4 +565,16 @@ struct child_process * get_child_by_tid (int tid){
 			return cp;
 	}
 	return NULL;
+}
+
+int process_add_dir(struct dir* d){
+  struct process_file* pf = malloc(sizeof(struct process_file));
+  if(!pf) my_exit(-1);
+  pf->dir = d;
+  pf->isdir = true;
+  pf->fd = thread_current()->fd;
+  thread_current()->fd++;
+  list_push_back(&thread_current()->file_list, &pf->elem);
+  return pf->fd;
+
 }

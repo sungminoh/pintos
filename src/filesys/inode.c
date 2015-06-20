@@ -4,7 +4,7 @@
 #include <round.h>
 #include <string.h>
 //#include "filesys/cache.h" //sungmin
-//#include "threads/synch.h"// sungmin
+#include "threads/synch.h"// sungmin
 #include "filesys/filesys.h"
 #include "filesys/free-map.h"
 #include "threads/malloc.h"
