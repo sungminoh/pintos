@@ -63,6 +63,8 @@ filesys_create (const char *name, off_t initial_size, bool isdir) /*sungmin*/
   struct dir *dir = get_containing_dir(name); //dir_open_root(); //
   /* sungmin - start */
   char* file_name = get_filename(name); //name;
+//  printf("sungmin, filesys_create input name: %s\n", name);
+//  printf("sungmin, filesys_create input name trimed: %s\n", file_name);
   bool success = false;
   if(strcmp(file_name, ".") != 0 && strcmp(file_name, "..") != 0){
     success = (dir != NULL
@@ -70,6 +72,7 @@ filesys_create (const char *name, off_t initial_size, bool isdir) /*sungmin*/
         && inode_create (inode_sector, initial_size, isdir)
         && dir_add (dir, file_name, inode_sector));
   }
+//  printf("sungmin, filesys_create success?: %d\n", success);
   /* sungmin - end */
   /* original code *
   bool success = (dir != NULL
@@ -230,50 +233,53 @@ struct dir* get_containing_dir (const char* path)
   char *save_ptr, *next_token = NULL, *token = strtok_r(s, "/", &save_ptr);
   struct dir* dir;
   if (s[0] == ASCII_SLASH || !thread_current()->cwd)
-    {
-      dir = dir_open_root();
-    }
-  else
-    {
-      dir = dir_reopen(thread_current()->cwd);
-    }
-
-  if (token)
-    {
-      next_token = strtok_r(NULL, "/", &save_ptr);
-    }
-  while (next_token != NULL)
-    {
-      if (strcmp(token, ".") != 0)
   {
-    struct inode *inode;
-    if (strcmp(token, "..") == 0)
+    dir = dir_open_root();
+  }
+  else
+  {
+    dir = dir_reopen(thread_current()->cwd);
+  }
+
+//  printf("sungmin, get_containing_dir token: %s\n", token);
+  if (token)
+  {
+    next_token = strtok_r(NULL, "/", &save_ptr);
+  }
+//  printf("sungmin, get_containing_dir next token: %s\n", next_token);
+  while (next_token != NULL)
+  {
+    if (strcmp(token, ".") != 0)
+    {
+      struct inode *inode;
+      if (strcmp(token, "..") == 0)
       {
         if (!dir_get_parent(dir, &inode))
-    {
-      return NULL;
-    }
+        {
+          return NULL;
+        }
       }
-    else
+      else
       {
         if (!dir_lookup(dir, token, &inode))
-    {
-      return NULL;
-    }
+        {
+          return NULL;
+        }
       }
-    if (inode_is_dir(inode))
+      if (inode_is_dir(inode))
       {
         dir_close(dir);
         dir = dir_open(inode);
       }
-    else
+      else
       {
         inode_close(inode);
       }
-  }
-      token = next_token;
-      next_token = strtok_r(NULL, "/", &save_ptr);
     }
+    token = next_token;
+    next_token = strtok_r(NULL, "/", &save_ptr);
+//    printf("sungmin, get_containing_dir next token(while): %s\n", next_token);
+  }
   return dir;
 }
 

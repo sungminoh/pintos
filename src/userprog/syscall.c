@@ -67,7 +67,7 @@ static func_p syscall_table[SYS_INUMBER+1] =
   (func_p)my_create, (func_p)my_remove, (func_p)my_open, (func_p)my_filesize,
   (func_p)my_read, (func_p)my_write, (func_p)my_seek, (func_p)my_tell,
   (func_p)my_close,
-  (func_p)my_chdir, (func_p)my_mkdir, (func_p)my_readdir, (func_p)my_isdir, (func_p)my_inumber
+  (func_p)my_readdir, (func_p)my_isdir, (func_p)my_chdir, (func_p)my_mkdir, (func_p)my_inumber
 };
 
 
@@ -146,12 +146,15 @@ syscall_handler (struct intr_frame *f)
 }
 /* sungmin - start */
 bool my_chdir (const char* dir){
+//  printf("sungmin my_chdir: %s\n", dir);
   return filesys_chdir(dir);
 }
 bool my_mkdir(const char* dir){
+//  printf("sungmin my_mkdir: %s\n", dir);
   return filesys_create(dir, 0, true);
 }
 bool my_readdir(int fd, char* name){
+//  printf("sungmin my_readdir: %s\n", name);
   struct process_file *pf = get_process_file_by_fd(fd);
   if(!pf) return false;
   if(!pf->isdir) return false;
@@ -159,11 +162,13 @@ bool my_readdir(int fd, char* name){
   return true;
 }
 bool my_isdir(int fd){
+//  printf("sungmin my_isdir: %d\n", fd);
   struct process_file* pf = get_process_file_by_fd(fd);
   if(!pf) my_exit(-1);
   return pf->isdir;
 }
 int my_inumber(int fd){
+//  printf("sungmin my_inumber: %d\n", fd);
   struct process_file* pf = get_process_file_by_fd(fd);
   if(!pf) my_exit(-1);
   block_sector_t inumber;
@@ -178,6 +183,7 @@ int my_inumber(int fd){
 static int
 my_write (int fd, const void *buffer, unsigned length)
 {
+//  printf("sungmin my_write: %d\n", fd);
 	lock_acquire(&filesys_lock);
 	if(!address_valid(buffer)){
 		lock_release(&filesys_lock);
@@ -242,6 +248,8 @@ my_halt(void)
 static pid_t
 my_exec(const char *cmd_line)
 {
+
+//  printf("sungmin my_exec: %s\n", cmd_line);
     //printf("execute\n");
     if(!address_valid(cmd_line))
         my_exit(-1);
@@ -267,6 +275,7 @@ my_exec(const char *cmd_line)
 static int
 my_wait(pid_t pid)
 {
+//  printf("sungmin my_wait: %d\n", pid);
     //printf("wait\n");
    	//printf("wait start  tid: %d\n",thread_current()->tid);
     tid_t tid = (tid_t) pid;
@@ -275,6 +284,7 @@ my_wait(pid_t pid)
 static bool
 my_create(const char *file, unsigned initial_size)
 {
+//  printf("sungmin my_create: %s\n", file);
 	lock_acquire(&filesys_lock);
 	
 	if(file == NULL){
@@ -293,6 +303,8 @@ my_create(const char *file, unsigned initial_size)
 static bool
 my_remove(const char *file)
 {
+
+//  printf("sungmin my_remove: %s\n", file);
 	lock_acquire(&filesys_lock);
 	
 	if(file == NULL || !address_valid(file)){
@@ -344,6 +356,7 @@ struct Elf32_Phdr
 static int 
 my_open(const char *file)
 {
+//  printf("sungmin my_open: %s\n", file);
 	lock_acquire(&filesys_lock);
 
 	if(file == NULL){
@@ -401,6 +414,7 @@ my_open(const char *file)
 static int 
 my_filesize(int fd)
 {
+//  printf("sungmin my_filesize: %d\n", fd);
 	lock_acquire(&filesys_lock);
 	struct process_file * pf = get_process_file_by_fd(fd);
 
@@ -416,6 +430,7 @@ my_filesize(int fd)
 static int 
 my_read(int fd, void *buffer, unsigned size)
 {
+//  printf("sungmin my_read: %d\n", fd);
 	lock_acquire(&filesys_lock);
 	if(!address_valid(buffer)){
 		lock_release(&filesys_lock);
@@ -445,6 +460,7 @@ my_read(int fd, void *buffer, unsigned size)
 static void 
 my_seek(int fd, unsigned position)
 {
+//  printf("sungmin my_seek: %d\n", fd);
 	lock_acquire(&filesys_lock);
 	
 	struct process_file *pf = get_process_file_by_fd(fd);
@@ -464,6 +480,7 @@ my_seek(int fd, unsigned position)
 static unsigned
 my_tell(int fd)
 {
+//  printf("sungmin my_tell: %d\n", fd);
 	lock_acquire(&filesys_lock);
 	
 	struct process_file * pf = get_process_file_by_fd(fd);
@@ -486,6 +503,8 @@ my_tell(int fd)
 void
 my_close(int fd)
 {
+
+//  printf("sungmin my_close: %d\n", fd);
 	lock_acquire(&filesys_lock);
 
 	struct thread *t = thread_current();

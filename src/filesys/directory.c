@@ -158,14 +158,17 @@ dir_add (struct dir *dir, const char *name, block_sector_t inode_sector)
   /* Check NAME for validity. */
   if (*name == '\0' || strlen (name) > NAME_MAX)
     goto done;
+//  printf("sungmin, dir_add first if passed\n");
 
   /* Check that NAME is not in use. */
   if (lookup (dir, name, NULL, NULL))
     goto done;
+//  printf("sungmin, dir_add second if passed\n");
 
   /* sungmin - start */
   if(!inode_add_parent(inode_get_inumber(dir_get_inode(dir)), inode_sector))
     goto done;
+//  printf("sungmin, dir_add third if passed\n");
   /* sungmin - end */
 
   /* Set OFS to offset of free slot.
@@ -188,6 +191,7 @@ dir_add (struct dir *dir, const char *name, block_sector_t inode_sector)
 
  done:
   inode_unlock(dir_get_inode(dir)); //sungmin
+//  printf("sungmin, dir_add sucess?: %d\n", success);
   return success;
 }
 

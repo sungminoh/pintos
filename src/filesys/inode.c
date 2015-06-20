@@ -220,6 +220,8 @@ inode_create (block_sector_t sector, off_t length,
       free (disk_inode);
       * original code */
     }
+
+//  printf("sungmin, inode_create success?: %d\n", success);
   return success;
 }
 
@@ -420,7 +422,7 @@ inode_write_at (struct inode *inode, const void *buffer_, off_t size,
   if (inode->deny_write_cnt)
     return 0;
 
-  /* sungmin - start *
+  /* sungmin - start */
   if(offset+size > inode_length(inode)){
     if(!inode->isdir){
       inode_lock(inode);
