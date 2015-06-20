@@ -11,6 +11,7 @@
 #include "threads/switch.h"
 #include "threads/synch.h"
 #include "threads/vaddr.h"
+#include "filesys/directory.h"
 #ifdef USERPROG
 #include "userprog/process.h"
 #endif
@@ -123,6 +124,7 @@ thread_init (void)
   init_thread (initial_thread, "main", PRI_DEFAULT);
   initial_thread->status = THREAD_RUNNING;
   initial_thread->tid = allocate_tid ();
+  initial_thread->cwd = NULL; //filesys sungmin
 }
 
 /* Starts preemptive thread scheduling by enabling interrupts.
@@ -242,8 +244,14 @@ thread_create (const char *name, int priority,
 	list_push_back(&thread_current() -> child_list, &cp -> elem);
     t->cp = cp;
 
+    /* filesys sungmin - start */
+    if(thread_current()->cwd){
+      t->cwd = dir_reopen(thread_current()->cwd);
+    }else{
+      t->cwd = NULL;
+    }
 
-	//
+
   /* Add to run queue. */
   thread_unblock (t);
 

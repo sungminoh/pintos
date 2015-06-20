@@ -140,6 +140,7 @@ struct thread
     bool donated;
     // prj1(donation) - sungmin oh - end //
     ///////////////////////////////////////
+    struct dir* cwd;
   
   };
 

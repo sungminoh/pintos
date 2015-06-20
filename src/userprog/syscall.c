@@ -9,14 +9,24 @@
 #include "filesys/filesys.h"
 #include "threads/init.h"
 #include "devices/timer.h"
+
+
+/* sungmin - start */
+#include "filesys/directory.h"
+
 //
 struct lock filesys_lock;
 
 struct process_file{
 	struct file * file;
 	int fd;
+  /* sungmin - start */
+  struct dir* dir;
+  bool isdir;
+  /* sungmin - end */
 	struct list_elem elem;
 };
+
 
 struct file* get_file_by_fd (int fd);
 struct child_process * get_child_by_tid (int tid);
@@ -38,6 +48,15 @@ static int my_write(int fd, const void *buffer, unsigned size);
 static void my_seek(int fd, unsigned position);
 static unsigned my_tell(int fd);
 void my_close(int fd);
+/* sungmin - start */
+struct process_file* get_process_file_by_fd(int fd);
+bool my_chdir(const char* dir);
+bool my_mkdir(const char* dir);
+bool my_readdir(int fd, char* name);
+bool my_isdir(int fd);
+int my_inumber(int fd);
+/* sungmin - end */
+
 //-----------------------------
 
 // khg : function pointer && make table by syscall num
@@ -47,7 +66,8 @@ static func_p syscall_table[SYS_INUMBER+1] =
   (func_p)my_halt, (func_p)my_exit, (func_p)my_exec, (func_p)my_wait,
   (func_p)my_create, (func_p)my_remove, (func_p)my_open, (func_p)my_filesize,
   (func_p)my_read, (func_p)my_write, (func_p)my_seek, (func_p)my_tell,
-  (func_p)my_close
+  (func_p)my_close,
+  (func_p)my_chdir, (func_p)my_mkdir, (func_p)my_readdir, (func_p)my_isdir, (func_p)my_inumber
 };
 
 
@@ -88,7 +108,8 @@ syscall_handler (struct intr_frame *f)
   // I don't know how to check... more good.
   if(call_num == SYS_EXIT || call_num == SYS_EXEC || call_num == SYS_WAIT ||   
      call_num == SYS_OPEN || call_num == SYS_FILESIZE || call_num == SYS_TELL ||
-     call_num == SYS_CLOSE || call_num == SYS_REMOVE)
+     call_num == SYS_CLOSE || call_num == SYS_REMOVE || call_num == SYS_CHDIR ||
+     call_num == SYS_MKDIR || call_num == SYS_ISDIR || call_num == SYS_INUMBER)
   {
     if(!address_valid(esp + 1))
     {
@@ -96,7 +117,7 @@ syscall_handler (struct intr_frame *f)
     }
       
   }
-  else if(call_num == SYS_CREATE || call_num == SYS_READ || call_num == SYS_SEEK)
+  else if(call_num == SYS_CREATE || call_num == SYS_READ || call_num == SYS_SEEK || call_num == SYS_READDIR)
   {
     if(!address_valid(esp + 1) || !address_valid(esp + 2))
     {
@@ -123,6 +144,36 @@ syscall_handler (struct intr_frame *f)
  //  origin code 
  // thread_exit ();
 }
+/* sungmin - start */
+bool my_chdir (const char* dir){
+  return filesys_chdir(dir);
+}
+bool my_mkdir(const char* dir){
+  return filesys_create(dir, 0, true);
+}
+bool my_readdir(int fd, char* name){
+  struct process_file *pf = process_get_file(fd);
+  if(!pf) return false;
+  if(!pf->isdir) return false;
+  if(!dir_readdir(pf->dir, name)) return false;
+  return true;
+}
+bool my_isdir(int fd){
+  struct process_file* pf = process_get_file(fd);
+  if(!pf) my_exit(-1);
+  return pf->isdir;
+}
+int inumber(int fd){
+  struct process_file* pf = process_get_file(fd);
+  if(!pf) my_exit(-1);
+  block_sector_t inumber;
+  if(pf->isdir){
+    inumber = inode_get_inumber(dir_get_inode(pf->dir));
+  }else{
+    inumber = inode_get_inumber(file_get_inode(pf->file));
+  }
+  return inumber;
+}
 // khg : syscalls -------------------------------
 static int
 my_write (int fd, const void *buffer, unsigned length)
@@ -137,12 +188,17 @@ my_write (int fd, const void *buffer, unsigned length)
 		lock_release(&filesys_lock);
 		return length;
 	}
-	struct file *fp = get_file_by_fd(fd);
-	if(fp == NULL){
+	struct process_file *pf = get_process_file_by_fd(fd);
+	if(!pf){
 		lock_release(&filesys_lock);
 		return -1;
 	}
-    
+  if(pf->isdir){
+    lock_release(&filesys_lock);
+    return -1;
+  }
+    struct file* fp = pf->file;
+
     char *temp = malloc(sizeof(char) * (length+1));
     int i, check = 0, c;
     c = file_read(fp, temp, length);
@@ -230,7 +286,7 @@ my_create(const char *file, unsigned initial_size)
 		my_exit(-1);
 	}
 
-	bool success = filesys_create(file, initial_size);
+	bool success = filesys_create(file, initial_size, false);
 	lock_release(&filesys_lock);
 	return success;
 }
@@ -300,6 +356,7 @@ my_open(const char *file)
 		my_exit(-1);
 	}
 
+
 	struct file *fp = filesys_open(file);
 	int fd = thread_current()->fd;
 
@@ -308,6 +365,13 @@ my_open(const char *file)
   //  printf("file open error\n");
     return -1;
 	}
+
+  /* sungmin - start */
+  if(inode_is_dir(file_get_inode(fp))){
+    fd = process_add_dir((struct dir*) fp);
+    return fd;
+  }
+  /* sungmin - end */
 
   struct Elf32_Ehdr ehdr;
   if (!(file_read (fp, &ehdr, sizeof ehdr) != sizeof ehdr
@@ -338,14 +402,15 @@ static int
 my_filesize(int fd)
 {
 	lock_acquire(&filesys_lock);
-	struct file * fp = get_file_by_fd(fd);
+	struct process_file * fp = get_process_file_by_fd(fd);
 
-	if(fp == NULL){
+	if(pf == NULL){
 		lock_release(&filesys_lock);
 		return -1;
 	}
+  int size = file_length(pf->file);
 	lock_release(&filesys_lock);
-	return file_length(fp);
+	return size;
 
 }
 static int 
@@ -365,14 +430,14 @@ my_read(int fd, void *buffer, unsigned size)
 		return size;
 	}
 	
-	struct file * fp = get_file_by_fd(fd);
+	struct process_file * fp = get_process_file_by_fd(fd);
 	
-	if(!fp){
+	if(!pf){
 		lock_release(&filesys_lock);
 		return -1;
 	}
 	
-	int byte = file_read(fp, buffer, size);
+	int byte = file_read(pf->file, buffer, size);
 	lock_release(&filesys_lock);
 	return byte;
 
@@ -382,13 +447,17 @@ my_seek(int fd, unsigned position)
 {
 	lock_acquire(&filesys_lock);
 	
-	struct file *fp = get_file_by_fd(fd);
+	struct process_file *pf = get_process_file_by_fd(fd);
 	
-	if(fp == NULL){
+	if(!pf){
 		lock_release(&filesys_lock);
 		return;
 	}
-	file_seek(fp, position);
+  if(pf->isdir){
+    lock_release(&filesys_lock);
+    return;
+  }
+	file_seek(pf->file, position);
 	lock_release(&filesys_lock);
 	return;
 }
@@ -397,14 +466,18 @@ my_tell(int fd)
 {
 	lock_acquire(&filesys_lock);
 	
-	struct file * fp = get_file_by_fd(fd);
+	struct process_file * fp = get_process_file_by_fd(fd);
 
-	if(fd == NULL){
+	if(!pf){
 		lock_release(&filesys_lock);
 		return -1;
 	}
+  if(pf->isdir){
+    lock_release(&filesys_lock);
+    return -1;
+  }
 
-	off_t off = file_tell(fp);
+	off_t off = file_tell(pf->file);
 
 	lock_release(&filesys_lock);
 	return off;
@@ -446,7 +519,27 @@ my_close(int fd)
 	return;
 }
 
+/* sungmin - start */
+struct file * get_process_file_by_fd(int fd){
+  struct thread *t = thread_current();
+	struct list_elem *e = list_begin(&t->file_list);
+	struct process_file *pf;
+	while(e != list_end(&t->file_list)){
+		pf = list_entry (e, struct process_file, elem);
+		e = list_next(e);
+		if(fd == pf->fd)
+			return pf;
+	}
+	return NULL;
+}
+/* sungmin - end */
 struct file * get_file_by_fd (int fd){
+  struct process_file *pf = get_process_file_by_fd(fd);
+  if(pf)
+    return pf->file;
+  else
+    return NULL;
+  /*
 	struct thread *t = thread_current();
 	struct list_elem *e = list_begin(&t->file_list);
 	struct process_file *pf;
@@ -457,6 +550,7 @@ struct file * get_file_by_fd (int fd){
 			return pf->file;
 	}
 	return NULL;
+  */
 }
 struct child_process * get_child_by_tid (int tid){
 	struct thread *t = thread_current();
