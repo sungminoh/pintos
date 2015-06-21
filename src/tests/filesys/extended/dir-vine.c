@@ -13,7 +13,7 @@
 #include "tests/lib.h"
 #include "tests/main.h"
 
-void
+// void
 test_main (void) 
 {
   int i;
@@ -60,10 +60,12 @@ test_main (void)
       CHECK ((fd = open (".")) > 1, "open \".\"");
     // printf("sungmin, . is opened\n");
       CHECK (readdir (fd, name[0]), "readdir \".\"");
-    // printf("sungmin, (%s) is readdired\n", name[0]);
+    // printf("sungmin, (%d: %s) is readdired\n", fd, name[0]);
       CHECK (readdir (fd, name[1]), "readdir \".\"");
-    // printf("sungmin, (%s) is readdired\n", name[1]);
+    // printf("sungmin, (%d: %s) is readdired\n", fd, name[1]);
       CHECK (!readdir (fd, name[2]), "readdir \".\" (should fail)");
+    // printf("sungmin, (%d: %s) is readdired\n", fd, name[2]);
+    // printf("%s\t%s\t%s\t%s\n", name[0], name[1], file_name, dir_name);
       CHECK ((!strcmp (name[0], dir_name) && !strcmp (name[1], file_name))
              || (!strcmp (name[1], dir_name) && !strcmp (name[0], file_name)),
              "names should be \"%s\" and \"%s\", "
@@ -72,6 +74,7 @@ test_main (void)
       close (fd);
 
       /* Descend into directory. */
+      // printf("sungmin, chdir to (%s)\n", dir_name);
       CHECK (chdir (dir_name), "chdir \"%s\"", dir_name);
     }
   CHECK (i > 200, "created files and directories only to level %d", i);

@@ -267,13 +267,16 @@ dir_readdir (struct dir *dir, char name[NAME_MAX + 1])
   while (inode_read_at (dir->inode, &e, sizeof e, dir->pos) == sizeof e) 
     {
       dir->pos += sizeof e;
+      // printf("sungmin, while");
       if (e.in_use)
         {
           strlcpy (name, e.name, NAME_MAX + 1);
           inode_unlock(dir_get_inode(dir)); //sungmin
+          // printf("sungmin, dir_readdir is successful\n");
           return true;
         } 
     }
+    // printf("sungmin, dir_readdir is failed\n");
   inode_unlock(dir_get_inode(dir)); //sungmin
   return false;
 }

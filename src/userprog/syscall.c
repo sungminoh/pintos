@@ -67,7 +67,7 @@ static func_p syscall_table[SYS_INUMBER+1] =
   (func_p)my_create, (func_p)my_remove, (func_p)my_open, (func_p)my_filesize,
   (func_p)my_read, (func_p)my_write, (func_p)my_seek, (func_p)my_tell,
   (func_p)my_close,
-  (func_p)my_isdir, (func_p)my_readdir, (func_p)my_chdir, (func_p)my_mkdir, (func_p)my_inumber
+  (func_p)my_isdir, (func_p)my_isdir, (func_p)my_chdir, (func_p)my_mkdir, (func_p)my_readdir, (func_p)my_isdir, (func_p)my_inumber
 };
 
 
@@ -146,29 +146,30 @@ syscall_handler (struct intr_frame *f)
 }
 /* sungmin - start */
 bool my_chdir (const char* dir){
-//  printf("sungmin my_chdir: %s\n", dir);
+ // printf("sungmin my_chdir: %s\n", dir);
   return filesys_chdir(dir);
 }
 bool my_mkdir(const char* dir){
-//  printf("sungmin my_mkdir: %s\n", dir);
+ // printf("sungmin my_mkdir: %s\n", dir);
   return filesys_create(dir, 0, true);
 }
 bool my_readdir(int fd, char* name){
-//  printf("sungmin my_readdir: %s\n", name);
+ // printf("sungmin my_readdir: %d\n", fd);
   struct process_file *pf = get_process_file_by_fd(fd);
   if(!pf) return false;
   if(!pf->isdir) return false;
   if(!dir_readdir(pf->dir, name)) return false;
+  // printf("sungmin, my_readdir is successfull\n");
   return true;
 }
 bool my_isdir(int fd){
-//  printf("sungmin my_isdir: %d\n", fd);
+ // printf("sungmin my_isdir: %d\n", fd);
   struct process_file* pf = get_process_file_by_fd(fd);
   if(!pf) my_exit(-1);
   return pf->isdir;
 }
 int my_inumber(int fd){
-//  printf("sungmin my_inumber: %d\n", fd);
+ // printf("sungmin my_inumber: %d\n", fd);
   struct process_file* pf = get_process_file_by_fd(fd);
   if(!pf) my_exit(-1);
   block_sector_t inumber;
@@ -520,7 +521,7 @@ void
 my_close(int fd)
 {
 
-//  printf("sungmin my_close: %d\n", fd);
+ // printf("sungmin my_close: %d\n", fd);
 	lock_acquire(&filesys_lock);
 
 	struct thread *t = thread_current();
@@ -532,9 +533,14 @@ my_close(int fd)
 		// khg : order is important
         e = list_next(e);
 		if(fd == pf->fd || fd == CLOSE_ALL){
-			file_allow_write(pf->file);
-			file_close(pf->file);
+      if(pf->isdir){
+        dir_close(pf->dir);
+      }else{
+			  file_allow_write(pf->file);
+  			file_close(pf->file);
+      }
 			list_remove(&pf->elem);
+
 			free(pf);
 			count++;
 
