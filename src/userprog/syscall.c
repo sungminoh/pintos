@@ -447,7 +447,7 @@ my_filesize(int fd)
 static int 
 my_read(int fd, void *buffer, unsigned size)
 {
-//  printf("sungmin my_read: %d\n", fd);
+    timer_sleep(1);
 	lock_acquire(&filesys_lock);
 	if(!address_valid(buffer)){
 		lock_release(&filesys_lock);

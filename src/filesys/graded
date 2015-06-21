@@ -1,0 +1,1979 @@
+cd build && make grade
+make[1]: Entering directory `/home/khg/Team08prj/src/filesys/build'
+perl -I../.. ../../tests/userprog/multi-child-fd.ck tests/userprog/multi-child-fd tests/userprog/multi-child-fd.result
+FAIL tests/userprog/multi-child-fd
+Run didn't shut down properly: no "Timer: # ticks" message
+gcc -m32 -c ../../tests/userprog/rox-simple.c -o tests/userprog/rox-simple.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/userprog/rox-simple.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/userprog/rox-simple.o tests/main.o tests/lib.o lib/user/entry.o libc.a -o tests/userprog/rox-simple
+../../utils/pintos -v -k -T 60 --bochs  --filesys-size=2 -p tests/userprog/rox-simple -a rox-simple -- -q  -f run rox-simple < /dev/null 2> tests/userprog/rox-simple.errors > tests/userprog/rox-simple.output
+perl -I../.. ../../tests/userprog/rox-simple.ck tests/userprog/rox-simple tests/userprog/rox-simple.result
+FAIL tests/userprog/rox-simple
+run: try to write "rox-simple": FAILED
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/userprog/child-rox.o tests/lib.o lib/user/entry.o libc.a -o tests/userprog/child-rox
+../../utils/pintos -v -k -T 60 --bochs  --filesys-size=2 -p tests/userprog/rox-child -a rox-child -p tests/userprog/child-rox -a child-rox -- -q  -f run rox-child < /dev/null 2> tests/userprog/rox-child.errors > tests/userprog/rox-child.output
+perl -I../.. ../../tests/userprog/rox-child.ck tests/userprog/rox-child tests/userprog/rox-child.result
+FAIL tests/userprog/rox-child
+Run didn't shut down properly: no "Timer: # ticks" message
+gcc -m32 -c ../../tests/userprog/rox-multichild.c -o tests/userprog/rox-multichild.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/userprog/rox-multichild.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/userprog/rox-multichild.o tests/main.o tests/lib.o lib/user/entry.o libc.a -o tests/userprog/rox-multichild
+../../utils/pintos -v -k -T 60 --bochs  --filesys-size=2 -p tests/userprog/rox-multichild -a rox-multichild -p tests/userprog/child-rox -a child-rox -- -q  -f run rox-multichild < /dev/null 2> tests/userprog/rox-multichild.errors > tests/userprog/rox-multichild.output
+perl -I../.. ../../tests/userprog/rox-multichild.ck tests/userprog/rox-multichild tests/userprog/rox-multichild.result
+FAIL tests/userprog/rox-multichild
+run: try to write "child-rox": FAILED
+perl -I../.. ../../tests/userprog/bad-read.ck tests/userprog/bad-read tests/userprog/bad-read.result
+FAIL tests/userprog/bad-read
+Run didn't shut down properly: no "Timer: # ticks" message
+gcc -m32 -c ../../tests/userprog/bad-write.c -o tests/userprog/bad-write.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/userprog/bad-write.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/userprog/bad-write.o tests/main.o tests/lib.o lib/user/entry.o libc.a -o tests/userprog/bad-write
+../../utils/pintos -v -k -T 60 --bochs  --filesys-size=2 -p tests/userprog/bad-write -a bad-write -- -q  -f run bad-write < /dev/null 2> tests/userprog/bad-write.errors > tests/userprog/bad-write.output
+perl -I../.. ../../tests/userprog/bad-write.ck tests/userprog/bad-write tests/userprog/bad-write.result
+pass tests/userprog/bad-write
+perl -I../.. ../../tests/userprog/bad-read2.ck tests/userprog/bad-read2 tests/userprog/bad-read2.result
+FAIL tests/userprog/bad-read2
+Run didn't shut down properly: no "Timer: # ticks" message
+gcc -m32 -c ../../tests/userprog/bad-write2.c -o tests/userprog/bad-write2.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/userprog/bad-write2.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/userprog/bad-write2.o tests/main.o tests/lib.o lib/user/entry.o libc.a -o tests/userprog/bad-write2
+../../utils/pintos -v -k -T 60 --bochs  --filesys-size=2 -p tests/userprog/bad-write2 -a bad-write2 -- -q  -f run bad-write2 < /dev/null 2> tests/userprog/bad-write2.errors > tests/userprog/bad-write2.output
+perl -I../.. ../../tests/userprog/bad-write2.ck tests/userprog/bad-write2 tests/userprog/bad-write2.result
+pass tests/userprog/bad-write2
+perl -I../.. ../../tests/userprog/bad-jump.ck tests/userprog/bad-jump tests/userprog/bad-jump.result
+FAIL tests/userprog/bad-jump
+Run didn't shut down properly: no "Timer: # ticks" message
+gcc -m32 -c ../../tests/userprog/bad-jump2.c -o tests/userprog/bad-jump2.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/userprog/bad-jump2.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/userprog/bad-jump2.o tests/main.o tests/lib.o lib/user/entry.o libc.a -o tests/userprog/bad-jump2
+../../utils/pintos -v -k -T 60 --bochs  --filesys-size=2 -p tests/userprog/bad-jump2 -a bad-jump2 -- -q  -f run bad-jump2 < /dev/null 2> tests/userprog/bad-jump2.errors > tests/userprog/bad-jump2.output
+perl -I../.. ../../tests/userprog/bad-jump2.ck tests/userprog/bad-jump2 tests/userprog/bad-jump2.result
+pass tests/userprog/bad-jump2
+perl -I../.. ../../tests/filesys/base/lg-create.ck tests/filesys/base/lg-create tests/filesys/base/lg-create.result
+FAIL tests/filesys/base/lg-create
+Run didn't shut down properly: no "Timer: # ticks" message
+gcc -m32 -c ../../tests/filesys/base/lg-full.c -o tests/filesys/base/lg-full.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/base/lg-full.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/base/lg-full.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/base/lg-full
+../../utils/pintos -v -k -T 60 --bochs  --filesys-size=2 -p tests/filesys/base/lg-full -a lg-full -- -q  -f run lg-full < /dev/null 2> tests/filesys/base/lg-full.errors > tests/filesys/base/lg-full.output
+perl -I../.. ../../tests/filesys/base/lg-full.ck tests/filesys/base/lg-full tests/filesys/base/lg-full.result
+pass tests/filesys/base/lg-full
+perl -I../.. ../../tests/filesys/base/lg-random.ck tests/filesys/base/lg-random tests/filesys/base/lg-random.result
+FAIL tests/filesys/base/lg-random
+Run didn't shut down properly: no "Timer: # ticks" message
+gcc -m32 -c ../../tests/filesys/base/lg-seq-block.c -o tests/filesys/base/lg-seq-block.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/base/lg-seq-block.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/base/lg-seq-block.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/base/lg-seq-block
+../../utils/pintos -v -k -T 60 --bochs  --filesys-size=2 -p tests/filesys/base/lg-seq-block -a lg-seq-block -- -q  -f run lg-seq-block < /dev/null 2> tests/filesys/base/lg-seq-block.errors > tests/filesys/base/lg-seq-block.output
+perl -I../.. ../../tests/filesys/base/lg-seq-block.ck tests/filesys/base/lg-seq-block tests/filesys/base/lg-seq-block.result
+pass tests/filesys/base/lg-seq-block
+perl -I../.. ../../tests/filesys/base/lg-seq-random.ck tests/filesys/base/lg-seq-random tests/filesys/base/lg-seq-random.result
+FAIL tests/filesys/base/lg-seq-random
+Run didn't shut down properly: no "Timer: # ticks" message
+gcc -m32 -c ../../tests/filesys/base/sm-create.c -o tests/filesys/base/sm-create.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/base/sm-create.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/base/sm-create.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/base/sm-create
+../../utils/pintos -v -k -T 60 --bochs  --filesys-size=2 -p tests/filesys/base/sm-create -a sm-create -- -q  -f run sm-create < /dev/null 2> tests/filesys/base/sm-create.errors > tests/filesys/base/sm-create.output
+perl -I../.. ../../tests/filesys/base/sm-create.ck tests/filesys/base/sm-create tests/filesys/base/sm-create.result
+pass tests/filesys/base/sm-create
+perl -I../.. ../../tests/filesys/base/sm-full.ck tests/filesys/base/sm-full tests/filesys/base/sm-full.result
+FAIL tests/filesys/base/sm-full
+Run didn't start up properly: no "Pintos booting" message
+gcc -m32 -c ../../tests/filesys/base/sm-random.c -o tests/filesys/base/sm-random.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/base/sm-random.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/base/sm-random.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/base/sm-random
+../../utils/pintos -v -k -T 60 --bochs  --filesys-size=2 -p tests/filesys/base/sm-random -a sm-random -- -q  -f run sm-random < /dev/null 2> tests/filesys/base/sm-random.errors > tests/filesys/base/sm-random.output
+perl -I../.. ../../tests/filesys/base/sm-random.ck tests/filesys/base/sm-random tests/filesys/base/sm-random.result
+pass tests/filesys/base/sm-random
+perl -I../.. ../../tests/filesys/base/sm-seq-block.ck tests/filesys/base/sm-seq-block tests/filesys/base/sm-seq-block.result
+FAIL tests/filesys/base/sm-seq-block
+Run didn't start up properly: no "Pintos booting" message
+gcc -m32 -c ../../tests/filesys/base/sm-seq-random.c -o tests/filesys/base/sm-seq-random.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/base/sm-seq-random.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/base/sm-seq-random.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/base/sm-seq-random
+../../utils/pintos -v -k -T 60 --bochs  --filesys-size=2 -p tests/filesys/base/sm-seq-random -a sm-seq-random -- -q  -f run sm-seq-random < /dev/null 2> tests/filesys/base/sm-seq-random.errors > tests/filesys/base/sm-seq-random.output
+perl -I../.. ../../tests/filesys/base/sm-seq-random.ck tests/filesys/base/sm-seq-random tests/filesys/base/sm-seq-random.result
+pass tests/filesys/base/sm-seq-random
+perl -I../.. ../../tests/filesys/base/syn-read.ck tests/filesys/base/syn-read tests/filesys/base/syn-read.result
+FAIL tests/filesys/base/syn-read
+Run didn't start up properly: no "Pintos booting" message
+gcc -m32 -c ../../tests/filesys/base/syn-remove.c -o tests/filesys/base/syn-remove.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/base/syn-remove.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/base/syn-remove.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/base/syn-remove
+../../utils/pintos -v -k -T 60 --bochs  --filesys-size=2 -p tests/filesys/base/syn-remove -a syn-remove -- -q  -f run syn-remove < /dev/null 2> tests/filesys/base/syn-remove.errors > tests/filesys/base/syn-remove.output
+perl -I../.. ../../tests/filesys/base/syn-remove.ck tests/filesys/base/syn-remove tests/filesys/base/syn-remove.result
+pass tests/filesys/base/syn-remove
+gcc -m32 -c ../../tests/filesys/base/syn-write.c -o tests/filesys/base/syn-write.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/base/syn-write.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/base/syn-write.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/base/syn-write
+gcc -m32 -c ../../tests/filesys/base/child-syn-wrt.c -o tests/filesys/base/child-syn-wrt.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/base/child-syn-wrt.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/base/child-syn-wrt.o tests/lib.o tests/filesys/seq-test.o lib/user/entry.o libc.a -o tests/filesys/base/child-syn-wrt
+../../utils/pintos -v -k -T 60 --bochs  --filesys-size=2 -p tests/filesys/base/syn-write -a syn-write -p tests/filesys/base/child-syn-wrt -a child-syn-wrt -- -q  -f run syn-write < /dev/null 2> tests/filesys/base/syn-write.errors > tests/filesys/base/syn-write.output
+perl -I../.. ../../tests/filesys/base/syn-write.ck tests/filesys/base/syn-write tests/filesys/base/syn-write.result
+pass tests/filesys/base/syn-write
+gcc -m32 -c ../../tests/filesys/extended/dir-empty-name.c -o tests/filesys/extended/dir-empty-name.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/dir-empty-name.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/dir-empty-name.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/dir-empty-name
+gcc -m32 -c ../../tests/filesys/extended/tar.c -o tests/filesys/extended/tar.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/tar.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/tar.o tests/lib.o tests/filesys/seq-test.o lib/user/entry.o libc.a -o tests/filesys/extended/tar
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/dir-empty-name -a dir-empty-name -p tests/filesys/extended/tar -a tar -- -q  -f run dir-empty-name < /dev/null 2> tests/filesys/extended/dir-empty-name.errors > tests/filesys/extended/dir-empty-name.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/dir-empty-name.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/dir-empty-name-persistence.errors > tests/filesys/extended/dir-empty-name-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/dir-empty-name.ck tests/filesys/extended/dir-empty-name tests/filesys/extended/dir-empty-name.result
+pass tests/filesys/extended/dir-empty-name
+perl -I../.. ../../tests/filesys/extended/dir-mk-tree.ck tests/filesys/extended/dir-mk-tree tests/filesys/extended/dir-mk-tree.result
+FAIL tests/filesys/extended/dir-mk-tree
+Run produced no output at all
+gcc -m32 -c ../../tests/filesys/extended/dir-mkdir.c -o tests/filesys/extended/dir-mkdir.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/dir-mkdir.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/dir-mkdir.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/dir-mkdir
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/dir-mkdir -a dir-mkdir -p tests/filesys/extended/tar -a tar -- -q  -f run dir-mkdir < /dev/null 2> tests/filesys/extended/dir-mkdir.errors > tests/filesys/extended/dir-mkdir.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/dir-mkdir.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/dir-mkdir-persistence.errors > tests/filesys/extended/dir-mkdir-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/dir-mkdir.ck tests/filesys/extended/dir-mkdir tests/filesys/extended/dir-mkdir.result
+pass tests/filesys/extended/dir-mkdir
+gcc -m32 -c ../../tests/filesys/extended/dir-open.c -o tests/filesys/extended/dir-open.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/dir-open.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/dir-open.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/dir-open
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/dir-open -a dir-open -p tests/filesys/extended/tar -a tar -- -q  -f run dir-open < /dev/null 2> tests/filesys/extended/dir-open.errors > tests/filesys/extended/dir-open.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/dir-open.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/dir-open-persistence.errors > tests/filesys/extended/dir-open-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/dir-open.ck tests/filesys/extended/dir-open tests/filesys/extended/dir-open.result
+FAIL tests/filesys/extended/dir-open
+Kernel panic in run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0xc002dad7 0x3
+Translation of call stack:
+In kernel.o:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+0xc002dad7: inode_allow_write (...../../filesys/inode.c:509)
+0x00000003: (unknown)
+gcc -m32 -c ../../tests/filesys/extended/dir-over-file.c -o tests/filesys/extended/dir-over-file.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/dir-over-file.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/dir-over-file.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/dir-over-file
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/dir-over-file -a dir-over-file -p tests/filesys/extended/tar -a tar -- -q  -f run dir-over-file < /dev/null 2> tests/filesys/extended/dir-over-file.errors > tests/filesys/extended/dir-over-file.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/dir-over-file.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/dir-over-file-persistence.errors > tests/filesys/extended/dir-over-file-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/dir-over-file.ck tests/filesys/extended/dir-over-file tests/filesys/extended/dir-over-file.result
+pass tests/filesys/extended/dir-over-file
+gcc -m32 -c ../../tests/filesys/extended/dir-rm-cwd.c -o tests/filesys/extended/dir-rm-cwd.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/dir-rm-cwd.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/dir-rm-cwd.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/dir-rm-cwd
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/dir-rm-cwd -a dir-rm-cwd -p tests/filesys/extended/tar -a tar -- -q  -f run dir-rm-cwd < /dev/null 2> tests/filesys/extended/dir-rm-cwd.errors > tests/filesys/extended/dir-rm-cwd.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/dir-rm-cwd.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/dir-rm-cwd-persistence.errors > tests/filesys/extended/dir-rm-cwd-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/dir-rm-cwd.ck tests/filesys/extended/dir-rm-cwd tests/filesys/extended/dir-rm-cwd.result
+FAIL tests/filesys/extended/dir-rm-cwd
+Kernel panic in run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0xc002dad7 0x3
+Translation of call stack:
+In kernel.o:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+0xc002dad7: inode_allow_write (...../../filesys/inode.c:509)
+0x00000003: (unknown)
+gcc -m32 -c ../../tests/filesys/extended/dir-rm-parent.c -o tests/filesys/extended/dir-rm-parent.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/dir-rm-parent.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/dir-rm-parent.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/dir-rm-parent
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/dir-rm-parent -a dir-rm-parent -p tests/filesys/extended/tar -a tar -- -q  -f run dir-rm-parent < /dev/null 2> tests/filesys/extended/dir-rm-parent.errors > tests/filesys/extended/dir-rm-parent.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/dir-rm-parent.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/dir-rm-parent-persistence.errors > tests/filesys/extended/dir-rm-parent-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/dir-rm-parent.ck tests/filesys/extended/dir-rm-parent tests/filesys/extended/dir-rm-parent.result
+FAIL tests/filesys/extended/dir-rm-parent
+run: remove "/a" (must fail): FAILED
+gcc -m32 -c ../../tests/filesys/extended/dir-rm-root.c -o tests/filesys/extended/dir-rm-root.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/dir-rm-root.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/dir-rm-root.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/dir-rm-root
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/dir-rm-root -a dir-rm-root -p tests/filesys/extended/tar -a tar -- -q  -f run dir-rm-root < /dev/null 2> tests/filesys/extended/dir-rm-root.errors > tests/filesys/extended/dir-rm-root.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/dir-rm-root.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/dir-rm-root-persistence.errors > tests/filesys/extended/dir-rm-root-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/dir-rm-root.ck tests/filesys/extended/dir-rm-root tests/filesys/extended/dir-rm-root.result
+pass tests/filesys/extended/dir-rm-root
+gcc -m32 -c ../../tests/filesys/extended/dir-rm-tree.c -o tests/filesys/extended/dir-rm-tree.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/dir-rm-tree.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/dir-rm-tree.o tests/lib.o tests/filesys/seq-test.o tests/main.o tests/filesys/extended/mk-tree.o lib/user/entry.o libc.a -o tests/filesys/extended/dir-rm-tree
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/dir-rm-tree -a dir-rm-tree -p tests/filesys/extended/tar -a tar -- -q  -f run dir-rm-tree < /dev/null 2> tests/filesys/extended/dir-rm-tree.errors > tests/filesys/extended/dir-rm-tree.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/dir-rm-tree.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/dir-rm-tree-persistence.errors > tests/filesys/extended/dir-rm-tree-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/dir-rm-tree.ck tests/filesys/extended/dir-rm-tree tests/filesys/extended/dir-rm-tree.result
+pass tests/filesys/extended/dir-rm-tree
+gcc -m32 -c ../../tests/filesys/extended/dir-rmdir.c -o tests/filesys/extended/dir-rmdir.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/dir-rmdir.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/dir-rmdir.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/dir-rmdir
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/dir-rmdir -a dir-rmdir -p tests/filesys/extended/tar -a tar -- -q  -f run dir-rmdir < /dev/null 2> tests/filesys/extended/dir-rmdir.errors > tests/filesys/extended/dir-rmdir.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/dir-rmdir.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/dir-rmdir-persistence.errors > tests/filesys/extended/dir-rmdir-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/dir-rmdir.ck tests/filesys/extended/dir-rmdir tests/filesys/extended/dir-rmdir.result
+pass tests/filesys/extended/dir-rmdir
+gcc -m32 -c ../../tests/filesys/extended/dir-under-file.c -o tests/filesys/extended/dir-under-file.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/dir-under-file.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/dir-under-file.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/dir-under-file
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/dir-under-file -a dir-under-file -p tests/filesys/extended/tar -a tar -- -q  -f run dir-under-file < /dev/null 2> tests/filesys/extended/dir-under-file.errors > tests/filesys/extended/dir-under-file.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/dir-under-file.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/dir-under-file-persistence.errors > tests/filesys/extended/dir-under-file-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/dir-under-file.ck tests/filesys/extended/dir-under-file tests/filesys/extended/dir-under-file.result
+pass tests/filesys/extended/dir-under-file
+gcc -m32 -c ../../tests/filesys/extended/dir-vine.c -o tests/filesys/extended/dir-vine.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/dir-vine.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/dir-vine.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/dir-vine
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 150 --bochs  --disk=tmp.dsk -p tests/filesys/extended/dir-vine -a dir-vine -p tests/filesys/extended/tar -a tar -- -q  -f run dir-vine < /dev/null 2> tests/filesys/extended/dir-vine.errors > tests/filesys/extended/dir-vine.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/dir-vine.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/dir-vine-persistence.errors > tests/filesys/extended/dir-vine-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/dir-vine.ck tests/filesys/extended/dir-vine tests/filesys/extended/dir-vine.result
+FAIL tests/filesys/extended/dir-vine
+Kernel panic in run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0xc002dad7 0x4
+Translation of call stack:
+In kernel.o:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+0xc002dad7: inode_allow_write (...../../filesys/inode.c:509)
+0x00000004: (unknown)
+gcc -m32 -c ../../tests/filesys/extended/grow-create.c -o tests/filesys/extended/grow-create.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/grow-create.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/grow-create.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/grow-create
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/grow-create -a grow-create -p tests/filesys/extended/tar -a tar -- -q  -f run grow-create < /dev/null 2> tests/filesys/extended/grow-create.errors > tests/filesys/extended/grow-create.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/grow-create.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/grow-create-persistence.errors > tests/filesys/extended/grow-create-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/grow-create.ck tests/filesys/extended/grow-create tests/filesys/extended/grow-create.result
+pass tests/filesys/extended/grow-create
+gcc -m32 -c ../../tests/filesys/extended/grow-dir-lg.c -o tests/filesys/extended/grow-dir-lg.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/grow-dir-lg.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/grow-dir-lg.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/grow-dir-lg
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/grow-dir-lg -a grow-dir-lg -p tests/filesys/extended/tar -a tar -- -q  -f run grow-dir-lg < /dev/null 2> tests/filesys/extended/grow-dir-lg.errors > tests/filesys/extended/grow-dir-lg.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/grow-dir-lg.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/grow-dir-lg-persistence.errors > tests/filesys/extended/grow-dir-lg-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/grow-dir-lg.ck tests/filesys/extended/grow-dir-lg tests/filesys/extended/grow-dir-lg.result
+pass tests/filesys/extended/grow-dir-lg
+gcc -m32 -c ../../tests/filesys/extended/grow-file-size.c -o tests/filesys/extended/grow-file-size.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/grow-file-size.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/grow-file-size.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/grow-file-size
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/grow-file-size -a grow-file-size -p tests/filesys/extended/tar -a tar -- -q  -f run grow-file-size < /dev/null 2> tests/filesys/extended/grow-file-size.errors > tests/filesys/extended/grow-file-size.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/grow-file-size.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/grow-file-size-persistence.errors > tests/filesys/extended/grow-file-size-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/grow-file-size.ck tests/filesys/extended/grow-file-size tests/filesys/extended/grow-file-size.result
+pass tests/filesys/extended/grow-file-size
+gcc -m32 -c ../../tests/filesys/extended/grow-root-lg.c -o tests/filesys/extended/grow-root-lg.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/grow-root-lg.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/grow-root-lg.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/grow-root-lg
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/grow-root-lg -a grow-root-lg -p tests/filesys/extended/tar -a tar -- -q  -f run grow-root-lg < /dev/null 2> tests/filesys/extended/grow-root-lg.errors > tests/filesys/extended/grow-root-lg.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/grow-root-lg.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/grow-root-lg-persistence.errors > tests/filesys/extended/grow-root-lg-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/grow-root-lg.ck tests/filesys/extended/grow-root-lg tests/filesys/extended/grow-root-lg.result
+pass tests/filesys/extended/grow-root-lg
+gcc -m32 -c ../../tests/filesys/extended/grow-root-sm.c -o tests/filesys/extended/grow-root-sm.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/grow-root-sm.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/grow-root-sm.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/grow-root-sm
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/grow-root-sm -a grow-root-sm -p tests/filesys/extended/tar -a tar -- -q  -f run grow-root-sm < /dev/null 2> tests/filesys/extended/grow-root-sm.errors > tests/filesys/extended/grow-root-sm.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/grow-root-sm.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/grow-root-sm-persistence.errors > tests/filesys/extended/grow-root-sm-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/grow-root-sm.ck tests/filesys/extended/grow-root-sm tests/filesys/extended/grow-root-sm.result
+pass tests/filesys/extended/grow-root-sm
+gcc -m32 -c ../../tests/filesys/extended/grow-seq-lg.c -o tests/filesys/extended/grow-seq-lg.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/grow-seq-lg.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/grow-seq-lg.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/grow-seq-lg
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/grow-seq-lg -a grow-seq-lg -p tests/filesys/extended/tar -a tar -- -q  -f run grow-seq-lg < /dev/null 2> tests/filesys/extended/grow-seq-lg.errors > tests/filesys/extended/grow-seq-lg.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/grow-seq-lg.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/grow-seq-lg-persistence.errors > tests/filesys/extended/grow-seq-lg-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/grow-seq-lg.ck tests/filesys/extended/grow-seq-lg tests/filesys/extended/grow-seq-lg.result
+pass tests/filesys/extended/grow-seq-lg
+gcc -m32 -c ../../tests/filesys/extended/grow-seq-sm.c -o tests/filesys/extended/grow-seq-sm.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/grow-seq-sm.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/grow-seq-sm.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/grow-seq-sm
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/grow-seq-sm -a grow-seq-sm -p tests/filesys/extended/tar -a tar -- -q  -f run grow-seq-sm < /dev/null 2> tests/filesys/extended/grow-seq-sm.errors > tests/filesys/extended/grow-seq-sm.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/grow-seq-sm.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/grow-seq-sm-persistence.errors > tests/filesys/extended/grow-seq-sm-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/grow-seq-sm.ck tests/filesys/extended/grow-seq-sm tests/filesys/extended/grow-seq-sm.result
+pass tests/filesys/extended/grow-seq-sm
+gcc -m32 -c ../../tests/filesys/extended/grow-sparse.c -o tests/filesys/extended/grow-sparse.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/grow-sparse.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/grow-sparse.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/grow-sparse
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/grow-sparse -a grow-sparse -p tests/filesys/extended/tar -a tar -- -q  -f run grow-sparse < /dev/null 2> tests/filesys/extended/grow-sparse.errors > tests/filesys/extended/grow-sparse.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/grow-sparse.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/grow-sparse-persistence.errors > tests/filesys/extended/grow-sparse-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/grow-sparse.ck tests/filesys/extended/grow-sparse tests/filesys/extended/grow-sparse.result
+pass tests/filesys/extended/grow-sparse
+gcc -m32 -c ../../tests/filesys/extended/grow-tell.c -o tests/filesys/extended/grow-tell.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/grow-tell.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/grow-tell.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/grow-tell
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/grow-tell -a grow-tell -p tests/filesys/extended/tar -a tar -- -q  -f run grow-tell < /dev/null 2> tests/filesys/extended/grow-tell.errors > tests/filesys/extended/grow-tell.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/grow-tell.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/grow-tell-persistence.errors > tests/filesys/extended/grow-tell-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/grow-tell.ck tests/filesys/extended/grow-tell tests/filesys/extended/grow-tell.result
+pass tests/filesys/extended/grow-tell
+gcc -m32 -c ../../tests/filesys/extended/grow-two-files.c -o tests/filesys/extended/grow-two-files.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/grow-two-files.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/grow-two-files.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/grow-two-files
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/grow-two-files -a grow-two-files -p tests/filesys/extended/tar -a tar -- -q  -f run grow-two-files < /dev/null 2> tests/filesys/extended/grow-two-files.errors > tests/filesys/extended/grow-two-files.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/grow-two-files.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/grow-two-files-persistence.errors > tests/filesys/extended/grow-two-files-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/grow-two-files.ck tests/filesys/extended/grow-two-files tests/filesys/extended/grow-two-files.result
+pass tests/filesys/extended/grow-two-files
+gcc -m32 -c ../../tests/filesys/extended/syn-rw.c -o tests/filesys/extended/syn-rw.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/syn-rw.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/syn-rw.o tests/lib.o tests/filesys/seq-test.o tests/main.o lib/user/entry.o libc.a -o tests/filesys/extended/syn-rw
+gcc -m32 -c ../../tests/filesys/extended/child-syn-rw.c -o tests/filesys/extended/child-syn-rw.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/user -I. -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/filesys/extended/child-syn-rw.d
+gcc -m32  -Wl,--build-id=none -nostdlib -static -Wl,-T,../../lib/user/user.lds tests/filesys/extended/child-syn-rw.o tests/lib.o tests/filesys/seq-test.o lib/user/entry.o libc.a -o tests/filesys/extended/child-syn-rw
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --disk=tmp.dsk -p tests/filesys/extended/syn-rw -a syn-rw -p tests/filesys/extended/tar -a tar -p tests/filesys/extended/child-syn-rw -a child-syn-rw -- -q  -f run syn-rw < /dev/null 2> tests/filesys/extended/syn-rw.errors > tests/filesys/extended/syn-rw.output
+pintos -v -k -T 60  --bochs --disk=tmp.dsk -g fs.tar -a tests/filesys/extended/syn-rw.tar -- -q  run 'tar fs.tar /' < /dev/null 2> tests/filesys/extended/syn-rw-persistence.errors > tests/filesys/extended/syn-rw-persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/syn-rw.ck tests/filesys/extended/syn-rw tests/filesys/extended/syn-rw.result
+FAIL tests/filesys/extended/syn-rw
+run: TIMEOUT after 61 seconds of wall-clock time - load average: 1.56, 0.58, 0.34
+rm -f tmp.dsk
+pintos-mkdisk tmp.dsk --filesys-size=2
+../../utils/pintos -v -k -T 60 --bochs  --filesys-size=2 -p tests/filesys/extended/dir-mk-tree.output -a dir-mk-tree.output -- -q  -f run dir-mk-tree-persistence < /dev/null 2> .errors > .output
+pintos -v -k -T 60  --bochs --filesys-size=2 -g fs.tar -a .tar -- -q  run 'tar fs.tar /' < /dev/null 2> -persistence.errors > -persistence.output
+rm -f tmp.dsk
+perl -I../.. ../../tests/filesys/extended/dir-mk-tree-persistence.ck tests/filesys/extended/dir-mk-tree-persistence tests/filesys/extended/dir-mk-tree-persistence.result
+FAIL tests/filesys/extended/dir-mk-tree-persistence
+Prerequisite test tests/filesys/extended/dir-mk-tree failed.
+perl -I../.. ../../tests/filesys/extended/syn-rw-persistence.ck tests/filesys/extended/syn-rw-persistence tests/filesys/extended/syn-rw-persistence.result
+FAIL tests/filesys/extended/syn-rw-persistence
+Prerequisite test tests/filesys/extended/syn-rw failed.
+../../tests/make-grade ../.. results ../../tests/filesys/Grading.no-vm | tee grade
+TOTAL TESTING SCORE: 58.7%
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+SUMMARY BY TEST SET
+
+Test Set                                      Pts Max  % Ttl  % Max
+--------------------------------------------- --- --- ------ ------
+tests/filesys/extended/Rubric.functionality    21/ 34  18.5%/ 30.0%
+tests/filesys/extended/Rubric.robustness        4/ 10   6.0%/ 15.0%
+tests/filesys/extended/Rubric.persistence       0/ 23   0.0%/ 20.0%
+tests/filesys/base/Rubric                      30/ 30  20.0%/ 20.0%
+tests/userprog/Rubric.functionality            99/108   9.2%/ 10.0%
+tests/userprog/Rubric.robustness               88/ 88   5.0%/  5.0%
+--------------------------------------------- --- --- ------ ------
+Total                                                  58.7%/100.0%
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+SUMMARY OF INDIVIDUAL TESTS
+
+Functionality of extended file system (tests/filesys/extended/Rubric.functionality):
+	- Test directory support.
+	     1/ 1 tests/filesys/extended/dir-mkdir
+	  ** 0/ 3 tests/filesys/extended/dir-mk-tree
+
+	     1/ 1 tests/filesys/extended/dir-rmdir
+	     3/ 3 tests/filesys/extended/dir-rm-tree
+
+	  ** 0/ 5 tests/filesys/extended/dir-vine
+
+	- Test file growth.
+	     1/ 1 tests/filesys/extended/grow-create
+	     1/ 1 tests/filesys/extended/grow-seq-sm
+	     3/ 3 tests/filesys/extended/grow-seq-lg
+	     3/ 3 tests/filesys/extended/grow-sparse
+	     3/ 3 tests/filesys/extended/grow-two-files
+	     1/ 1 tests/filesys/extended/grow-tell
+	     1/ 1 tests/filesys/extended/grow-file-size
+
+	- Test directory growth.
+	     1/ 1 tests/filesys/extended/grow-dir-lg
+	     1/ 1 tests/filesys/extended/grow-root-sm
+	     1/ 1 tests/filesys/extended/grow-root-lg
+
+	- Test writing from multiple processes.
+	  ** 0/ 5 tests/filesys/extended/syn-rw
+
+	- Section summary.
+	     13/ 16 tests passed
+	     21/ 34 points subtotal
+
+Robustness of file system (tests/filesys/extended/Rubric.robustness):
+	     1/ 1 tests/filesys/extended/dir-empty-name
+	  ** 0/ 1 tests/filesys/extended/dir-open
+	     1/ 1 tests/filesys/extended/dir-over-file
+	     1/ 1 tests/filesys/extended/dir-under-file
+
+	  ** 0/ 3 tests/filesys/extended/dir-rm-cwd
+	  ** 0/ 2 tests/filesys/extended/dir-rm-parent
+	     1/ 1 tests/filesys/extended/dir-rm-root
+
+	- Section summary.
+	      4/  7 tests passed
+	      4/ 10 points subtotal
+
+Persistence of file system (tests/filesys/extended/Rubric.persistence):
+	  ** 0/ 1 tests/filesys/extended/dir-empty-name-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-mk-tree-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-mkdir-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-open-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-over-file-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-rm-cwd-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-rm-parent-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-rm-root-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-rm-tree-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-rmdir-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-under-file-persistence
+	  ** 0/ 1 tests/filesys/extended/dir-vine-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-create-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-dir-lg-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-file-size-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-root-lg-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-root-sm-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-seq-lg-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-seq-sm-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-sparse-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-tell-persistence
+	  ** 0/ 1 tests/filesys/extended/grow-two-files-persistence
+	  ** 0/ 1 tests/filesys/extended/syn-rw-persistence
+
+	- Section summary.
+	      0/ 23 tests passed
+	      0/ 23 points subtotal
+
+Functionality of base file system (tests/filesys/base/Rubric):
+	- Test basic support for small files.
+	     1/ 1 tests/filesys/base/sm-create
+	     2/ 2 tests/filesys/base/sm-full
+	     2/ 2 tests/filesys/base/sm-random
+	     2/ 2 tests/filesys/base/sm-seq-block
+	     3/ 3 tests/filesys/base/sm-seq-random
+
+	- Test basic support for large files.
+	     1/ 1 tests/filesys/base/lg-create
+	     2/ 2 tests/filesys/base/lg-full
+	     2/ 2 tests/filesys/base/lg-random
+	     2/ 2 tests/filesys/base/lg-seq-block
+	     3/ 3 tests/filesys/base/lg-seq-random
+
+	- Test synchronized multiprogram access to files.
+	     4/ 4 tests/filesys/base/syn-read
+	     4/ 4 tests/filesys/base/syn-write
+	     2/ 2 tests/filesys/base/syn-remove
+
+	- Section summary.
+	     13/ 13 tests passed
+	     30/ 30 points subtotal
+
+Functionality of system calls (tests/userprog/Rubric.functionality):
+	- Test argument passing on Pintos command line.
+	     3/ 3 tests/userprog/args-none
+	     3/ 3 tests/userprog/args-single
+	     3/ 3 tests/userprog/args-multiple
+	     3/ 3 tests/userprog/args-many
+	     3/ 3 tests/userprog/args-dbl-space
+
+	- Test "create" system call.
+	     3/ 3 tests/userprog/create-empty
+	     3/ 3 tests/userprog/create-long
+	     3/ 3 tests/userprog/create-normal
+	     3/ 3 tests/userprog/create-exists
+
+	- Test "open" system call.
+	     3/ 3 tests/userprog/open-missing
+	     3/ 3 tests/userprog/open-normal
+	     3/ 3 tests/userprog/open-twice
+
+	- Test "read" system call.
+	     3/ 3 tests/userprog/read-normal
+	     3/ 3 tests/userprog/read-zero
+
+	- Test "write" system call.
+	     3/ 3 tests/userprog/write-normal
+	     3/ 3 tests/userprog/write-zero
+
+	- Test "close" system call.
+	     3/ 3 tests/userprog/close-normal
+
+	- Test "exec" system call.
+	     5/ 5 tests/userprog/exec-once
+	     5/ 5 tests/userprog/exec-multiple
+	     5/ 5 tests/userprog/exec-arg
+
+	- Test "wait" system call.
+	     5/ 5 tests/userprog/wait-simple
+	     5/ 5 tests/userprog/wait-twice
+
+	- Test "exit" system call.
+	     5/ 5 tests/userprog/exit
+
+	- Test "halt" system call.
+	     3/ 3 tests/userprog/halt
+
+	- Test recursive execution of user programs.
+	    15/15 tests/userprog/multi-recurse
+
+	- Test read-only executable feature.
+	  ** 0/ 3 tests/userprog/rox-simple
+	  ** 0/ 3 tests/userprog/rox-child
+	  ** 0/ 3 tests/userprog/rox-multichild
+
+	- Section summary.
+	     25/ 28 tests passed
+	     99/108 points subtotal
+
+Robustness of system calls (tests/userprog/Rubric.robustness):
+	- Test robustness of file descriptor handling.
+	     2/ 2 tests/userprog/close-stdin
+	     2/ 2 tests/userprog/close-stdout
+	     2/ 2 tests/userprog/close-bad-fd
+	     2/ 2 tests/userprog/close-twice
+	     2/ 2 tests/userprog/read-bad-fd
+	     2/ 2 tests/userprog/read-stdout
+	     2/ 2 tests/userprog/write-bad-fd
+	     2/ 2 tests/userprog/write-stdin
+	     2/ 2 tests/userprog/multi-child-fd
+
+	- Test robustness of pointer handling.
+	     3/ 3 tests/userprog/create-bad-ptr
+	     3/ 3 tests/userprog/exec-bad-ptr
+	     3/ 3 tests/userprog/open-bad-ptr
+	     3/ 3 tests/userprog/read-bad-ptr
+	     3/ 3 tests/userprog/write-bad-ptr
+
+	- Test robustness of buffer copying across page boundaries.
+	     3/ 3 tests/userprog/create-bound
+	     3/ 3 tests/userprog/open-boundary
+	     3/ 3 tests/userprog/read-boundary
+	     3/ 3 tests/userprog/write-boundary
+
+	- Test handling of null pointer and empty strings.
+	     2/ 2 tests/userprog/create-null
+	     2/ 2 tests/userprog/open-null
+	     2/ 2 tests/userprog/open-empty
+
+	- Test robustness of system call implementation.
+	     3/ 3 tests/userprog/sc-bad-arg
+	     3/ 3 tests/userprog/sc-bad-sp
+	     5/ 5 tests/userprog/sc-boundary
+	     5/ 5 tests/userprog/sc-boundary-2
+
+	- Test robustness of "exec" and "wait" system calls.
+	     5/ 5 tests/userprog/exec-missing
+	     5/ 5 tests/userprog/wait-bad-pid
+	     5/ 5 tests/userprog/wait-killed
+
+	- Test robustness of exception handling.
+	     1/ 1 tests/userprog/bad-read
+	     1/ 1 tests/userprog/bad-write
+	     1/ 1 tests/userprog/bad-jump
+	     1/ 1 tests/userprog/bad-read2
+	     1/ 1 tests/userprog/bad-write2
+	     1/ 1 tests/userprog/bad-jump2
+
+	- Section summary.
+	     34/ 34 tests passed
+	     88/ 88 points subtotal
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-mk-tree FAILURE:
+
+Run produced no output at all
+
+OUTPUT FROM tests/filesys/extended/dir-mk-tree:
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-vine FAILURE:
+
+Kernel panic in run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0xc002dad7 0x4
+Translation of call stack:
+In kernel.o:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+0xc002dad7: inode_allow_write (...../../filesys/inode.c:509)
+0x00000004: (unknown)
+
+OUTPUT FROM tests/filesys/extended/dir-vine:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run dir-vine
+Pintos booting with 4,096 kB RAM...
+383 pages available in kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 1,008 sectors (504 kB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 239 sectors (119 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'dir-vine' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'dir-vine':
+(dir-vine) begin
+(dir-vine) creating many levels of files and directories...
+(dir-vine) readdir "." (should fail): FAILED
+dir-vine: exit(1)
+Page fault at 0x14: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc002dad7
+ cr2=00000014 error=00000000
+ eax=00000000 ebx=c010505c ecx=c010b090 edx=c0039560
+ esi=fffffffe edi=c010b034 esp=00000001 ebp=c010504c
+ cs=0008 ds=0010 es=0010 ss=8eac
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0xc002dad7 0x4.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 669 ticks
+Thread: 49 idle ticks, 517 kernel ticks, 103 user ticks
+hdb1 (filesys): 375 reads, 752 writes
+hda2 (scratch): 238 reads, 2 writes
+Console: 1713 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/syn-rw FAILURE:
+
+run: TIMEOUT after 61 seconds of wall-clock time - load average: 1.56, 0.58, 0.34
+
+OUTPUT FROM tests/filesys/extended/syn-rw:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run syn-rw
+Pintos booting with 4,096 kB RAM...
+383 pages available in kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 1,008 sectors (504 kB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 351 sectors (175 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'syn-rw' into the file system...
+Putting 'tar' into the file system...
+Putting 'child-syn-rw' into the file system...
+Erasing ustar archive...
+Executing 'syn-rw':
+(syn-rw) begin
+(syn-rw) create "logfile"
+(syn-rw) open "logfile"
+(syn-rw) exec child 1 of 4: "child-syn-rw 0"
+
+TIMEOUT after 61 seconds of wall-clock time - load average: 1.56, 0.58, 0.34
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-open FAILURE:
+
+Kernel panic in run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0xc002dad7 0x3
+Translation of call stack:
+In kernel.o:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+0xc002dad7: inode_allow_write (...../../filesys/inode.c:509)
+0x00000003: (unknown)
+
+OUTPUT FROM tests/filesys/extended/dir-open:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run dir-open
+Pintos booting with 4,096 kB RAM...
+383 pages available in kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 1,008 sectors (504 kB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 232 sectors (116 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'dir-open' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'dir-open':
+(dir-open) begin
+(dir-open) mkdir "xyzzy"
+(dir-open) open "xyzzy"
+(dir-open) write "xyzzy"
+(dir-open) write "xyzzy" (must return -1, actually -1)
+(dir-open) end
+dir-open: exit(0)
+Page fault at 0x14: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc002dad7
+ cr2=00000014 error=00000000
+ eax=00000000 ebx=c010505c ecx=c010b090 edx=c0039560
+ esi=fffffffe edi=c010b034 esp=00000001 ebp=c010504c
+ cs=0008 ds=0010 es=0010 ss=8eac
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0xc002dad7 0x3.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 643 ticks
+Thread: 49 idle ticks, 502 kernel ticks, 92 user ticks
+hdb1 (filesys): 367 reads, 717 writes
+hda2 (scratch): 231 reads, 2 writes
+Console: 1751 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-rm-cwd FAILURE:
+
+Kernel panic in run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0xc002dad7 0x3
+Translation of call stack:
+In kernel.o:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+0xc002dad7: inode_allow_write (...../../filesys/inode.c:509)
+0x00000003: (unknown)
+
+OUTPUT FROM tests/filesys/extended/dir-rm-cwd:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run dir-rm-cwd
+Pintos booting with 4,096 kB RAM...
+383 pages available in kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 1,008 sectors (504 kB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 239 sectors (119 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'dir-rm-cwd' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'dir-rm-cwd':
+(dir-rm-cwd) begin
+(dir-rm-cwd) open "/"
+(dir-rm-cwd) mkdir "a"
+(dir-rm-cwd) open "/a"
+(dir-rm-cwd) verify "/a" is empty
+(dir-rm-cwd) verify "/a" is empty: FAILED
+dir-rm-cwd: exit(1)
+Page fault at 0x14: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc002dad7
+ cr2=00000014 error=00000000
+ eax=00000000 ebx=c010505c ecx=c010b090 edx=c0039560
+ esi=fffffffe edi=c010507c esp=00000001 ebp=c010504c
+ cs=0008 ds=0010 es=0010 ss=8eac
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0xc002dad7 0x3.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 660 ticks
+Thread: 51 idle ticks, 516 kernel ticks, 93 user ticks
+hdb1 (filesys): 365 reads, 736 writes
+hda2 (scratch): 238 reads, 2 writes
+Console: 1761 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-rm-parent FAILURE:
+
+run: remove "/a" (must fail): FAILED
+
+OUTPUT FROM tests/filesys/extended/dir-rm-parent:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run dir-rm-parent
+Pintos booting with 4,096 kB RAM...
+383 pages available in kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 1,008 sectors (504 kB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 232 sectors (116 kB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'dir-rm-parent' into the file system...
+Putting 'tar' into the file system...
+Erasing ustar archive...
+Executing 'dir-rm-parent':
+(dir-rm-parent) begin
+(dir-rm-parent) mkdir "a"
+(dir-rm-parent) chdir "a"
+(dir-rm-parent) mkdir "b"
+(dir-rm-parent) chdir "b"
+(dir-rm-parent) remove "/a" (must fail)
+(dir-rm-parent) remove "/a" (must fail): FAILED
+dir-rm-parent: exit(1)
+Execution of 'dir-rm-parent' complete.
+Timer: 652 ticks
+Thread: 47 idle ticks, 527 kernel ticks, 80 user ticks
+hdb1 (filesys): 377 reads, 729 writes
+hda2 (scratch): 231 reads, 2 writes
+Console: 1196 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-empty-name-persistence FAILURE:
+
+Kernel panic in file system extraction run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae
+Translation of call stack:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+
+OUTPUT FROM tests/filesys/extended/dir-empty-name-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/dir-empty-name.tar out of /tmp/BpXlG9qtOm.dsk...
+rnel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 189 ticks
+Thread: 30 idle ticks, 85 kernel ticks, 74 user ticks
+hdb1 (filesys): 102 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-mk-tree-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/dir-mk-tree failed.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-mkdir-persistence FAILURE:
+
+Kernel panic in file system extraction run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae
+Translation of call stack:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+
+OUTPUT FROM tests/filesys/extended/dir-mkdir-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/dir-mkdir.tar out of /tmp/TM_PRArnfy.dsk...
+in kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 190 ticks
+Thread: 31 idle ticks, 84 kernel ticks, 75 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-open-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/dir-open failed.
+
+OUTPUT FROM tests/filesys/extended/dir-open-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/dir-open.tar out of /tmp/hYJYfJj6n_.dsk...
+ in kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 190 ticks
+Thread: 31 idle ticks, 84 kernel ticks, 75 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-over-file-persistence FAILURE:
+
+Kernel panic in file system extraction run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae
+Translation of call stack:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+
+OUTPUT FROM tests/filesys/extended/dir-over-file-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/dir-over-file.tar out of /tmp/VgVJOPjWMv.dsk...
+ernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 190 ticks
+Thread: 31 idle ticks, 84 kernel ticks, 75 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-rm-cwd-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/dir-rm-cwd failed.
+
+OUTPUT FROM tests/filesys/extended/dir-rm-cwd-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/dir-rm-cwd.tar out of /tmp/GxR4ogCq1y.dsk...
+n kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 190 ticks
+Thread: 30 idle ticks, 84 kernel ticks, 76 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-rm-parent-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/dir-rm-parent failed.
+
+OUTPUT FROM tests/filesys/extended/dir-rm-parent-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/dir-rm-parent.tar out of /tmp/reR_yNtEvq.dsk...
+ernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 189 ticks
+Thread: 30 idle ticks, 85 kernel ticks, 74 user ticks
+hdb1 (filesys): 102 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-rm-root-persistence FAILURE:
+
+Kernel panic in file system extraction run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae
+Translation of call stack:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+
+OUTPUT FROM tests/filesys/extended/dir-rm-root-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/dir-rm-root.tar out of /tmp/21m0U0bS3T.dsk...
+ kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 190 ticks
+Thread: 31 idle ticks, 84 kernel ticks, 75 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-rm-tree-persistence FAILURE:
+
+Kernel panic in file system extraction run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae
+Translation of call stack:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+
+OUTPUT FROM tests/filesys/extended/dir-rm-tree-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/dir-rm-tree.tar out of /tmp/VFCqjehFII.dsk...
+ kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 189 ticks
+Thread: 31 idle ticks, 84 kernel ticks, 74 user ticks
+hdb1 (filesys): 102 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-rmdir-persistence FAILURE:
+
+Kernel panic in file system extraction run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae
+Translation of call stack:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+
+OUTPUT FROM tests/filesys/extended/dir-rmdir-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/dir-rmdir.tar out of /tmp/l44fRAqClj.dsk...
+in kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 189 ticks
+Thread: 30 idle ticks, 85 kernel ticks, 74 user ticks
+hdb1 (filesys): 102 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-under-file-persistence FAILURE:
+
+Kernel panic in file system extraction run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae
+Translation of call stack:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+
+OUTPUT FROM tests/filesys/extended/dir-under-file-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/dir-under-file.tar out of /tmp/Q4zDdatqI1.dsk...
+rnel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 190 ticks
+Thread: 31 idle ticks, 84 kernel ticks, 75 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/dir-vine-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/dir-vine failed.
+
+OUTPUT FROM tests/filesys/extended/dir-vine-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/dir-vine.tar out of /tmp/F4VZdRtyEl.dsk...
+ in kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 190 ticks
+Thread: 30 idle ticks, 85 kernel ticks, 75 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-create-persistence FAILURE:
+
+Kernel panic in file system extraction run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae
+Translation of call stack:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+
+OUTPUT FROM tests/filesys/extended/grow-create-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/grow-create.tar out of /tmp/_XDb7R8Vjq.dsk...
+ kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 190 ticks
+Thread: 31 idle ticks, 84 kernel ticks, 75 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-dir-lg-persistence FAILURE:
+
+Kernel panic in file system extraction run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae
+Translation of call stack:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+
+OUTPUT FROM tests/filesys/extended/grow-dir-lg-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/grow-dir-lg.tar out of /tmp/Zp091XoaEc.dsk...
+ kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 190 ticks
+Thread: 31 idle ticks, 85 kernel ticks, 74 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-file-size-persistence FAILURE:
+
+Kernel panic in file system extraction run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae
+Translation of call stack:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+
+OUTPUT FROM tests/filesys/extended/grow-file-size-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/grow-file-size.tar out of /tmp/xeLpPpfkK9.dsk...
+rnel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 190 ticks
+Thread: 31 idle ticks, 84 kernel ticks, 75 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-root-lg-persistence FAILURE:
+
+Kernel panic in file system extraction run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae
+Translation of call stack:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+
+OUTPUT FROM tests/filesys/extended/grow-root-lg-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/grow-root-lg.tar out of /tmp/65_2dtiBn9.dsk...
+kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 265 ticks
+Thread: 30 idle ticks, 85 kernel ticks, 150 user ticks
+hdb1 (filesys): 243 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1362 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-root-sm-persistence FAILURE:
+
+Kernel panic in file system extraction run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae
+Translation of call stack:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+
+OUTPUT FROM tests/filesys/extended/grow-root-sm-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/grow-root-sm.tar out of /tmp/VXpESoyvj9.dsk...
+kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 214 ticks
+Thread: 32 idle ticks, 84 kernel ticks, 98 user ticks
+hdb1 (filesys): 147 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-seq-lg-persistence FAILURE:
+
+Kernel panic in file system extraction run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae
+Translation of call stack:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+
+OUTPUT FROM tests/filesys/extended/grow-seq-lg-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/grow-seq-lg.tar out of /tmp/tszj6b8OeR.dsk...
+ kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 191 ticks
+Thread: 30 idle ticks, 85 kernel ticks, 76 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-seq-sm-persistence FAILURE:
+
+Kernel panic in file system extraction run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae
+Translation of call stack:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+
+OUTPUT FROM tests/filesys/extended/grow-seq-sm-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/grow-seq-sm.tar out of /tmp/zQhiqeei9m.dsk...
+ kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 190 ticks
+Thread: 30 idle ticks, 85 kernel ticks, 75 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-sparse-persistence FAILURE:
+
+Kernel panic in file system extraction run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae
+Translation of call stack:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+
+OUTPUT FROM tests/filesys/extended/grow-sparse-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/grow-sparse.tar out of /tmp/eVQLr_7MCq.dsk...
+ kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 191 ticks
+Thread: 31 idle ticks, 84 kernel ticks, 76 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-tell-persistence FAILURE:
+
+Kernel panic in file system extraction run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae
+Translation of call stack:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+
+OUTPUT FROM tests/filesys/extended/grow-tell-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/grow-tell.tar out of /tmp/DhxL4ZoL28.dsk...
+in kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 190 ticks
+Thread: 31 idle ticks, 84 kernel ticks, 75 user ticks
+hdb1 (filesys): 104 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/grow-two-files-persistence FAILURE:
+
+Kernel panic in file system extraction run: PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae
+Translation of call stack:
+0xc00286ae: debug_panic (.../../lib/kernel/debug.c:38)
+
+OUTPUT FROM tests/filesys/extended/grow-two-files-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/grow-two-files.tar out of /tmp/OpPW5EQohP.dsk...
+rnel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Boot complete.
+Executing 'tar fs.tar /':
+Page fault at 0: not present error reading page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
+ cr2=00000000 error=00000000
+ eax=00000004 ebx=bffffe94 ecx=00000000 edx=000002ff
+ esi=00000013 edi=c010bfb0 esp=c002ba49 ebp=c010bfe8
+ cs=0008 ds=0010 es=0010 ss=0004
+Kernel PANIC at ../../userprog/exception.c:102 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc00286ae 0 0x804ad18.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 191 ticks
+Thread: 31 idle ticks, 84 kernel ticks, 76 user ticks
+hdb1 (filesys): 106 reads, 8 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1361 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/filesys/extended/syn-rw-persistence FAILURE:
+
+Prerequisite test tests/filesys/extended/syn-rw failed.
+
+OUTPUT FROM tests/filesys/extended/syn-rw-persistence:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q run 'tar fs.taCopying tests/filesys/extended/syn-rw.tar out of /tmp/wZOKp9W31Z.dsk...
+le in kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 3,024 sectors (1 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 2,048 sectors (1 MB), Pintos scratch (22)
+hdb: 5,040 sectors (2 MB), model "BXHD00012", serial "Generic 1234"
+hdb1: 4,096 sectors (2 MB), Pintos file system (21)
+filesys: using hdb1
+scratch: using hda2
+Kernel PANIC at ../../filesys/free-map.c:60 in free_map_open(): can't read free map
+Call stack: 0xc00286ae.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../devices/timer.c:305 in real_time_sleep().
+Timer: 105 ticks
+Thread: 30 idle ticks, 75 kernel ticks, 0 user ticks
+hdb1 (filesys): 1 reads, 0 writes
+hda2 (scratch): 0 reads, 0 writes
+Console: 1001 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/userprog/rox-simple FAILURE:
+
+run: try to write "rox-simple": FAILED
+
+OUTPUT FROM tests/userprog/rox-simple:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run rox-simple
+Pintos booting with 4,096 kB RAM...
+383 pages available in kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 5,040 sectors (2 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 4,096 sectors (2 MB), Pintos file system (21)
+hda3: 102 sectors (51 kB), Pintos scratch (22)
+filesys: using hda2
+scratch: using hda3
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'rox-simple' into the file system...
+Erasing ustar archive...
+Executing 'rox-simple':
+(rox-simple) begin
+(rox-simple) open "rox-simple"
+(rox-simple) read "rox-simple"
+(rox-simple) try to write "rox-simple"
+(rox-simple) try to write "rox-simple": FAILED
+rox-simple: exit(1)
+Execution of 'rox-simple' complete.
+Timer: 426 ticks
+Thread: 122 idle ticks, 257 kernel ticks, 50 user ticks
+hda2 (filesys): 190 reads, 319 writes
+hda3 (scratch): 101 reads, 2 writes
+Console: 1026 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/userprog/rox-child FAILURE:
+
+run: try to write "child-rox": FAILED
+
+OUTPUT FROM tests/userprog/rox-child:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run rox-child
+Pintos booting with 4,096 kB RAM...
+383 pages available in kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 5,040 sectors (2 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 4,096 sectors (2 MB), Pintos file system (21)
+hda3: 217 sectors (108 kB), Pintos scratch (22)
+filesys: using hda2
+scratch: using hda3
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'rox-child' into the file system...
+Putting 'child-rox' into the file system...
+Erasing ustar archive...
+Executing 'rox-child':
+(rox-child) begin
+(rox-child) open "child-rox"
+(rox-child) read "child-rox"
+(rox-child) write "child-rox"
+(rox-child) exec "child-rox 1"
+(child-rox) begin
+(child-rox) try to write "child-rox"
+(child-rox) try to write "child-rox": FAILED
+child-rox: exit(1)
+(rox-child) wait for child: FAILED
+rox-child: exit(1)
+Execution of 'rox-child' complete.
+Timer: 832 ticks
+Thread: 229 idle ticks, 510 kernel ticks, 96 user ticks
+hda2 (filesys): 386 reads, 673 writes
+hda3 (scratch): 216 reads, 2 writes
+Console: 1190 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off..
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+DETAILS OF tests/userprog/rox-multichild FAILURE:
+
+run: try to write "child-rox": FAILED
+
+OUTPUT FROM tests/userprog/rox-multichild:
+
+PiLo hda1
+Loading...........
+Kernel command line: -q -f extract run rox-multichild
+Pintos booting with 4,096 kB RAM...
+383 pages available in kernel pool.
+383 pages available in user pool.
+Calibrating timer...  204,600 loops/s.
+hda: 5,040 sectors (2 MB), model "BXHD00011", serial "Generic 1234"
+hda1: 186 sectors (93 kB), Pintos OS kernel (20)
+hda2: 4,096 sectors (2 MB), Pintos file system (21)
+hda3: 217 sectors (108 kB), Pintos scratch (22)
+filesys: using hda2
+scratch: using hda3
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch device into file system...
+Putting 'rox-multichild' into the file system...
+Putting 'child-rox' into the file system...
+Erasing ustar archive...
+Executing 'rox-multichild':
+(rox-multichild) begin
+(rox-multichild) open "child-rox"
+(rox-multichild) read "child-rox"
+(rox-multichild) write "child-rox"
+(rox-multichild) exec "child-rox 5"
+(child-rox) begin
+(child-rox) try to write "child-rox"
+(child-rox) try to write "child-rox": FAILED
+child-rox: exit(1)
+(rox-multichild) wait for child: FAILED
+rox-multichild: exit(1)
+Execution of 'rox-multichild' complete.
+Timer: 835 ticks
+Thread: 229 idle ticks, 512 kernel ticks, 97 user ticks
+hda2 (filesys): 386 reads, 673 writes
+hda3 (scratch): 216 reads, 2 writes
+Console: 1245 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off..make[1]: Leaving directory `/home/khg/Team08prj/src/filesys/build'
