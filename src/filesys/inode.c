@@ -359,6 +359,7 @@ inode_read_at (struct inode *inode, void *buffer_, off_t size, off_t offset)
   /* original code */
   /* sungmin - start */
   off_t length = inode->read_length;
+  // printf("sungmin, read_at inode->read_length: %d\n", length);
   /* sungmin - end */
 
   while (size > 0) 
@@ -376,7 +377,7 @@ inode_read_at (struct inode *inode, void *buffer_, off_t size, off_t offset)
       int chunk_size = size < min_left ? size : min_left;
       if (chunk_size <= 0)
         break;
-
+      // printf("sungmin, read_at, chunk size: %d\n", chunk_size);
       if (sector_ofs == 0 && chunk_size == BLOCK_SECTOR_SIZE)
         {
           /* Read full sector directly into caller's buffer. */
@@ -402,7 +403,7 @@ inode_read_at (struct inode *inode, void *buffer_, off_t size, off_t offset)
       bytes_read += chunk_size;
     }
   free (bounce);
-
+  // printf("singmin inode_read_at: %d bytes\n", bytes_read);
   return bytes_read;
 }
 
@@ -425,7 +426,9 @@ inode_write_at (struct inode *inode, const void *buffer_, off_t size,
   /* sungmin - start */
   if(offset+size > inode_length(inode)){
     if(!inode->isdir){
+      // printf("sungmin, inode_write_at before lock");
       inode_lock(inode);
+      // printf("sungmin, inode_write_at after lock");
     }
     inode->length = inode_expand(inode, offset+size);
     if(!inode->isdir){
@@ -482,7 +485,9 @@ inode_write_at (struct inode *inode, const void *buffer_, off_t size,
       bytes_written += chunk_size;
     }
   free (bounce);
-
+  // printf("singmin inode_write_at: %d bytes\n", bytes_written);
+  // printf("singmin inode_write_at: %d read_length\n", inode_length(inode));
+  inode->read_length = inode_length(inode);
   return bytes_written;
 }
 
@@ -739,7 +744,10 @@ bool inode_add_parent (block_sector_t parent_sector,
 
 void inode_lock (const struct inode *inode)
 {
-  lock_acquire(&((struct inode *)inode)->lock);
+  if(!lock_held_by_current_thread(&((struct inode *)inode)->lock)){
+    // printf("sungmin, in inode_lock\n");
+    lock_acquire(&((struct inode *)inode)->lock);
+  }
 }
 
 void inode_unlock (const struct inode *inode)

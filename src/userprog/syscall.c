@@ -67,7 +67,7 @@ static func_p syscall_table[SYS_INUMBER+1] =
   (func_p)my_create, (func_p)my_remove, (func_p)my_open, (func_p)my_filesize,
   (func_p)my_read, (func_p)my_write, (func_p)my_seek, (func_p)my_tell,
   (func_p)my_close,
-  (func_p)my_readdir, (func_p)my_isdir, (func_p)my_chdir, (func_p)my_mkdir, (func_p)my_inumber
+  (func_p)my_isdir, (func_p)my_readdir, (func_p)my_chdir, (func_p)my_mkdir, (func_p)my_inumber
 };
 
 
@@ -183,7 +183,7 @@ int my_inumber(int fd){
 static int
 my_write (int fd, const void *buffer, unsigned length)
 {
-//  printf("sungmin my_write: %d\n", fd);
+ // printf("sungmin my_write: %d\n", fd);
 	lock_acquire(&filesys_lock);
 	if(!address_valid(buffer)){
 		lock_release(&filesys_lock);
@@ -197,20 +197,26 @@ my_write (int fd, const void *buffer, unsigned length)
 	struct process_file *pf = get_process_file_by_fd(fd);
 	if(!pf){
 		lock_release(&filesys_lock);
+    // my_exit(-1); //test
 		return -1;
 	}
   if(pf->isdir){
     lock_release(&filesys_lock);
+    // printf("sungmin, my_write. this is directory\n");
+    // my_exit(-1); //test
     return -1;
   }
+    lock_release(&filesys_lock);
+    int bytes = file_write(pf->file, buffer, length);
+    return bytes;
+/*
     struct file* fp = pf->file;
-
     char *temp = malloc(sizeof(char) * (length+1));
     int i, check = 0, c;
     c = file_read(fp, temp, length);
-
     for(i=0; i < c ; ++i)
     {
+      printf("%d\t", i); //sungmin test
         if(temp[i]!=((char *)buffer)[i])
             check = 1;
     }
@@ -227,6 +233,7 @@ my_write (int fd, const void *buffer, unsigned length)
     int byte = file_write(fp, buffer, length);
 	lock_release(&filesys_lock);
 	return byte;
+  */
 }
 
 void
@@ -356,15 +363,17 @@ struct Elf32_Phdr
 static int 
 my_open(const char *file)
 {
-//  printf("sungmin my_open: %s\n", file);
+  // printf("\nsungmin my_open: %s\n", file);
 	lock_acquire(&filesys_lock);
 
 	if(file == NULL){
+    // printf("input file is null\n");
 		lock_release(&filesys_lock);
 		return -1;
 	}
-	
+
 	if(!address_valid(file)){
+    // printf("input file is out of address\n");
 		lock_release(&filesys_lock);
 		my_exit(-1);
 	}
@@ -374,18 +383,24 @@ my_open(const char *file)
 	int fd = thread_current()->fd;
 
 	if(!fp){
+    // printf("can not find file pointer\n");
 		lock_release(&filesys_lock);
-  //  printf("file open error\n");
     return -1;
 	}
 
   /* sungmin - start */
   if(inode_is_dir(file_get_inode(fp))){
+    // printf("file is directory\n");
+    lock_release(&filesys_lock);
     fd = process_add_dir((struct dir*) fp);
     return fd;
   }
+  // printf("sungmin, my_open(%s) is file\n", file);
+  lock_release(&filesys_lock);
+  fd = process_add_file((struct dir*) fp);
+  return fd;
   /* sungmin - end */
-
+  /*
   struct Elf32_Ehdr ehdr;
   if (!(file_read (fp, &ehdr, sizeof ehdr) != sizeof ehdr
       || memcmp (ehdr.e_ident, "\177ELF\1\1\1", 7)
@@ -410,6 +425,7 @@ my_open(const char *file)
 	lock_release(&filesys_lock);
 
 	return fd;	
+  */
 }
 static int 
 my_filesize(int fd)
@@ -596,4 +612,16 @@ int process_add_dir(struct dir* d){
   list_push_back(&thread_current()->file_list, &pf->elem);
   return pf->fd;
 
+}
+
+
+int process_add_file(struct file* f){
+  struct process_file* pf = malloc(sizeof(struct process_file));
+  if(!pf) my_exit(-1);
+  pf->file = f;
+  pf->isdir = false;
+  pf->fd = thread_current()->fd;
+  thread_current()->fd++;
+  list_push_back(&thread_current()->file_list, &pf->elem);
+  return pf->fd;
 }

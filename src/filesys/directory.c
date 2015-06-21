@@ -99,11 +99,14 @@ lookup (const struct dir *dir, const char *name,
   struct dir_entry e;
   size_t ofs;
   
+  // printf("sungmin, lookup is called: %s\n", name);
   ASSERT (dir != NULL);
   ASSERT (name != NULL);
-
+  // printf("letsgo\n");
   for (ofs = 0; inode_read_at (dir->inode, &e, sizeof e, ofs) == sizeof e;
-       ofs += sizeof e) 
+       ofs += sizeof e){
+    // printf("sungmin, ofs is %d\n", ofs);
+    // if(e.in_use) printf("sungmin, %s : %s\n", name, e.name);
     if (e.in_use && !strcmp (name, e.name)) 
       {
         if (ep != NULL)
@@ -112,6 +115,7 @@ lookup (const struct dir *dir, const char *name,
           *ofsp = ofs;
         return true;
       }
+    }
   return false;
 }
 
@@ -128,12 +132,19 @@ dir_lookup (const struct dir *dir, const char *name,
   ASSERT (dir != NULL);
   ASSERT (name != NULL);
 
+  // printf("sungmin, dir_lookup before lock\n");
   inode_lock(dir_get_inode((struct dir*) dir)); //sungmin
-  if (lookup (dir, name, &e, NULL))
+  // printf("sungmin, dir_lookup after lock\n");
+  if (lookup (dir, name, &e, NULL)){
+    // printf("sungmin, lookup well\n");
     *inode = inode_open (e.inode_sector);
-  else
+  }else{
+    // printf("sungmin, lookup fail\n");
     *inode = NULL;
+  }
+  // printf("sungmin, dir_lookup before release lock\n");
   inode_unlock(dir_get_inode((struct dir*) dir)); //sungmin
+  // printf("sungmin, dir_lookup after release lock\n");
 
   return *inode != NULL;
 }
@@ -153,8 +164,9 @@ dir_add (struct dir *dir, const char *name, block_sector_t inode_sector)
 
   ASSERT (dir != NULL);
   ASSERT (name != NULL);
-  
+  // printf("sungmin, dir_add before inode_lock\n");
   inode_lock(dir_get_inode(dir)); //sungmin
+  // printf("sungmin, dir_add after inode_lock\n");
   /* Check NAME for validity. */
   if (*name == '\0' || strlen (name) > NAME_MAX)
     goto done;
@@ -191,7 +203,7 @@ dir_add (struct dir *dir, const char *name, block_sector_t inode_sector)
 
  done:
   inode_unlock(dir_get_inode(dir)); //sungmin
-//  printf("sungmin, dir_add sucess?: %d\n", success);
+ // printf("sungmin, dir_add sucess?: %d\n", success);
   return success;
 }
 
@@ -209,8 +221,9 @@ dir_remove (struct dir *dir, const char *name)
   ASSERT (dir != NULL);
   ASSERT (name != NULL);
 
-
+  // printf("sungmin, dir_remove before lock");
   inode_lock(dir_get_inode(dir)); //sungmin
+  // printf("sungmin, dir_remove after lock");
   /* Find directory entry. */
   if (!lookup (dir, name, &e, &ofs))
     goto done;
@@ -248,7 +261,9 @@ dir_readdir (struct dir *dir, char name[NAME_MAX + 1])
 {
   struct dir_entry e;
 
+  // printf("sungmin, dir_readdir before lock");
   inode_lock(dir_get_inode(dir)); //sungmin
+  // printf("sungmin, dir_readdir after lock");
   while (inode_read_at (dir->inode, &e, sizeof e, dir->pos) == sizeof e) 
     {
       dir->pos += sizeof e;

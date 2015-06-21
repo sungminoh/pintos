@@ -33,10 +33,14 @@ test_main (void)
       snprintf (file_name, sizeof file_name, "file%d", i);
       if (!create (file_name, 0))
         break;
+      // printf("sungmin, test_main, create %s\n", file_name);
       CHECK ((fd = open (file_name)) > 1, "open \"%s\"", file_name);
+      // printf("sungmin, test_main, (%s) is opened\n", file_name);
       snprintf (contents, sizeof contents, "contents %d\n", i);
+
       if (write (fd, contents, strlen (contents)) != (int) strlen (contents)) 
         {
+          // printf("sungmin, test_main, write error\n");
           CHECK (remove (file_name), "remove \"%s\"", file_name);
           close (fd);
           break;
@@ -47,14 +51,18 @@ test_main (void)
       snprintf (dir_name, sizeof dir_name, "dir%d", i);
       if (!mkdir (dir_name)) 
         {
+          // printf("sungmin, test_main, mkdir (%s) error\n", dir_name);
           CHECK (remove (file_name), "remove \"%s\"", file_name);
           break; 
         }
 
       /* Check for file and directory. */
       CHECK ((fd = open (".")) > 1, "open \".\"");
+    // printf("sungmin, . is opened\n");
       CHECK (readdir (fd, name[0]), "readdir \".\"");
+    // printf("sungmin, (%s) is readdired\n", name[0]);
       CHECK (readdir (fd, name[1]), "readdir \".\"");
+    // printf("sungmin, (%s) is readdired\n", name[1]);
       CHECK (!readdir (fd, name[2]), "readdir \".\" (should fail)");
       CHECK ((!strcmp (name[0], dir_name) && !strcmp (name[1], file_name))
              || (!strcmp (name[1], dir_name) && !strcmp (name[0], file_name)),
